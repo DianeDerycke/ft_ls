@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 11:18:08 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/08 21:12:29 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/10 14:50:06 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,20 @@ void		push_back(t_stlist *dblist, char *str)
    dblist->last = new;
 }
 
-void	add_current_dir(t_stlist *dblist)
+void	add_current_dir(t_stlist *dblist, const char *path)
 {
 	DIR 			*openf;
 	struct dirent	*readf;
 	char			*tmp;
+	t_file			*lst;
 
 	tmp = NULL;
 	readf = NULL;
-	openf = opendir(".");
+	lst = dblist->first;
+	if (!path)
+		openf = opendir(".");
+	else
+		openf = opendir(path);
 	while ((readf = readdir(openf)))
 	{
 		tmp = ft_memalloc(ft_strlen(readf->d_name) + 1);
@@ -58,13 +63,13 @@ void	add_current_dir(t_stlist *dblist)
 	closedir(openf);
 }
 
-void	add_file_to_lst(char **argv, t_stlist *dblist, t_file **files)
+void	add_file_to_lst(char **argv, t_stlist *dblist)
 {
 	int				i;
 
 	i = 0;
 	if (!argv[i] || (ft_strcmp(argv[i], ".") == 0))
-		add_current_dir(dblist);
+		add_current_dir(dblist, NULL);
 	else
 		while (argv[i])
 		{
@@ -73,5 +78,5 @@ void	add_file_to_lst(char **argv, t_stlist *dblist, t_file **files)
 			push_back(dblist, argv[i]);
 			i++;
 		}
-	*files = dblist->first;
+	basic_sort_lst(dblist);
 }
