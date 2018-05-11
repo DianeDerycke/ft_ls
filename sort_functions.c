@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/10 12:04:15 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/11 18:28:49 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -44,7 +44,7 @@ void	basic_sort_lst(t_stlist *lst)
 	}
 	if (ptr->name != lst->last->name)
 		basic_sort_lst(lst);
-}
+}//31 Lignes (2fix)
 
 // void	sort_reverse(t_stlist *dblist);
 

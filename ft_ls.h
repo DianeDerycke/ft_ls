@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/10 14:58:40 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/11 19:01:26 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,13 @@ typedef int		(*opt)(t_dblist *lst);
 //SRC
 int				index_file(char **argv, t_opt *options);
 void			add_file_to_lst(char **argv, t_stlist *dblist);
-void			add_current_dir(t_stlist *dblist, const char *path);
+void			add_current_dir(t_stlist *dblist,char *path);
 
 
 //LST
-void			new_elem(t_file **lst);
 t_stlist		*init_dblist(void);
 void			push_back(t_stlist *dblist, char *str);
-
-
+int			add_lst_curr_pos(t_file *lst, t_stlist *dblist, char *str);
 
 //OPTIONS FUNCTIONS
 int				apply_options(t_opt *options, t_file *lst, t_stlist *dblist)	;

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 11:18:08 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/10 14:50:06 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/11 23:24:56 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,39 +21,19 @@ t_stlist	*init_dblist(void)
 	return (dblst);
 }
 
-void		push_back(t_stlist *dblist, char *str)
-{
-	t_file	*new;
-
-	new = (t_file *)malloc(sizeof(t_file));
-	if (!new)
-   		return ;
-	new->name = ft_strdup(str);
-	new->prev = dblist->last;
-	new->next = NULL;
-	if (dblist->last)
-		dblist->last->next = new;
-	else 
-		dblist->first = new;
-   dblist->last = new;
-}
-
-void	add_current_dir(t_stlist *dblist, const char *path)
+void	add_current_dir(t_stlist *dblist, char *path)
 {
 	DIR 			*openf;
 	struct dirent	*readf;
 	char			*tmp;
-	t_file			*lst;
 
 	tmp = NULL;
-	readf = NULL;
-	lst = dblist->first;
 	if (!path)
 		openf = opendir(".");
 	else
 		openf = opendir(path);
 	while ((readf = readdir(openf)))
-	{
+	{	
 		tmp = ft_memalloc(ft_strlen(readf->d_name) + 1);
 		tmp = ft_strcpy(tmp, readf->d_name);
 		push_back(dblist, tmp);
