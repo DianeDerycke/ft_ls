@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/11 23:24:22 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 12:04:27 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -26,6 +26,8 @@ int		main(int argc, char **argv)
 		n = index_file(++argv, &options);
 		add_file_to_lst(argv + n, dblist);
 		lst = dblist->first;
+		if (for_each_node(&options, dblist) < 0)
+			return (-1);
 		// apply_options(&options,lst, dblist);
 		while (lst)
 		{

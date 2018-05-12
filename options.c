@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/16 21:54:55 by dideryck          #+#    #+#             */
-/*   Updated: 2018/05/12 12:02:42 by DERYCKE          ###   ########.fr       */
+/*   Created: 2018/05/12 11:50:25 by DERYCKE           #+#    #+#             */
+/*   Updated: 2018/05/12 12:12:27 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_ls.h"
 
-#include "libft.h"
+// void	option_sort_time(t_stlist *dblist);
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char			*str;
+//void	option_sort_reverse(t_stlist *dblist);
 
-	str = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	str = (char*)malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1)));
-	if (str == NULL)
-		return (NULL);
-	ft_bzero(str, ft_strlen(s1) + ft_strlen(s2) + 1);
-	str = ft_strcat(str, s1);
-	str = ft_strcat(str, s2);
-	free(s1);
-	return (str);
-}
+// void	option_l(t_stlist *dblist, t_opt *options);
+
+

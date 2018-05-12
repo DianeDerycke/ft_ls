@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/11 19:01:26 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 12:04:26 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void			add_current_dir(t_stlist *dblist,char *path);
 //LST
 t_stlist		*init_dblist(void);
 void			push_back(t_stlist *dblist, char *str);
-int			add_lst_curr_pos(t_file *lst, t_stlist *dblist, char *str);
+int				add_lst_curr_pos(t_file *lst, t_stlist *dblist, char *str);
 
 //OPTIONS FUNCTIONS
-int				apply_options(t_opt *options, t_file *lst, t_stlist *dblist)	;
+void			apply_opt(t_stlist	*dblist, t_opt *options);
 
 
 //DISPLAY
