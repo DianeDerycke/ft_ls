@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 17:56:54 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 18:04:42 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -47,7 +47,17 @@ void		manage_data_sub(char *path, t_opt *options)
 		while ((readf = readdir(openf)))
 		{
 			if (readf->d_name[0] != '.')
-				manage_data_sub((path = ft_strjoin(path, readf->d_name)), options);
+			{
+				if (is_dir((tmp = ft_strjoin(path, readf->d_name))))
+				{
+					printf("PATH => %s\n", path);
+					path = ft_strdup(tmp);
+					free(tmp);
+					manage_data_sub(path, options);
+				}
+				else
+					//path -> add /..
+			}
 		}
 	}
 }
