@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 11:18:08 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 12:08:30 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 13:46:36 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,17 @@ void	add_file_to_lst(char **argv, t_stlist *dblist)
 	int				i;
 
 	i = 0;
-	if (!argv[i])
-		argv[i] = ft_strdup(".");
-	while (argv[i])
+	if (!argv[i] || (ft_strcmp(argv[i], ".") == 0))
+		add_current_dir(dblist, NULL);
+	else 
 	{
-		if (!(file_exist(argv[i])))
-			error_no_file_or_dir(argv[i]);
-		push_back(dblist, argv[i]);
-		i++;
+		while (argv[i])
+			{
+				if (!(file_exist(argv[i])))
+					error_no_file_or_dir(argv[i]);
+				push_back(dblist, argv[i]);
+				i++;
+			}		
 	}
 	basic_sort_lst(dblist);
 }

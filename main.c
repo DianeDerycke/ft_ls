@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 12:04:27 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 14:48:05 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -15,31 +15,21 @@ int		main(int argc, char **argv)
 {
 	t_stlist	*dblist;
 	t_opt		options;
-	t_file		*lst;
 	int		n;
 
-	lst = NULL;
 	n = 0;
 	dblist = init_dblist();
-	if (argc > 1 && dblist)
+	if (argc >= 1 && dblist)
 	{
 		n = index_file(++argv, &options);
 		add_file_to_lst(argv + n, dblist);
-		lst = dblist->first;
-		if (for_each_node(&options, dblist) < 0)
-			return (-1);
-		// apply_options(&options,lst, dblist);
-		while (lst)
-		{
-			printf("%s\n", lst->name);
-			lst = lst->next;
-		}
+		for_each_node(&options, dblist);
 	}
-	else if (argc == 1)
-	{
-		add_file_to_lst(++argv, dblist);
-		lst = dblist->first;
+	// else if (argc == 1)
+	// {
+	// 	add_file_to_lst(++argv, dblist);
+	// 	lst = dblist->first;
 		//afficher la liste chainée normalement sans les files cachés
-	}
+	// }
 	return (0);
 }

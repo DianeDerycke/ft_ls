@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 11:55:24 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 15:02:00 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -26,23 +26,4 @@ void		push_back(t_stlist *dblist, char *str)
 	else 
 		dblist->first = new;
    dblist->last = new;
-}
-
-int			add_lst_curr_pos(t_file *lst, t_stlist *dblist, char *str)
-{
-	t_file 	*new;
-
-	if (!(new = (t_file *)malloc(sizeof(t_file))))
-		return (-1);
-	if (!(lst->next))
-		push_back(dblist, str);
-	else
-	{
-		new->name = ft_strdup(str);
-		new->next = lst->next;
-		new->prev = lst;
-		lst->next = new;
-		lst->next->prev = new;
-	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 12:04:26 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 15:16:03 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,28 @@ typedef int		(*opt)(t_dblist *lst);
 //SRC
 int				index_file(char **argv, t_opt *options);
 void			add_file_to_lst(char **argv, t_stlist *dblist);
-void			add_current_dir(t_stlist *dblist,char *path);
+void			for_each_node(t_opt *options, t_stlist *dblist);
+// void			add_current_dir(t_stlist *dblist,char *path);
+void			manage_data_sub(char *path, char *sub_path, t_opt *options);
+// void			recursive(char *path, t_opt *options);
+
+
 
 
 //LST
 t_stlist		*init_dblist(void);
 void			push_back(t_stlist *dblist, char *str);
-int				add_lst_curr_pos(t_file *lst, t_stlist *dblist, char *str);
 
 //OPTIONS FUNCTIONS
 void			apply_opt(t_stlist	*dblist, t_opt *options);
-
+void			option_sort_time(t_stlist *dblist);
+void			option_sort_reverse(t_stlist *dblist);
+void			option_l(t_stlist *dblist, t_opt *options);
 
 //DISPLAY
+// void			apply_right_display(t_stlist *dblist, char *path, t_opt *options);
+void			basic_display(t_file *lst, t_opt *options);
+void			display_dir(t_stlist *dblist, char *path, char *sub_path, t_opt *options);
 
 //SORT FUNCTIONS
 void			basic_sort_lst(t_stlist *lst);

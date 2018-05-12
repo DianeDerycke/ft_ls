@@ -6,73 +6,59 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 12:15:35 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 15:19:43 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 void	apply_opt(t_stlist	*dblist, t_opt *options)
 {
-	while (dblist->first)
+	while (dblist->first->next)
 	{
 		if (options->t)
 			option_sort_time(dblist);
 		if (options->r)
 			option_sort_reverse(dblist);
-		if (option->l)
-		{
+		if (options->l)
 			option_l(dblist, options);
-			
-		}
+		dblist->first = dblist->first->next;
 	}
 }
 
-void	recursive(char *path)
+void		manage_data_sub(char *path, char *sub_path, t_opt *options)
 {
-	DIR 	*openf;
-	char	*tmp;
-
-	tmp = NULL;
-	openf = opendir(path);
-	while ((readf= readdir(openf)))
-	{
-		if (is_dir(readf->d_name))
-		{
-
-			tmp = ft_strjoin(path, readf->name);
-			manage_data_sub(tmp);
-		}
-	}
-	closedir(openf);
-}
-
-int		manage_data_sub(char *path, t_opt *options)
-{
-	t_stlist	*tmp;
-	DIR 	*openf;
+	t_stlist		*tmp;
+	DIR 			*openf;
+	struct dirent 	*readf;
 
 	if (!(tmp = ft_memalloc(sizeof(t_stlist))))
-		return (-1);
+		return ;
 	openf = opendir(path);
 	while ((readf = readdir(openf)))
 	{
 		push_back(tmp, readf->d_name);
-		apply_opt(tmp, options)
-		apply_right_display(t_stlist *dblist);
 	}
-	closedir(openf);
-	recursive(path);
+	display_dir(tmp, path, sub_path, options);
+	free(tmp);
+	if (options->big_r == 1)
+	{
+		while ((readf = readdir(openf)))
+		{
+			sub_path = ft_strjoin(path, "/");
+			sub_path = ft_strjoin(sub_path, readf->d_name);
+			if (is_dir(sub_path) && readf->d_name[0] != '.')
+				manage_data_sub(path, sub_path, options);
+		}
+		closedir(openf);
+	}
 }
 
-int		for_each_node(t_opt *options, t_stlist *dblist)
+void	for_each_node(t_opt *options, t_stlist *dblist)
 {
-	DIR 	*openf;
-
+	basic_display(dblist->first, options);
 	while (dblist->first)
 	{
-		if (is_dir(dblist->first->name))
-			if (manage_data_sub(dblist->first->name, options) < 0)
-				return (-1);
+		if (is_dir(dblist->first->name) && dblist->first->name[0] != '.')
+			manage_data_sub(dblist->first->name, NULL, options);
 		dblist->first = dblist->first->next;
 	}
-	return (0);
 }

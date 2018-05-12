@@ -6,14 +6,14 @@
 #    By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/08 15:02:32 by DERYCKE           #+#    #+#              #
-#    Updated: 2018/05/11 19:04:35 by DERYCKE          ###   ########.fr        #
+#    Updated: 2018/05/12 13:21:50 by DERYCKE          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
 LIBFT = libft/libft.a
 FILES =  main	parser	error	add_file_to_lst	verif_ft	sort_functions	\
-		apply_options lst_ft
+		apply_options lst_ft	display		options
 SRC = $(addsuffix .c, $(FILES))
 
 all: $(NAME)
