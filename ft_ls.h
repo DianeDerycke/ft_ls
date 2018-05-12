@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 15:16:03 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 16:50:55 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef int		(*opt)(t_dblist *lst);
 int				index_file(char **argv, t_opt *options);
 void			add_file_to_lst(char **argv, t_stlist *dblist);
 void			for_each_node(t_opt *options, t_stlist *dblist);
-// void			add_current_dir(t_stlist *dblist,char *path);
-void			manage_data_sub(char *path, char *sub_path, t_opt *options);
+void			add_current_dir(t_stlist *dblist);
+void			manage_data_sub(char *path, t_opt *options);
 // void			recursive(char *path, t_opt *options);
 
 
@@ -75,7 +75,7 @@ void			option_l(t_stlist *dblist, t_opt *options);
 //DISPLAY
 // void			apply_right_display(t_stlist *dblist, char *path, t_opt *options);
 void			basic_display(t_file *lst, t_opt *options);
-void			display_dir(t_stlist *dblist, char *path, char *sub_path, t_opt *options);
+void			display_dir(t_stlist *dblist, char *path, t_opt *options);
 
 //SORT FUNCTIONS
 void			basic_sort_lst(t_stlist *lst);
