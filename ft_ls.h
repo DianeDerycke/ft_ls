@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 16:50:55 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 21:23:45 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 typedef struct		s_file
 {
 	char			*name;
+	char			*path;
 	struct s_file	*prev;
 	struct s_file	*next;
 }					t_file;
@@ -53,10 +54,9 @@ typedef int		(*opt)(t_dblist *lst);
 
 //SRC
 int				index_file(char **argv, t_opt *options);
-void			add_file_to_lst(char **argv, t_stlist *dblist);
+void			add_file_to_lst(char *argv, t_stlist *dblist);
 void			for_each_node(t_opt *options, t_stlist *dblist);
-void			add_current_dir(t_stlist *dblist);
-void			manage_data_sub(char *path, t_opt *options);
+void			read_directory(char *path, t_opt *options);
 // void			recursive(char *path, t_opt *options);
 
 
@@ -74,7 +74,6 @@ void			option_l(t_stlist *dblist, t_opt *options);
 
 //DISPLAY
 // void			apply_right_display(t_stlist *dblist, char *path, t_opt *options);
-void			basic_display(t_file *lst, t_opt *options);
 void			display_dir(t_stlist *dblist, char *path, t_opt *options);
 
 //SORT FUNCTIONS
@@ -83,7 +82,6 @@ void			basic_sort_lst(t_stlist *lst);
 //VERIFICATION
 int 			file_exist(const char *path);
 int				is_dir(const char *path);
-
 
 //ERROR
 void			error_option(char c);

@@ -6,10 +6,27 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 16:50:57 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 22:46:22 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
+
+t_stlist	*init_dblist(void)
+{
+	t_stlist 	*dblst;
+
+	if (!(dblst = ft_memalloc(sizeof(t_stlist))))
+		return (NULL);
+	return (dblst);
+}
+
+void	add_file_to_lst(char *argv, t_stlist *dblist)
+{
+	if (!(file_exist(argv)))
+		error_no_file_or_dir(argv);
+	push_back(dblist, argv);
+	basic_sort_lst(dblist);
+}
 
 int		main(int argc, char **argv)
 {
@@ -18,18 +35,16 @@ int		main(int argc, char **argv)
 	int		n;
 
 	n = 0;
-	dblist = init_dblist();
-	if (argc >= 1 && dblist)
+	if (!(dblist = init_dblist()) || argc < 1)
+		return (-1);
+	n = index_file(++argv, &options);
+	if (!argv[n])
+		add_file_to_lst(".", dblist);
+	while (argv[n])
 	{
-		n = index_file(++argv, &options);
-		add_file_to_lst(argv + n, dblist);
-		for_each_node(&options, dblist);
+		add_file_to_lst(argv[n], dblist);
+		n++;
 	}
-	// else if (argc == 1)
-	// {
-	// 	add_file_to_lst(++argv, dblist);
-	// 	lst = dblist->first;
-		//afficher la liste chainée normalement sans les files cachés
-	// }
+	for_each_node(&options, dblist);			
 	return (0);
 }

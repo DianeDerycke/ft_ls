@@ -6,69 +6,55 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 18:04:42 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/12 22:50:39 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
-void	apply_opt(t_stlist	*dblist, t_opt *options)
+void	apply_opt(t_stlist *dblist, t_opt *options)
 {
-	while (dblist->first->next)
+	if (options->t)
+		option_sort_time(dblist);
+	if (options->r)
+		option_sort_reverse(dblist);
+	if (options->l)
 	{
-		if (options->t)
-			option_sort_time(dblist);
-		if (options->r)
-			option_sort_reverse(dblist);
-		if (options->l)
+		while (dblist->first->next)
+		{
 			option_l(dblist, options);
-		dblist->first = dblist->first->next;
+			dblist->first = dblist->first->next;
+		}
 	}
 }
 
-void		manage_data_sub(char *path, t_opt *options)
+void		read_directory(char *path, t_opt *options)
 {
 	t_stlist		*tmp;
 	DIR 			*openf;
 	struct dirent 	*readf;
 	char			*tmp1;
 
-	tmp1 = ft_strdup(path);
+	tmp1 = NULL;
 	openf = opendir(path);
 	if (!(tmp = ft_memalloc(sizeof(t_stlist))))
 		return ;
 	while((readf = readdir(openf)))
 		push_back(tmp, readf->d_name);
+	basic_sort_lst(tmp);
 	display_dir(tmp, path, options);
 	closedir(openf);
-	// ft_pause();
-	if (options->big_r == 1)
+	if (options->big_r)
 	{
-		path = ft_strjoin(tmp1, "/");
-		openf = opendir(path);
-		while ((readf = readdir(openf)))
-		{
-			if (readf->d_name[0] != '.')
-			{
-				if (is_dir((tmp = ft_strjoin(path, readf->d_name))))
-				{
-					printf("PATH => %s\n", path);
-					path = ft_strdup(tmp);
-					free(tmp);
-					manage_data_sub(path, options);
-				}
-				else
-					//path -> add /..
-			}
-		}
+		if (!(new_path = find_next_dir(tmp, options)))
+			new_path = find_next_dir(tmp = tmp->next, options);
+		read_directory(new_path, options);
 	}
 }
 
 void	for_each_node(t_opt *options, t_stlist *dblist)
 {
-	// basic_display(dblist->first, options);
-	while (dblist->first)
+		while (dblist->first)
 	{
-		if (is_dir(dblist->first->name))
-			manage_data_sub(dblist->first->name, options);			
+		read_directory(dblist->first->name, options);
 		dblist->first = dblist->first->next;
 	}
 }
