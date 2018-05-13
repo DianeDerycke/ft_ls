@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 22:46:22 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/13 03:14:10 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -45,6 +45,7 @@ int		main(int argc, char **argv)
 		add_file_to_lst(argv[n], dblist);
 		n++;
 	}
-	for_each_node(&options, dblist);			
+	read_directory(dblist->first->name, &options, NULL);
+	//si argument n'est pas un directory juste affiché le nom
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 22:50:39 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/13 03:14:41 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -26,35 +26,44 @@ void	apply_opt(t_stlist *dblist, t_opt *options)
 	}
 }
 
-void		read_directory(char *path, t_opt *options)
+void	recursive(char *path, t_opt *options, t_stlist *subdir)
 {
-	t_stlist		*tmp;
 	DIR 			*openf;
 	struct dirent 	*readf;
-	char			*tmp1;
+	char	*newpath;
+	char	*tmp;
 
-	tmp1 = NULL;
 	openf = opendir(path);
-	if (!(tmp = ft_memalloc(sizeof(t_stlist))))
-		return ;
-	while((readf = readdir(openf)))
-		push_back(tmp, readf->d_name);
-	basic_sort_lst(tmp);
-	display_dir(tmp, path, options);
-	closedir(openf);
-	if (options->big_r)
+	while ((readf = readdir(openf)))
 	{
-		if (!(new_path = find_next_dir(tmp, options)))
-			new_path = find_next_dir(tmp = tmp->next, options);
-		read_directory(new_path, options);
+		tmp = ft_strdup(path);
+		newpath = ft_strjoin(tmp, readf->d_name);
+		if (is_dir(newpath) && readf->d_name[0] != '.')
+		{
+			printf("\n%s%s\n", newpath, ":");
+			read_directory(newpath, options, subdir);
+		}
 	}
 }
 
-void	for_each_node(t_opt *options, t_stlist *dblist)
+void		read_directory(char *path, t_opt *options, t_stlist *subdir)
 {
-		while (dblist->first)
-	{
-		read_directory(dblist->first->name, options);
-		dblist->first = dblist->first->next;
-	}
+	DIR 			*openf;
+	struct dirent 	*readf;
+	char			*tmp;
+
+	openf = opendir(path);
+	tmp = ft_strdup(path);
+	path = ft_strjoin(tmp, "/");
+	if (!(subdir = ft_memalloc(sizeof(t_stlist))))
+		return ;
+	while((readf = readdir(openf)))
+		push_back(subdir, readf->d_name);
+	basic_sort_lst(subdir);
+	display_dir(subdir, path, options);
+	free(tmp);
+	closedir(openf);
+	if (options->big_r == 1)
+		recursive(path, options, subdir);
+
 }
