@@ -6,24 +6,62 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/12 21:06:10 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/17 22:28:18 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void		push_back(t_stlist *dblist, char *str)
+t_file		*init_lst(void)
 {
 	t_file	*new;
 
-	new = (t_file *)malloc(sizeof(t_file));
-	if (!new)
-   		return ;
-	new->name = ft_strdup(str);
-	new->prev = dblist->last;
-	new->next = NULL;
-	if (dblist->last)
-		dblist->last->next = new;
-	else 
-		dblist->first = new;
-   dblist->last = new;
+	if (!(new = ft_memalloc(sizeof(t_file))))
+		return (NULL);
+	return (new);
+}
+
+int		push_back(t_file **lst, char *str)
+{
+	t_file	*new;
+	t_file	*tmp;
+
+	if ((*lst))
+	{
+		tmp = *lst;
+		while ((*lst)->next)
+			*lst = (*lst)->next;
+		if (!(new = ft_memalloc(sizeof(t_file))))
+			return (-1);
+		(*lst)->next = new;
+		new->name = ft_strdup(str);
+		new->prev = *lst;
+		new->next = NULL;
+		*lst = tmp;
+	}
+	else
+	{
+		if (!((*lst) = init_lst()))
+			return (-1);
+		tmp = NULL;
+		new = NULL;
+		(*lst)->name = ft_strdup(str);
+		(*lst)->prev = NULL;
+		(*lst)->next = NULL;
+	}
+	return (0);
+}
+
+
+void	free_lst(t_file	**subdir)
+{
+	t_file	*tmp;
+
+	tmp = NULL;
+	while ((*subdir))
+	{
+		tmp = (*subdir)->next;
+		free((*subdir)->name);
+		free(*subdir);
+		*subdir = tmp;
+	}
 }

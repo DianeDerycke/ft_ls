@@ -6,64 +6,49 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/13 03:14:41 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/17 22:32:14 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
-void	apply_opt(t_stlist *dblist, t_opt *options)
-{
-	if (options->t)
-		option_sort_time(dblist);
-	if (options->r)
-		option_sort_reverse(dblist);
-	if (options->l)
-	{
-		while (dblist->first->next)
-		{
-			option_l(dblist, options);
-			dblist->first = dblist->first->next;
-		}
-	}
-}
 
-void	recursive(char *path, t_opt *options, t_stlist *subdir)
+void	recursive(t_file *subdir, char *path, t_opt *options)
 {
-	DIR 			*openf;
-	struct dirent 	*readf;
-	char	*newpath;
 	char	*tmp;
+	char	*newpath;
 
-	openf = opendir(path);
-	while ((readf = readdir(openf)))
+	tmp = NULL;
+	newpath = NULL;
+	while (subdir)
 	{
-		tmp = ft_strdup(path);
-		newpath = ft_strjoin(tmp, readf->d_name);
-		if (is_dir(newpath) && readf->d_name[0] != '.')
+		if (ft_strcmp(subdir->name, ".") != 0 && ft_strcmp(subdir->name, "..") != 0)
 		{
-			printf("\n%s%s\n", newpath, ":");
-			read_directory(newpath, options, subdir);
+			newpath = ft_strdup(path);
+			tmp = ft_strjoin(newpath, "/");
+			newpath = ft_strjoin(tmp, subdir->name);
+		if (is_dir(newpath))
+			read_args(newpath, options);
+		free(newpath);
 		}
+		subdir = subdir->next;
 	}
 }
 
-void		read_directory(char *path, t_opt *options, t_stlist *subdir)
+void	read_args(char *path, t_opt *options)
 {
 	DIR 			*openf;
 	struct dirent 	*readf;
-	char			*tmp;
+	t_file			*subdir;
 
-	openf = opendir(path);
-	tmp = ft_strdup(path);
-	path = ft_strjoin(tmp, "/");
-	if (!(subdir = ft_memalloc(sizeof(t_stlist))))
-		return ;
-	while((readf = readdir(openf)))
-		push_back(subdir, readf->d_name);
-	basic_sort_lst(subdir);
-	display_dir(subdir, path, options);
-	free(tmp);
+	subdir = NULL;
+	if (!(openf = opendir(path)))
+		return;
+	while ((readf = readdir(openf)) != NULL)
+		if (push_back(&subdir, readf->d_name) < 0)
+			return ;
 	closedir(openf);
-	if (options->big_r == 1)
-		recursive(path, options, subdir);
-
+	basic_sort_lst(&subdir);
+	display_dir(subdir, path, options);
+	if (options->big_r)
+		recursive(subdir, path, options);
+	free_lst(&subdir);
 }

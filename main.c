@@ -6,46 +6,32 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/13 03:14:10 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/17 22:30:10 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-t_stlist	*init_dblist(void)
-{
-	t_stlist 	*dblst;
-
-	if (!(dblst = ft_memalloc(sizeof(t_stlist))))
-		return (NULL);
-	return (dblst);
-}
-
-void	add_file_to_lst(char *argv, t_stlist *dblist)
-{
-	if (!(file_exist(argv)))
-		error_no_file_or_dir(argv);
-	push_back(dblist, argv);
-	basic_sort_lst(dblist);
-}
-
 int		main(int argc, char **argv)
 {
-	t_stlist	*dblist;
 	t_opt		options;
 	int		n;
 
-	n = 0;
-	if (!(dblist = init_dblist()) || argc < 1)
+	n = 1;
+	if (argc < 1)
 		return (-1);
-	n = index_file(++argv, &options);
+	n = index_file(&argv[n], &options) + 1;
 	if (!argv[n])
-		add_file_to_lst(".", dblist);
-	while (argv[n])
+		read_args(".", &options);
+	else
 	{
-		add_file_to_lst(argv[n], dblist);
-		n++;
+		// trier argument avec argv + n
+		while (argv[n])
+		{
+			if (!(file_exist(argv[n])))
+				error_no_file_or_dir(argv[n]);
+			read_args(argv[n], &options);
+			n++;
+		}		
 	}
-	read_directory(dblist->first->name, &options, NULL);
-	//si argument n'est pas un directory juste affiché le nom
 	return (0);
 }

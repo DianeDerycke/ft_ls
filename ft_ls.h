@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/13 02:55:06 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/17 22:28:21 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 typedef struct		s_file
 {
 	char			*name;
-	char			*path;
 	struct s_file	*prev;
 	struct s_file	*next;
 }					t_file;
@@ -54,32 +53,32 @@ typedef int		(*opt)(t_dblist *lst);
 
 //SRC
 int				index_file(char **argv, t_opt *options);
-void			add_file_to_lst(char *argv, t_stlist *dblist);
-void			for_each_node(t_opt *options, t_stlist *dblist);
-void			read_directory(char *path, t_opt *options, t_stlist *subdir);
-
+void			read_args(char *path, t_opt *options);
+void			recursive(t_file *subdir, char *path, t_opt *options);
 
 
 
 //LST
-t_stlist		*init_dblist(void);
-void			push_back(t_stlist *dblist, char *str);
+t_file			*init_lst(void);
+int				push_back(t_file **lst, char *str);
+void			free_lst(t_file	**subdir);
 
 //OPTIONS FUNCTIONS
-void			apply_opt(t_stlist	*dblist, t_opt *options);
-void			option_sort_time(t_stlist *dblist);
-void			option_sort_reverse(t_stlist *dblist);
-void			option_l(t_stlist *dblist, t_opt *options);
+void			apply_opt(t_file *lst, t_opt *options);
+void			option_sort_time(t_file *lst);
+void			option_sort_reverse(t_file *lst);
+void			option_l(t_file *lst, t_opt *options);
 
 //DISPLAY
-void			display_dir(t_stlist *dblist, char *path, t_opt *options);
-
+void			display_dir(t_file *lst, char *path, t_opt *options);
 //SORT FUNCTIONS
-void			basic_sort_lst(t_stlist *lst);
+void			basic_sort_lst(t_file **lst);
 
 //VERIFICATION
 int 			file_exist(const char *path);
 int				is_dir(const char *path);
+int				usr_can_w(const char *path);
+
 
 //ERROR
 void			error_option(char c);

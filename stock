@@ -1,0 +1,41 @@
+void	read_args(char *path, t_opt *options)
+{
+	DIR 			*openf;
+	struct dirent 	*readf;
+	t_file			*subdir;
+	t_file			*ptr;
+	char			*newpath;
+	char			*tmp;
+	char			*test_path;
+
+	subdir = NULL;
+	tmp = ft_strdup(path);
+	newpath = ft_strjoin(tmp, "/");
+	test_path = ft_strdup(newpath);
+	ptr = NULL;
+	if (!(openf = opendir(path)))
+		return;
+	while ((readf = readdir(openf)) != NULL)
+		if (push_back(&subdir, readf->d_name) < 0)
+			return ;
+	closedir(openf);
+	basic_sort_lst(&subdir);
+	display_dir(subdir, newpath, options);
+	ptr = subdir;
+	while (subdir && options->big_r == 1)
+	{
+		if (ft_strcmp(subdir->name, ".") != 0 && ft_strcmp(subdir->name, "..") != 0)
+		{
+			tmp = ft_strdup(newpath);
+			free(test_path);
+			test_path = ft_strjoin(tmp, subdir->name);
+		if (is_dir(test_path))
+			read_args(test_path, options);
+		}
+		subdir = subdir->next;
+	}
+	subdir = ptr;
+	free(test_path);
+	free_lst(&subdir);
+	// while (1);
+}
