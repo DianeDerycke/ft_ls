@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/17 22:28:18 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/17 22:52:36 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -49,7 +49,7 @@ int		push_back(t_file **lst, char *str)
 		(*lst)->next = NULL;
 	}
 	return (0);
-}
+} //27 lignes
 
 
 void	free_lst(t_file	**subdir)

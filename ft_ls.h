@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/17 22:28:21 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/21 21:11:16 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <sys/stat.h>
 # include "libft/libft.h"
 # include <sys/types.h>
+# include <grp.h>
+# include <time.h>
 # include <pwd.h>
 # include <uuid/uuid.h>
 # include <sys/xattr.h>
@@ -71,8 +73,13 @@ void			option_l(t_file *lst, t_opt *options);
 
 //DISPLAY
 void			display_dir(t_file *lst, char *path, t_opt *options);
+void			display_files(char **argv, t_opt *options);
+int				long_format(char *path, char *filename);
+
+
 //SORT FUNCTIONS
 void			basic_sort_lst(t_file **lst);
+void			sort_args(char **argv);
 
 //VERIFICATION
 int 			file_exist(const char *path);
