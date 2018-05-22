@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/21 21:11:16 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/22 13:20:33 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,17 @@ typedef struct 		s_opt
 	int				l;
 	int				big_r;
 	int				one;
+	int 			argc;
 }					t_opt;
 
 typedef int		(*opt)(t_dblist *lst);
 
 //SRC
-int				index_file(char **argv, t_opt *options);
+int				index_file(char **argv, t_opt *options, int argc);
 void			read_args(char *path, t_opt *options);
 void			recursive(t_file *subdir, char *path, t_opt *options);
+char			*concat_time(char *str);
+
 
 
 
