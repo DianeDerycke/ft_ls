@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:20:44 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/22 13:10:51 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/24 16:51:04 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ int		index_file(char **argv, t_opt *options, int argc)
 	int		n;
 
 	n = 0;
+	(void)argc;
 	while (argv[n] && argv[n][0] == '-')
 	{
 		parsing(argv[n], options);
 		n++;
 	}
-	options->argc = argc - n - 1;
 	return (n);
 }

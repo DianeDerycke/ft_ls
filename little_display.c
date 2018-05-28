@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   little_display.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/25 03:39:36 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/25 15:56:23 by DERYCKE          ###   ########.fr       */
+/*   Created: 2018/05/25 12:18:39 by DERYCKE           #+#    #+#             */
+/*   Updated: 2018/05/25 15:01:32 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_ls.h"
 
-#include "libft.h"
-
-size_t	ft_strlen(const char *s)
+void	dis_link(char *path, char *filename)
 {
-	size_t		i;
+	char	tmp[1024];
+	int		buffsize;
 
-	i = 0;
-	if (!s)
-		return (-1);
-	while (s[i])
-		i++;
-	return (i);
+	if ((buffsize = readlink(path, tmp, sizeof(tmp) - 1)) != -1)
+		tmp[buffsize] = '\0';
+	printf("%s%s%s\n", filename ? filename : path, " -> ", tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/22 14:17:49 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/28 04:20:56 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -26,9 +26,11 @@ int		main(int argc, char **argv)
 	{
 		sort_args(argv + n);
 		display_files(argv + n, &options);
+		if (argc - n >= 2)
+			options.argc = 1;
 		while (argv[n])
 		{
-			if (file_exist(argv[n]) && (is_dir(argv[n]) || options.l != 1))
+			if (file_exist(argv[n]) && (is_dir(argv[n]) || (is_lnk(argv[n]) && options.l != 1)))
 				read_args(argv[n], &options);
 			n++;
 		}		

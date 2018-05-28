@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/22 13:20:33 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/28 04:24:21 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct 		s_opt
 	int				l;
 	int				big_r;
 	int				one;
+	int 			d_size;
 	int 			argc;
 }					t_opt;
 
@@ -59,6 +60,8 @@ int				index_file(char **argv, t_opt *options, int argc);
 void			read_args(char *path, t_opt *options);
 void			recursive(t_file *subdir, char *path, t_opt *options);
 char			*concat_time(char *str);
+char			*create_path(char *path, char *dirname);
+
 
 
 
@@ -73,11 +76,21 @@ void			apply_opt(t_file *lst, t_opt *options);
 void			option_sort_time(t_file *lst);
 void			option_sort_reverse(t_file *lst);
 void			option_l(t_file *lst, t_opt *options);
+void    		get_right_size(char *path, t_opt *options);
+void    		dis_mode(struct stat file_stat);
+void    		dis_info(struct stat file_stat);
+void    		dis_time(struct stat f_stat);
+
+
+
 
 //DISPLAY
+void			right_display(t_file *lst, char *path, t_opt *options);
 void			display_dir(t_file *lst, char *path, t_opt *options);
 void			display_files(char **argv, t_opt *options);
 int				long_format(char *path, char *filename);
+void			dis_link(char *path, char *filename);
+
 
 
 //SORT FUNCTIONS
@@ -87,7 +100,8 @@ void			sort_args(char **argv);
 //VERIFICATION
 int 			file_exist(const char *path);
 int				is_dir(const char *path);
-int				usr_can_w(const char *path);
+int				is_lnk(const char *path);
+
 
 
 //ERROR

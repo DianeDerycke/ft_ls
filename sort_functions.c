@@ -6,10 +6,12 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/21 21:56:17 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/25 16:53:43 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
+
+// void	sort_options(t_file *lst);
 
 void	sort_args(char **argv)
 {
@@ -32,7 +34,7 @@ void	sort_args(char **argv)
 		j++;
 	}
 	i = 0;
-	while (argv[i + 1] && ft_strcmp(argv[i], argv[i + 1]) < 0)
+	while (argv[i + 1] && ft_strcmp(argv[i], argv[i + 1]) <= 0)
 		i++;
 	if (argv[i + 1])
 		sort_args(argv);

@@ -6,46 +6,41 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/22 14:27:57 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:44:05 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
+void	right_display(t_file *lst, char *path, t_opt *options)
+{
+	display_dir(lst, path, options);
+}
+
 void	display_dir(t_file *lst, char *path, t_opt *options)
 {
 	char	*tmp;
-	char	*newpath;
 
 	tmp = NULL;
-	newpath = NULL;
-	if (options->argc != 1 && lst)
+	if ((is_dir(path) || is_lnk(path)) && options->argc == 1)
 		printf("\n%s:\n", path);
-	else if (path && options->argc != 1)
-		printf("\n%s:\n", path);
-	else
-		options->argc = 0;
-	if (options->a != 1)
-	{
-		while (lst && lst->name[0] == '.')
-			lst = lst->next;
-	}
 	if (options->l)
+	{
+		get_right_size(path, options);
 		while (lst)
 		{
-			tmp = ft_strdup(path);
-			newpath = ft_strjoin(tmp, "/");
-			tmp = ft_strjoin(newpath, lst->name);
+			tmp = create_path(path, lst->name);
 			long_format(tmp, lst->name);
 			free(tmp);
 			lst = lst->next;
 		}
+	}
 	else
 		while (lst)
 		{
 			printf("%s\n", lst->name);
 			lst = lst->next;
 		}
-}//30 lignes
+}
 
 void	display_files(char **argv, t_opt *options)
 {
