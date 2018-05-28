@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   apply_options.c                                    :+:      :+:    :+:   */
+/*   recursive.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/28 04:23:42 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/28 15:53:46 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -62,7 +62,7 @@ void	read_args(char *path, t_opt *options)
 	closedir(openf);
 	if (subdir)
 		basic_sort_lst(&subdir);
-	right_display(subdir, path, options);
+	sort_display(&subdir, path, options);
 	if (options->big_r)
 		recursive(subdir, path, options);
 	free_lst(&subdir);

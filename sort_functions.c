@@ -6,12 +6,15 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/25 16:53:43 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/28 15:50:54 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-// void	sort_options(t_file *lst);
+void	sort_time(t_file **lst)
+{
+	(void)lst;
+}
 
 void	sort_args(char **argv)
 {

@@ -6,14 +6,28 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/25 17:44:05 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/28 15:54:05 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void	right_display(t_file *lst, char *path, t_opt *options)
+void	sort_display(t_file **lst, char *path, t_opt *options)
 {
-	display_dir(lst, path, options);
+	// if (options->t)
+	// 	sort_time(lst);
+	// else
+	// 	basic_sort_lst(lst);
+	// if (options->r)
+	// 	display_reverse(*lst, path, options);
+	// else
+		display_dir(*lst, path, options);
+}
+
+void	display_reverse(t_file *lst, char *path, t_opt *options)
+{
+	(void)lst;
+	(void)path;
+	(void)options;
 }
 
 void	display_dir(t_file *lst, char *path, t_opt *options)
