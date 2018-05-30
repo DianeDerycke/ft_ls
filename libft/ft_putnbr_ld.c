@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_ld.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/18 18:54:06 by dideryck          #+#    #+#             */
-/*   Updated: 2018/05/30 15:01:34 by DERYCKE          ###   ########.fr       */
+/*   Created: 2018/05/30 15:21:18 by DERYCKE           #+#    #+#             */
+/*   Updated: 2018/05/30 15:23:40 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	ft_putendl(char const *s)
+void	ft_putnbr_ld(long long int n)
 {
-	while (s && *s)
+	if (n < 0)
 	{
-		ft_putchar(*s);
-		s++;
+		ft_putchar('-');
+		n = -n;
 	}
-	ft_putchar('\n');
+	if (n > 9)
+		ft_putnbr(n / 10);
+	ft_putchar(n % 10 + '0');
 }

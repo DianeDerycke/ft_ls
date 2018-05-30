@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 03:09:46 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/15 12:52:08 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/30 15:27:49 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char				*ft_itoa(int n);
 void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putnbr(int n);
+void				ft_putnbr_ld(long long int n);
+void				ft_putnbr_u(unsigned int n);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putstr(char const *s);
 void				ft_putstr_fd(char const *s, int fd);

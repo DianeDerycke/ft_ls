@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/28 15:28:15 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/30 15:30:28 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -36,34 +36,36 @@ void    get_right_size(char *path, t_opt *options)
     closedir(openf);
     if (i == 2 && options->a != 1)
         return ;
-    printf("total %d\n", options->d_size);
+    ft_putstr("total ");
+    ft_putnbr(options->d_size);
+    ft_putchar('\n');
 }
 
 void    dis_mode(struct stat f_stat)
 {
     if (S_ISBLK(f_stat.st_mode))
-        printf("b");
+        ft_putstr("b");
     else if (S_ISCHR(f_stat.st_mode))
-        printf("c");
+        ft_putstr("c");
     else if (S_ISDIR(f_stat.st_mode))
-        printf("d");
+        ft_putstr("d");
     else if (S_ISLNK(f_stat.st_mode))
-        printf("l");
+        ft_putstr("l");
     else if (S_ISSOCK(f_stat.st_mode))
-        printf("s");
+        ft_putstr("s");
     else if (S_ISFIFO(f_stat.st_mode))
-        printf("p");
+        ft_putstr("p");
     else
-        printf("-");
-    printf( (f_stat.st_mode & S_IRUSR) ? "r" : "-");
-    printf( (f_stat.st_mode & S_IWUSR) ? "w" : "-");
-    printf( (f_stat.st_mode & S_IXUSR) ? "x" : "-");
-    printf( (f_stat.st_mode & S_IRGRP) ? "r" : "-");
-    printf( (f_stat.st_mode & S_IWGRP) ? "w" : "-");
-    printf( (f_stat.st_mode & S_IXGRP) ? "x" : "-");
-    printf( (f_stat.st_mode & S_IROTH) ? "r" : "-");
-    printf( (f_stat.st_mode & S_IWOTH) ? "w" : "-");
-    printf( (f_stat.st_mode & S_IXOTH) ? "x  " : "-  ");
+        ft_putstr("-");
+    ft_putstr((f_stat.st_mode & S_IRUSR) ? "r" : "-");
+    ft_putstr((f_stat.st_mode & S_IWUSR) ? "w" : "-");
+    ft_putstr((f_stat.st_mode & S_IXUSR) ? "x" : "-");
+    ft_putstr((f_stat.st_mode & S_IRGRP) ? "r" : "-");
+    ft_putstr((f_stat.st_mode & S_IWGRP) ? "w" : "-");
+    ft_putstr((f_stat.st_mode & S_IXGRP) ? "x" : "-");
+    ft_putstr((f_stat.st_mode & S_IROTH) ? "r" : "-");
+    ft_putstr((f_stat.st_mode & S_IWOTH) ? "w" : "-");
+    ft_putstr((f_stat.st_mode & S_IXOTH) ? "x  " : "-  ");
 }
 
 void    dis_info(struct stat f_stat)
@@ -74,16 +76,30 @@ void    dis_info(struct stat f_stat)
     usr_pwd = getpwuid(f_stat.st_uid);
     grp_pwd = getgrgid(f_stat.st_gid);
     
-        printf("%d ",f_stat.st_nlink);
+    ft_putnbr(f_stat.st_nlink);
+    ft_putchar(' ');
     if (usr_pwd)
-        printf("%s   ", usr_pwd->pw_name);
+    {
+        ft_putstr(usr_pwd->pw_name);
+        ft_putstr("   ");
+    }
     else
-        printf("%u   ", f_stat.st_uid);
+    {
+        ft_putnbr_u(f_stat.st_uid);
+        ft_putstr("   ");
+    }
     if (grp_pwd)
-        printf("%s   ", grp_pwd->gr_name);
+    {
+        ft_putstr(grp_pwd->gr_name);
+        ft_putstr("   ");
+    }
     else if (f_stat.st_gid)
-        printf("%u   ", f_stat.st_gid);
-    printf("%lld   ",f_stat.st_size);
+    {
+        ft_putnbr_u(f_stat.st_gid);
+        ft_putstr("   ");
+    }
+    ft_putnbr_ld(f_stat.st_size);
+    ft_putstr("   ");
 }
 
 void    dis_time(struct stat f_stat)
@@ -96,13 +112,14 @@ void    dis_time(struct stat f_stat)
     if ((f_stat.st_mtime < (curr_t - 15778800)) || (f_stat.st_mtime > curr_t + 15778800))
     {
         time_cat = concat_time_year(ctime(&f_stat.st_mtime));
-        printf("%s ", time_cat ? time_cat : 0);
+        ft_putstr(time_cat);
         free(time_cat);
     }
     else
     {
         time_cat = concat_time(ctime(&f_stat.st_mtime));
-        printf("%s ", time_cat ? time_cat : 0);
+        ft_putstr(time_cat);
+        ft_putstr(" ");
         free(time_cat);
     }
 }
@@ -119,6 +136,6 @@ int     long_format(char *path, char *filename)
     if (S_ISLNK(f_stat.st_mode))
         dis_link(path, filename);
     else
-        printf("%s\n", filename);
+        ft_putendl(filename);
     return (0);
 }

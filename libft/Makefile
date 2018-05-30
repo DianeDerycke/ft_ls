@@ -6,7 +6,7 @@
 #    By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/25 02:53:05 by DERYCKE           #+#    #+#              #
-#    Updated: 2018/03/23 22:20:33 by DERYCKE          ###   ########.fr        #
+#    Updated: 2018/05/30 15:21:54 by DERYCKE          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ FILES = ft_strlen 	ft_putchar 	ft_strstr 	ft_atoi 	ft_strncmp 	ft_putnbr 	ft_str
 		ft_strmapi	ft_lstnew	ft_lstdelone	ft_lstdel 		ft_lstadd	ft_lstiter	ft_lstmap \
 		ft_strclr	ft_striteri	ft_strnequ	ft_strndup	ft_pause	ft_sort_integer_table \
 		ft_strlen_table	ft_swap	ft_is_space	ft_double_free	ft_push_back	ft_init_dblist \
-		ft_sort_lst	ft_clear_lst
+		ft_sort_lst	ft_clear_lst	ft_putnbr_ld	ft_putnbr_u
 SRC = $(addsuffix .c, $(FILES))
 OBJ = $(addsuffix .o, $(FILES))
 

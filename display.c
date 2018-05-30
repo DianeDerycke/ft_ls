@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/28 15:54:05 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/30 15:05:21 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -15,19 +15,11 @@ void	sort_display(t_file **lst, char *path, t_opt *options)
 {
 	// if (options->t)
 	// 	sort_time(lst);
-	// else
-	// 	basic_sort_lst(lst);
-	// if (options->r)
-	// 	display_reverse(*lst, path, options);
-	// else
-		display_dir(*lst, path, options);
-}
-
-void	display_reverse(t_file *lst, char *path, t_opt *options)
-{
-	(void)lst;
-	(void)path;
-	(void)options;
+	if (*lst)
+		basic_sort_lst(lst);
+	if (*lst && options->r)
+		reverse_sort(lst);
+	display_dir(*lst, path, options);
 }
 
 void	display_dir(t_file *lst, char *path, t_opt *options)
@@ -36,7 +28,11 @@ void	display_dir(t_file *lst, char *path, t_opt *options)
 
 	tmp = NULL;
 	if ((is_dir(path) || is_lnk(path)) && options->argc == 1)
-		printf("\n%s:\n", path);
+	{
+		ft_putchar('\n');
+		ft_putstr(path);
+		ft_putstr(":\n");
+	}
 	if (options->l)
 	{
 		get_right_size(path, options);
@@ -51,7 +47,7 @@ void	display_dir(t_file *lst, char *path, t_opt *options)
 	else
 		while (lst)
 		{
-			printf("%s\n", lst->name);
+			ft_putendl(lst->name);
 			lst = lst->next;
 		}
 }
@@ -78,7 +74,7 @@ void	display_files(char **argv, t_opt *options)
 			if (options->l)
 				long_format(argv[i], argv[i]);
 			else if (!(S_ISLNK(file_stat.st_mode)))
-				printf("%s\n", argv[i]);
+				ft_putendl(argv[i]);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/28 15:53:55 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/05/30 15:13:21 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct		s_file
 	char			*name;
 	struct s_file	*prev;
 	struct s_file	*next;
+	struct s_file	*last;
 }					t_file;
 
 typedef struct s_stlist
@@ -63,10 +64,6 @@ char			*concat_time(char *str);
 char			*concat_time_year(char *time_str);
 char			*create_path(char *path, char *dirname);
 
-
-
-
-
 //LST
 t_file			*init_lst(void);
 int				push_back(t_file **lst, char *str);
@@ -94,8 +91,10 @@ void			dis_link(char *path, char *filename);
 
 //SORT FUNCTIONS
 void			basic_sort_lst(t_file **lst);
-void			sort_args(char **argv);
+void			reverse_sort(t_file **lst);
+void			sort_args(char **argv, t_opt *options);
 void			sort_time(t_file **lst);
+
 
 //VERIFICATION
 int 			file_exist(const char *path);
