@@ -6,17 +6,19 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/30 15:05:21 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/03 22:09:12 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
 void	sort_display(t_file **lst, char *path, t_opt *options)
 {
-	// if (options->t)
-	// 	sort_time(lst);
+	if (*lst)
+		get_data_file(lst, path);
 	if (*lst)
 		basic_sort_lst(lst);
+	// if (*lst && options->t)
+	// 	sort_time(lst);
 	if (*lst && options->r)
 		reverse_sort(lst);
 	display_dir(*lst, path, options);
@@ -24,9 +26,6 @@ void	sort_display(t_file **lst, char *path, t_opt *options)
 
 void	display_dir(t_file *lst, char *path, t_opt *options)
 {
-	char	*tmp;
-
-	tmp = NULL;
 	if ((is_dir(path) || is_lnk(path)) && options->argc == 1)
 	{
 		ft_putchar('\n');
@@ -35,12 +34,10 @@ void	display_dir(t_file *lst, char *path, t_opt *options)
 	}
 	if (options->l)
 	{
-		get_right_size(path, options);
+		get_right_size(lst->path, options);
 		while (lst)
 		{
-			tmp = create_path(path, lst->name);
-			long_format(tmp, lst->name);
-			free(tmp);
+			long_format(lst->path, lst->name);
 			lst = lst->next;
 		}
 	}

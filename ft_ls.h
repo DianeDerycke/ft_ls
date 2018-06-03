@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/30 15:13:21 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/03 23:20:28 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@
 typedef struct		s_file
 {
 	char			*name;
-	struct s_file	*prev;
+	char			*path;
+	size_t		 	upd_time;
 	struct s_file	*next;
-	struct s_file	*last;
+	struct s_file	*prev;
 }					t_file;
 
 typedef struct s_stlist
@@ -67,6 +68,7 @@ char			*create_path(char *path, char *dirname);
 //LST
 t_file			*init_lst(void);
 int				push_back(t_file **lst, char *str);
+void			get_data_file(t_file **dir, char *path);
 void			free_lst(t_file	**subdir);
 
 //OPTIONS FUNCTIONS
@@ -75,8 +77,6 @@ void    		get_right_size(char *path, t_opt *options);
 void    		dis_mode(struct stat file_stat);
 void    		dis_info(struct stat file_stat);
 void    		dis_time(struct stat f_stat);
-
-
 
 
 //DISPLAY

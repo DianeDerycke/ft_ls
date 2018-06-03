@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/30 15:30:28 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/03 22:04:11 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -113,6 +113,7 @@ void    dis_time(struct stat f_stat)
     {
         time_cat = concat_time_year(ctime(&f_stat.st_mtime));
         ft_putstr(time_cat);
+        ft_putchar(' ');
         free(time_cat);
     }
     else

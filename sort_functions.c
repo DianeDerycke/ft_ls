@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/30 13:53:06 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/03 23:21:46 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -15,27 +15,27 @@ void	sort_time(t_file **lst)
 {
 	t_file		*ptr;
 	t_file		*next_ptr;
-	char		*tmp;
+	size_t		tmp;
 
 	ptr = *lst;
-	next_ptr = (*lst)->next;
+	next_ptr = ptr->next;
+	tmp = 0;
 	while (ptr->next)
 	{
-		if (ft_strcmp(ptr->name, next_ptr->name) > 0)
+		if (ptr->upd_time < next_ptr->upd_time)
 		{
-			tmp = ptr->name;
-			ptr->name = next_ptr->name;
-			next_ptr->name = tmp;
+			tmp = ptr->upd_time;
+			ptr->upd_time = next_ptr->upd_time;
+			next_ptr->upd_time = tmp;
 		}
 		ptr = ptr->next;
 		next_ptr = ptr->next;
 	}
 	ptr = *lst;
-	while (ptr->next && ft_strcmp(ptr->name, ptr->next->name) < 0)
+	while (ptr->next && ptr->upd_time > ptr->next->upd_time)
 		ptr = ptr->next;
 	if (ptr->next)
-		basic_sort_lst(lst);
-
+		sort_time(lst);
 }
 
 void	sort_args(char **argv, t_opt *options)
@@ -90,20 +90,15 @@ void	basic_sort_lst(t_file **lst)
 {
 	t_file		*ptr;
 	t_file		*next_ptr;
-	char		*tmp;
+	t_file		*tmp;
 
 	ptr = *lst;
 	next_ptr = (*lst)->next;
 	while (ptr->next)
 	{
-		if (ft_strcmp(ptr->name, next_ptr->name) > 0)
-		{
-			tmp = ptr->name;
-			ptr->name = next_ptr->name;
-			next_ptr->name = tmp;
-		}
+		if (ft_strcmp(ptr->name, ptr->next->name) > 0)
+			//swap content ou swap ptr
 		ptr = ptr->next;
-		next_ptr = ptr->next;
 	}
 	ptr = *lst;
 	while (ptr->next && ft_strcmp(ptr->name, ptr->next->name) < 0)

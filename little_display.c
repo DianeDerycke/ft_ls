@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 12:18:39 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/30 15:13:12 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/03 21:47:41 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -21,4 +21,5 @@ void	dis_link(char *path, char *filename)
 	ft_putstr(filename ? filename : path);
 	ft_putstr(" -> ");
 	ft_putstr(tmp);
+	ft_putchar('\n');
 }

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/25 17:04:51 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/03 21:38:54 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -49,4 +49,21 @@ char	*create_path(char *path, char *dirname)
 	else if (!(tmp = ft_strjoin(newpath, dirname)))
 		return (NULL);
 	return (tmp);
+}
+
+void	get_data_file(t_file **dir, char *path)
+{
+	t_file			*tmp;
+	struct stat 	file_stat;
+
+	tmp = *dir;
+	while (*dir)
+	{
+		(*dir)->path = create_path(path, (*dir)->name);
+		if (lstat((*dir)->path, &file_stat) < 0)
+			return ;
+		(*dir)->upd_time = file_stat.st_mtime;
+		*dir = (*dir)->next;
+	}
+	*dir = tmp;
 }
