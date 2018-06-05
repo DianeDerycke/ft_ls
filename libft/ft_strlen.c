@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 03:39:36 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/25 15:56:23 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/05 10:06:40 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	if (!s)
-		return (-1);
+		return (0);
 	while (s[i])
 		i++;
 	return (i);

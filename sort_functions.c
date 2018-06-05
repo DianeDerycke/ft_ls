@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/03 23:21:46 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/05 11:01:13 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -14,22 +14,13 @@
 void	sort_time(t_file **lst)
 {
 	t_file		*ptr;
-	t_file		*next_ptr;
-	size_t		tmp;
 
 	ptr = *lst;
-	next_ptr = ptr->next;
-	tmp = 0;
 	while (ptr->next)
 	{
-		if (ptr->upd_time < next_ptr->upd_time)
-		{
-			tmp = ptr->upd_time;
-			ptr->upd_time = next_ptr->upd_time;
-			next_ptr->upd_time = tmp;
-		}
+		if (ptr->upd_time < ptr->next->upd_time)
+			swap_content(&ptr, &(ptr->next));
 		ptr = ptr->next;
-		next_ptr = ptr->next;
 	}
 	ptr = *lst;
 	while (ptr->next && ptr->upd_time > ptr->next->upd_time)
@@ -79,25 +70,40 @@ void	reverse_sort(t_file **lst)
     while (current != NULL)
     {
         next  = current->next;
-        current->next = prev;   
+        current->next = prev;
         prev = current;
         current = next;
     }
     *lst = prev;
 }
 
+void	swap_content(t_file **ptr, t_file **next)
+{
+	t_file		*tmp;
+
+	if (!(tmp = init_lst()))
+		return ;
+	tmp->name = (*ptr)->name;
+	tmp->path = (*ptr)->path;
+	tmp->upd_time = (*ptr)->upd_time;
+	(*ptr)->name = (*next)->name;
+	(*ptr)->path = (*next)->path;
+	(*ptr)->upd_time = (*next)->upd_time;
+	(*next)->name = tmp->name;
+	(*next)->path = tmp->path;
+	(*next)->upd_time = tmp->upd_time;
+	free(tmp);
+}
+
 void	basic_sort_lst(t_file **lst)
 {
 	t_file		*ptr;
-	t_file		*next_ptr;
-	t_file		*tmp;
 
 	ptr = *lst;
-	next_ptr = (*lst)->next;
 	while (ptr->next)
 	{
 		if (ft_strcmp(ptr->name, ptr->next->name) > 0)
-			//swap content ou swap ptr
+			swap_content(&ptr, &(ptr->next));
 		ptr = ptr->next;
 	}
 	ptr = *lst;

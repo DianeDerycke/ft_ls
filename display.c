@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/03 22:09:12 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/05 12:10:58 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -14,14 +14,16 @@
 void	sort_display(t_file **lst, char *path, t_opt *options)
 {
 	if (*lst)
+	{
 		get_data_file(lst, path);
-	if (*lst)
-		basic_sort_lst(lst);
-	// if (*lst && options->t)
-	// 	sort_time(lst);
-	if (*lst && options->r)
-		reverse_sort(lst);
-	display_dir(*lst, path, options);
+		if (options->t)
+			sort_time(lst);
+		else
+			basic_sort_lst(lst);
+		if (options->r)
+			reverse_sort(lst);
+		display_dir(*lst, path, options);
+	}
 }
 
 void	display_dir(t_file *lst, char *path, t_opt *options)
@@ -34,10 +36,10 @@ void	display_dir(t_file *lst, char *path, t_opt *options)
 	}
 	if (options->l)
 	{
-		get_right_size(lst->path, options);
+		get_right_size(lst, options);
 		while (lst)
 		{
-			long_format(lst->path, lst->name);
+			long_format(lst->path, lst->name, options);
 			lst = lst->next;
 		}
 	}
@@ -69,7 +71,7 @@ void	display_files(char **argv, t_opt *options)
 		    if (lstat(argv[i],&file_stat) < 0)
 		        return ;
 			if (options->l)
-				long_format(argv[i], argv[i]);
+				long_format(argv[i], argv[i], options);
 			else if (!(S_ISLNK(file_stat.st_mode)))
 				ft_putendl(argv[i]);
 		}

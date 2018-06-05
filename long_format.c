@@ -6,34 +6,31 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/03 22:04:11 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/05 12:38:48 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void    get_right_size(char *path, t_opt *options)
+void    get_right_size(t_file *lst, t_opt *options)
 {
-    struct stat     file_stat;
-    DIR             *openf;
-    struct dirent   *readf;
-    char            *tmp;
+    struct stat     f_stat;
+    t_file          *tmp;
     int             i;
 
-    options->d_size = 0;
     i = 0;
-    if (!(openf = opendir(path)))
-        return ;
-    while ((readf = readdir(openf)) != NULL)
+    tmp = lst;
+    while (lst)
     {
         i++;
-        if (options->a != 1 && readf->d_name[0] == '.')
-            continue ;
-        tmp = create_path(path, readf->d_name);
-        if (lstat(tmp, &file_stat) == 0)
-            options->d_size += file_stat.st_blocks;
-        free(tmp);
+        if (lstat(lst->path, &f_stat) == 0)
+            options->d_size += f_stat.st_blocks;
+        if (f_stat.st_nlink > options->max_lnk)
+            options->max_lnk = f_stat.st_nlink;
+        if (f_stat.st_size > options->max_size)
+            options->max_size = f_stat.st_size;
+        lst = lst->next;
     }
-    closedir(openf);
+    lst = tmp;
     if (i == 2 && options->a != 1)
         return ;
     ft_putstr("total ");
@@ -68,38 +65,29 @@ void    dis_mode(struct stat f_stat)
     ft_putstr((f_stat.st_mode & S_IXOTH) ? "x  " : "-  ");
 }
 
-void    dis_info(struct stat f_stat)
+void    dis_info(struct stat f_stat, t_opt *options)
 {
     struct passwd   *usr_pwd;
     struct group   *grp_pwd;
     
     usr_pwd = getpwuid(f_stat.st_uid);
     grp_pwd = getgrgid(f_stat.st_gid);
-    
+    (void)options;
+
     ft_putnbr(f_stat.st_nlink);
     ft_putchar(' ');
     if (usr_pwd)
-    {
         ft_putstr(usr_pwd->pw_name);
-        ft_putstr("   ");
-    }
     else
-    {
         ft_putnbr_u(f_stat.st_uid);
-        ft_putstr("   ");
-    }
+    ft_putstr("  ");
     if (grp_pwd)
-    {
         ft_putstr(grp_pwd->gr_name);
-        ft_putstr("   ");
-    }
     else if (f_stat.st_gid)
-    {
         ft_putnbr_u(f_stat.st_gid);
-        ft_putstr("   ");
-    }
+    ft_putstr("  ");
     ft_putnbr_ld(f_stat.st_size);
-    ft_putstr("   ");
+    ft_putstr("  ");
 }
 
 void    dis_time(struct stat f_stat)
@@ -125,14 +113,14 @@ void    dis_time(struct stat f_stat)
     }
 }
 
-int     long_format(char *path, char *filename)
+int     long_format(char *path, char *filename, t_opt *options)
 {
     struct stat     f_stat;
 
     if (lstat(path,&f_stat) < 0)
         return (1);
     dis_mode(f_stat);
-    dis_info(f_stat);
+    dis_info(f_stat, options);
     dis_time(f_stat);
     if (S_ISLNK(f_stat.st_mode))
         dis_link(path, filename);
