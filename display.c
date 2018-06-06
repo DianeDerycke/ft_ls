@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/05 12:10:58 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/06 12:38:53 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -36,7 +36,8 @@ void	display_dir(t_file *lst, char *path, t_opt *options)
 	}
 	if (options->l)
 	{
-		get_right_size(lst, options);
+		if (find_max_for_each(lst, options) > 0)
+			display_total_size(options);
 		while (lst)
 		{
 			long_format(lst->path, lst->name, options);

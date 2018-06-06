@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/05 11:37:39 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/06 22:21:34 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ typedef struct 			s_opt
 	int					one;
 	int 				d_size;
 	int 				argc;
+	long int 		max_size;
 	unsigned short int 	max_lnk;
-	long long int 		max_size;
+	unsigned short int	len_usr;
+	unsigned short int	len_grp; 
 }						t_opt;
 
 //SRC
@@ -59,6 +61,11 @@ char					*concat_time(char *str);
 char					*concat_time_year(char *time_str);
 char					*create_path(char *path, char *dirname);
 void					init_options(t_opt *options);
+char    				*create_field(long long int max, char *str);
+char					*create_field_usr_grp(unsigned short max, char *str);
+
+
+
 
 
 //LST
@@ -70,12 +77,10 @@ void					swap_content(t_file **ptr, t_file **next);
 
 
 //OPTIONS FUNCTIONS
-void					apply_opt(t_file *lst, t_opt *options);
-void    				get_right_size(t_file *lst, t_opt *options);
+int    					find_max_for_each(t_file *lst, t_opt *options);
 void    				dis_mode(struct stat file_stat);
 void    				dis_info(struct stat file_stat, t_opt *options);
 void    				dis_time(struct stat f_stat);
-void					display_nb_lnk(nlink_t link, t_opt *options);
 
 
 //DISPLAY
@@ -83,6 +88,7 @@ void					sort_display(t_file **lst, char *path, t_opt *options);
 void					display_dir(t_file *lst, char *path, t_opt *options);
 void					display_files(char **argv, t_opt *options);
 void					display_reverse(t_file *lst, char *path, t_opt *options);
+void					display_total_size(t_opt *options);
 int						long_format(char *path, char *filename, t_opt *options);
 void					dis_link(char *path, char *filename);
 

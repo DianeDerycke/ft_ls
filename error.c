@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/21 14:40:20 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/05 13:01:58 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -17,7 +17,7 @@ void	error_option(char c)
 	ft_putchar(c);
 	ft_putchar('\n');
 	ft_putstr("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]");
-	exit(0);
+	exit(1);
 }
 
 void	error_no_file_or_dir(char *str)

@@ -6,37 +6,10 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/05 12:38:48 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/06 22:21:07 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
-
-void    get_right_size(t_file *lst, t_opt *options)
-{
-    struct stat     f_stat;
-    t_file          *tmp;
-    int             i;
-
-    i = 0;
-    tmp = lst;
-    while (lst)
-    {
-        i++;
-        if (lstat(lst->path, &f_stat) == 0)
-            options->d_size += f_stat.st_blocks;
-        if (f_stat.st_nlink > options->max_lnk)
-            options->max_lnk = f_stat.st_nlink;
-        if (f_stat.st_size > options->max_size)
-            options->max_size = f_stat.st_size;
-        lst = lst->next;
-    }
-    lst = tmp;
-    if (i == 2 && options->a != 1)
-        return ;
-    ft_putstr("total ");
-    ft_putnbr(options->d_size);
-    ft_putchar('\n');
-}
 
 void    dis_mode(struct stat f_stat)
 {
@@ -62,32 +35,54 @@ void    dis_mode(struct stat f_stat)
     ft_putstr((f_stat.st_mode & S_IXGRP) ? "x" : "-");
     ft_putstr((f_stat.st_mode & S_IROTH) ? "r" : "-");
     ft_putstr((f_stat.st_mode & S_IWOTH) ? "w" : "-");
-    ft_putstr((f_stat.st_mode & S_IXOTH) ? "x  " : "-  ");
+    ft_putstr((f_stat.st_mode & S_IXOTH) ? "x" : "-");
+    //if no attribute > go mettre un espace
+    ft_putchar(' ');
 }
 
 void    dis_info(struct stat f_stat, t_opt *options)
 {
     struct passwd   *usr_pwd;
     struct group   *grp_pwd;
-    
+    char            *tmp;
+
     usr_pwd = getpwuid(f_stat.st_uid);
     grp_pwd = getgrgid(f_stat.st_gid);
-    (void)options;
 
-    ft_putnbr(f_stat.st_nlink);
+    tmp = create_field(ft_strlen(ft_itoa(options->max_lnk)), ft_itoa(f_stat.st_nlink));
+    ft_putstr(tmp);
     ft_putchar(' ');
+    free(tmp);
     if (usr_pwd)
-        ft_putstr(usr_pwd->pw_name);
-    else
-        ft_putnbr_u(f_stat.st_uid);
+    {
+        tmp = create_field_usr_grp(options->len_usr, usr_pwd->pw_name);
+        ft_putstr(tmp);
+        free(tmp);
+    }
+    else if (f_stat.st_uid)
+    {
+        tmp = create_field(options->len_usr, ft_itoa(f_stat.st_uid));
+        ft_putstr(tmp);
+        free(tmp);
+    }
     ft_putstr("  ");
     if (grp_pwd)
-        ft_putstr(grp_pwd->gr_name);
+    {
+        tmp = create_field_usr_grp(options->len_grp, grp_pwd->gr_name);
+        ft_putstr(tmp);
+        free(tmp);
+    }
     else if (f_stat.st_gid)
-        ft_putnbr_u(f_stat.st_gid);
-    ft_putstr("  ");
-    ft_putnbr_ld(f_stat.st_size);
-    ft_putstr("  ");
+    {
+        tmp = create_field(options->len_grp, ft_itoa(f_stat.st_gid));
+        ft_putstr(tmp);
+        free(tmp);
+    }
+    ft_putchar(' ');
+    tmp = create_field(ft_strlen(ft_itoa(options->max_size)),ft_itoa(f_stat.st_size));
+    ft_putstr(tmp);
+    free(tmp);
+    ft_putchar(' ');
 }
 
 void    dis_time(struct stat f_stat)
@@ -108,7 +103,7 @@ void    dis_time(struct stat f_stat)
     {
         time_cat = concat_time(ctime(&f_stat.st_mtime));
         ft_putstr(time_cat);
-        ft_putstr(" ");
+        ft_putchar(' ');
         free(time_cat);
     }
 }

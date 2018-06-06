@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 21:59:35 by dideryck          #+#    #+#             */
-/*   Updated: 2017/11/30 00:49:04 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/06 21:18:00 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_size_str(int nb)
+static int		ft_size_str(long int nb)
 {
-	int		i;
-	int		neg;
+	long int		i;
+	long int		neg;
 
 	neg = (nb < 0 ? 2 : 1);
 	i = 0;
@@ -29,12 +29,12 @@ static int		ft_size_str(int nb)
 	return (i + neg);
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(long int n)
 {
 	char	*str;
-	int		tmp;
-	int		i;
-	int		size_str;
+	long int		tmp;
+	long int		i;
+	long int		size_str;
 
 	tmp = 0;
 	if (!(str = (char *)malloc(sizeof(char) * ft_size_str(n))))
@@ -45,14 +45,14 @@ char			*ft_itoa(int n)
 	size_str = ft_size_str(n) - 1;
 	if (n < 0)
 	{
-		n = (unsigned int)(-n);
+		n = -n;
 		str[0] = '-';
 	}
 	while (n)
 	{
-		tmp = (unsigned int)n % 10;
+		tmp = n % 10;
 		str[--i] = tmp + '0';
-		n = (unsigned int)n / 10;
+		n = n / 10;
 	}
 	str[size_str] = '\0';
 	return (str);
