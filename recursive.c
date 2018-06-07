@@ -6,48 +6,42 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/05 12:55:59 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 18:33:33 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void	recursive(t_file *subdir, char *path, t_opt *options)
+static char		*define_path(char *path, char *name)
 {
-	char	*tmp;
+	if (path[0] == '/' && ft_strlen(path) == 1)
+		return (ft_strjoin(ft_strdup(path), name));
+	else
+		return (create_path(path, name));
+}
+
+void			recursive(t_file *subdir, char *path, t_opt *options)
+{
 	char	*newpath;
 
-	tmp = NULL;
 	newpath = NULL;
 	while (subdir)
 	{
 		if (ft_strcmp(subdir->name, ".") != 0 && ft_strcmp(subdir->name, "..") != 0)
 		{
-			if (path[0] == '/' && ft_strlen(path) == 1)
-			{
-				tmp = ft_strdup(path);
-				newpath = ft_strjoin(tmp, subdir->name);
-			}
-			else
-				newpath = create_path(path, subdir->name);
+			newpath = define_path(path, subdir->name);
 			if (is_dir(newpath))
 			{
 				if (!(is_lnk(newpath)) && options->argc != 1)
-				{
-					ft_putchar('\n');
-					ft_putstr(newpath);
-					ft_putstr(":\n");				
-				}
+					display_dir_path(newpath);
 				read_args(newpath, options);
-				free(newpath);
 			}
-			else
-				free(newpath);
+			free(newpath);
 		}
 		subdir = subdir->next;
 	}
 }
 
-void	read_args(char *path, t_opt *options)
+void			read_args(char *path, t_opt *options)
 {
 	DIR 			*openf;
 	struct dirent 	*readf;

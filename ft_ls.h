@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 12:50:59 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 13:38:11 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void					get_data_file(t_file **dir, char *path);
 
 
 //PARSER
-int						index_file(char **argv, t_opt *options, int argc);
+int						index_file(char **argv, t_opt *options);
 void					read_args(char *path, t_opt *options);
 
 //LST
@@ -90,6 +90,7 @@ void					field_user(struct stat f_stat, t_opt *options);
 void					field_grp(struct stat f_stat, t_opt *options);
 void    				display_number(long long int max, char *str);
 void        			display_usr_grp(unsigned short max, char *str);
+void					display_dir_path(char *str);
 void					dis_link(char *path, char *filename);
 void    				dis_mode(struct stat file_stat);
 void    				dis_info(struct stat file_stat, t_opt *options);

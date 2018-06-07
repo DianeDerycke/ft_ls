@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-static void		valid_option(char c, t_opt *options)
+static void		valid_option(char c, t_opt *options	)
 {
 	if (c == 'a')
 		options->a = 1;
@@ -46,12 +46,11 @@ static void		parsing(char *argv, t_opt *options)
 	}
 }
 
-int		index_file(char **argv, t_opt *options, int argc)
+int		index_file(char **argv, t_opt *options)
 {
 	int		n;
 
 	n = 0;
-	(void)argc;
 	while (argv[n] && argv[n][0] == '-')
 	{
 		parsing(argv[n], options);
