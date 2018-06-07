@@ -6,10 +6,28 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/05 11:01:13 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 10:50:44 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
+
+void	swap_content(t_file **ptr, t_file **next)
+{
+	t_file		*tmp;
+
+	if (!(tmp = init_lst()))
+		return ;
+	tmp->name = (*ptr)->name;
+	tmp->path = (*ptr)->path;
+	tmp->upd_time = (*ptr)->upd_time;
+	(*ptr)->name = (*next)->name;
+	(*ptr)->path = (*next)->path;
+	(*ptr)->upd_time = (*next)->upd_time;
+	(*next)->name = tmp->name;
+	(*next)->path = tmp->path;
+	(*next)->upd_time = tmp->upd_time;
+	free(tmp);
+}
 
 void	sort_time(t_file **lst)
 {
@@ -23,7 +41,7 @@ void	sort_time(t_file **lst)
 		ptr = ptr->next;
 	}
 	ptr = *lst;
-	while (ptr->next && ptr->upd_time > ptr->next->upd_time)
+	while (ptr->next && ptr->upd_time >= ptr->next->upd_time)
 		ptr = ptr->next;
 	if (ptr->next)
 		sort_time(lst);
@@ -77,23 +95,6 @@ void	reverse_sort(t_file **lst)
     *lst = prev;
 }
 
-void	swap_content(t_file **ptr, t_file **next)
-{
-	t_file		*tmp;
-
-	if (!(tmp = init_lst()))
-		return ;
-	tmp->name = (*ptr)->name;
-	tmp->path = (*ptr)->path;
-	tmp->upd_time = (*ptr)->upd_time;
-	(*ptr)->name = (*next)->name;
-	(*ptr)->path = (*next)->path;
-	(*ptr)->upd_time = (*next)->upd_time;
-	(*next)->name = tmp->name;
-	(*next)->path = tmp->path;
-	(*next)->upd_time = tmp->upd_time;
-	free(tmp);
-}
 
 void	basic_sort_lst(t_file **lst)
 {

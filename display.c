@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/06 12:38:53 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 11:28:34 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -50,6 +50,7 @@ void	display_dir(t_file *lst, char *path, t_opt *options)
 			ft_putendl(lst->name);
 			lst = lst->next;
 		}
+	reset_options(options);
 }
 
 void	display_files(char **argv, t_opt *options)

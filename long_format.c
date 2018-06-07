@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/06 22:21:07 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 12:36:43 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -42,47 +42,23 @@ void    dis_mode(struct stat f_stat)
 
 void    dis_info(struct stat f_stat, t_opt *options)
 {
-    struct passwd   *usr_pwd;
-    struct group   *grp_pwd;
+    char            *max;
     char            *tmp;
 
-    usr_pwd = getpwuid(f_stat.st_uid);
-    grp_pwd = getgrgid(f_stat.st_gid);
+    max = ft_itoa(options->max_lnk);
+    tmp = ft_itoa(f_stat.st_nlink);
+    display_number(ft_strlen(max), tmp);
+    free(max);
+    free(tmp);
 
-    tmp = create_field(ft_strlen(ft_itoa(options->max_lnk)), ft_itoa(f_stat.st_nlink));
-    ft_putstr(tmp);
-    ft_putchar(' ');
+    field_user(f_stat, options);
+    field_grp(f_stat, options);
+
+    max = ft_itoa(options->max_size);
+    tmp = ft_itoa(f_stat.st_size);
+    display_number(ft_strlen(max), tmp);
+    free(max);
     free(tmp);
-    if (usr_pwd)
-    {
-        tmp = create_field_usr_grp(options->len_usr, usr_pwd->pw_name);
-        ft_putstr(tmp);
-        free(tmp);
-    }
-    else if (f_stat.st_uid)
-    {
-        tmp = create_field(options->len_usr, ft_itoa(f_stat.st_uid));
-        ft_putstr(tmp);
-        free(tmp);
-    }
-    ft_putstr("  ");
-    if (grp_pwd)
-    {
-        tmp = create_field_usr_grp(options->len_grp, grp_pwd->gr_name);
-        ft_putstr(tmp);
-        free(tmp);
-    }
-    else if (f_stat.st_gid)
-    {
-        tmp = create_field(options->len_grp, ft_itoa(f_stat.st_gid));
-        ft_putstr(tmp);
-        free(tmp);
-    }
-    ft_putchar(' ');
-    tmp = create_field(ft_strlen(ft_itoa(options->max_size)),ft_itoa(f_stat.st_size));
-    ft_putstr(tmp);
-    free(tmp);
-    ft_putchar(' ');
 }
 
 void    dis_time(struct stat f_stat)
