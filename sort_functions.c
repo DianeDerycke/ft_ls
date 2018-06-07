@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 21:52:14 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 22:05:51 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -29,31 +29,31 @@ void			swap_content(t_file **ptr, t_file **next)
 	free(tmp);
 }
 
-static void		sort_lexico(t_file **lst)
-{
-	size_t		time;
-	t_file		*ptr;
-	t_file		*tmp;
+// static void		sort_lexico(t_file **lst)
+// {
+// 	size_t		time;
+// 	t_file		*ptr;
+// 	t_file		*tmp;
 
-	ptr = *lst;
-	time = ptr->upd_time;
-	while (ptr && ptr->upd_time == time)
-	{
-		if (ptr->next && ptr->next->upd_time == time)
-			ptr = ptr->next;
-		else
-			break;
-	}
-	tmp = ptr->next;
-	ptr->next = NULL;
-	ptr = *lst;
-	basic_sort_lst(&ptr);
-	while (ptr)
-		ptr = ptr->next;
-	ptr->next = tmp;
-	if (tmp)
-		sort_lexico(&tmp);
-}
+// 	ptr = *lst;
+// 	time = ptr->upd_time;
+// 	while (ptr && ptr->upd_time == time)
+// 	{
+// 		if (ptr->next && ptr->next->upd_time == time)
+// 			ptr = ptr->next;
+// 		else
+// 			break;
+// 	}
+// 	tmp = ptr->next;
+// 	ptr->next = NULL;
+// 	ptr = *lst;
+// 	basic_sort_lst(&ptr);
+// 	while (ptr)
+// 		ptr = ptr->next;
+// 	ptr->next = tmp;
+// 	if (tmp)
+// 		sort_lexico(&tmp);
+// }
 
 void			sort_time(t_file **lst)
 {
@@ -71,8 +71,8 @@ void			sort_time(t_file **lst)
 		ptr = ptr->next;
 	if  (ptr->next)
 		sort_time(lst);
-	else
-		sort_lexico(lst);
+	// else
+	// 	sort_lexico(lst);
 }
 
 void			sort_args(char **argv, t_opt *options)
