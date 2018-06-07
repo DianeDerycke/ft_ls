@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 18:30:47 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 18:46:31 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -20,7 +20,7 @@ int		main(int argc, char **argv)
 	if (argc < 1)
 		return (-1);
 	init_options(&options);
-	n = index_file(&argv[n], &options) + 1;
+	n = get_path_index(&argv[n], &options) + 1;
 	if (!argv[n])
 		read_args(".", &options);
 	else

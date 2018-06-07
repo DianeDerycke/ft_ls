@@ -46,7 +46,7 @@ static void		parsing(char *argv, t_opt *options)
 	}
 }
 
-int		index_file(char **argv, t_opt *options)
+int		get_path_index(char **argv, t_opt *options)
 {
 	int		n;
 

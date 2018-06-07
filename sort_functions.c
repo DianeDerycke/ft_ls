@@ -6,12 +6,12 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 10:50:44 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 21:52:14 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void	swap_content(t_file **ptr, t_file **next)
+void			swap_content(t_file **ptr, t_file **next)
 {
 	t_file		*tmp;
 
@@ -29,7 +29,33 @@ void	swap_content(t_file **ptr, t_file **next)
 	free(tmp);
 }
 
-void	sort_time(t_file **lst)
+static void		sort_lexico(t_file **lst)
+{
+	size_t		time;
+	t_file		*ptr;
+	t_file		*tmp;
+
+	ptr = *lst;
+	time = ptr->upd_time;
+	while (ptr && ptr->upd_time == time)
+	{
+		if (ptr->next && ptr->next->upd_time == time)
+			ptr = ptr->next;
+		else
+			break;
+	}
+	tmp = ptr->next;
+	ptr->next = NULL;
+	ptr = *lst;
+	basic_sort_lst(&ptr);
+	while (ptr)
+		ptr = ptr->next;
+	ptr->next = tmp;
+	if (tmp)
+		sort_lexico(&tmp);
+}
+
+void			sort_time(t_file **lst)
 {
 	t_file		*ptr;
 
@@ -43,11 +69,13 @@ void	sort_time(t_file **lst)
 	ptr = *lst;
 	while (ptr->next && ptr->upd_time >= ptr->next->upd_time)
 		ptr = ptr->next;
-	if (ptr->next)
+	if  (ptr->next)
 		sort_time(lst);
+	else
+		sort_lexico(lst);
 }
 
-void	sort_args(char **argv, t_opt *options)
+void			sort_args(char **argv, t_opt *options)
 {
 	int		i;
 	int		j;
@@ -76,7 +104,7 @@ void	sort_args(char **argv, t_opt *options)
 		sort_args(argv, options);
 }
 
-void	reverse_sort(t_file **lst)
+void			reverse_sort(t_file **lst)
 {
     t_file		*prev;
     t_file		*current;
@@ -96,7 +124,7 @@ void	reverse_sort(t_file **lst)
 }
 
 
-void	basic_sort_lst(t_file **lst)
+void			basic_sort_lst(t_file **lst)
 {
 	t_file		*ptr;
 

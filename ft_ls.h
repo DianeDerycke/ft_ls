@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 13:38:11 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 18:44:56 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void					get_data_file(t_file **dir, char *path);
 
 
 //PARSER
-int						index_file(char **argv, t_opt *options);
+int						get_path_index(char **argv, t_opt *options);
 void					read_args(char *path, t_opt *options);
 
 //LST
