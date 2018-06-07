@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 12:36:43 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 12:39:59 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -69,19 +69,12 @@ void    dis_time(struct stat f_stat)
     time_cat = NULL;
     curr_t = time(&curr_t);
     if ((f_stat.st_mtime < (curr_t - 15778800)) || (f_stat.st_mtime > curr_t + 15778800))
-    {
         time_cat = concat_time_year(ctime(&f_stat.st_mtime));
-        ft_putstr(time_cat);
-        ft_putchar(' ');
-        free(time_cat);
-    }
     else
-    {
         time_cat = concat_time(ctime(&f_stat.st_mtime));
-        ft_putstr(time_cat);
-        ft_putchar(' ');
-        free(time_cat);
-    }
+    ft_putstr(time_cat);
+    ft_putchar(' ');
+    free(time_cat);
 }
 
 int     long_format(char *path, char *filename, t_opt *options)
