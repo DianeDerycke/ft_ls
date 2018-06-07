@@ -12,36 +12,38 @@
 
 #include "ft_ls.h"
 
-int		parsing(char *argv, t_opt *options)
+static void		valid_option(char c, t_opt *options)
+{
+	if (c == 'a')
+		options->a = 1;
+	else if (c == 't')
+		options->t = 1;
+	else if (c == 'r')
+		options->r = 1;
+	else if (c == 'l')
+		options->l = 1;
+	else if (c == 'R')
+		options->big_r = 1;
+	else if (c =='1')
+		options->one = 1;
+}
+
+static void		parsing(char *argv, t_opt *options)
 {
 	int		i;
 	char	valid_opt[7] = "atrlR1";
-	int		n;
 
 	i = 0;
-	n = 0;
 	if (argv[i] == '-')
 		i++;
 	while (argv[i])
 	{
 		if (!(ft_strchr(valid_opt, argv[i])))
 			error_option(argv[i]);
-		if (argv[i] == 'a')
-			options->a = 1;
-		else if (argv[i] == 't')
-			options->t = 1;
-		else if (argv[i] == 'r')
-			options->r = 1;
-		else if (argv[i] == 'l')
-			options->l = 1;
-		else if (argv[i] == 'R')
-			options->big_r = 1;
-		else if (argv[i] =='1')
-			options->one = 1;
-		n++;
+		else
+			valid_option(argv[i], options);
 		i++;
 	}
-	return (1);
 }
 
 int		index_file(char **argv, t_opt *options, int argc)

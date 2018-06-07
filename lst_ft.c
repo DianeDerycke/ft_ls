@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 11:22:09 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/07 12:55:46 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -16,6 +16,8 @@ int		push_back(t_file **lst, char *str)
 	t_file	*new;
 	t_file	*tmp;
 
+	new = NULL;
+	tmp = NULL;
 	if ((*lst))
 	{
 		tmp = *lst;
@@ -33,14 +35,10 @@ int		push_back(t_file **lst, char *str)
 	{
 		if (!((*lst) = init_lst()))
 			return (-1);
-		tmp = NULL;
-		new = NULL;
 		(*lst)->name = ft_strdup(str);
-		(*lst)->prev = NULL;
-		(*lst)->next = NULL;
 	}
 	return (0);
-} //27 lignes
+}
 
 
 void	free_lst(t_file	**subdir)
