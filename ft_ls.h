@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 18:44:56 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/14 16:05:53 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@
 # include <uuid/uuid.h>
 # include <sys/xattr.h>
 
-
 typedef struct			s_file
 {
 	char				*name;
 	char				*path;
-	size_t		 		upd_time;
+	struct timespec		upd_time;
 	struct s_file		*next;
 	struct s_file		*prev;
 }						t_file;
@@ -67,7 +66,7 @@ void					read_args(char *path, t_opt *options);
 t_file					*init_lst(void);
 int						push_back(t_file **lst, char *str);
 void					free_lst(t_file	**subdir);
-void					swap_content(t_file **ptr, t_file **next);
+int						swap_content(t_file **ptr, t_file **next);
 
 
 //OPTIONS FUNCTIONS
@@ -101,6 +100,7 @@ void					basic_sort_lst(t_file **lst);
 void					reverse_sort(t_file **lst);
 void					sort_args(char **argv, t_opt *options);
 void					sort_time(t_file **lst);
+void					sort_lexico(t_file **lst);
 
 
 //VERIFICATION

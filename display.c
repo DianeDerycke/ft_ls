@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 20:11:38 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/14 14:12:07 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -20,7 +20,7 @@ void	sort_display(t_file **lst, char *path, t_opt *options)
 			sort_time(lst);
 		else
 			basic_sort_lst(lst);
-		if (options->r)
+		if (options->r == 1)
 			reverse_sort(lst);
 		display_dir(*lst, path, options);
 	}

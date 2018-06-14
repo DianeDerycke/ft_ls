@@ -6,17 +6,17 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 22:05:51 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/14 16:09:04 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void			swap_content(t_file **ptr, t_file **next)
+int			swap_content(t_file **ptr, t_file **next)
 {
 	t_file		*tmp;
 
 	if (!(tmp = init_lst()))
-		return ;
+		return (0);
 	tmp->name = (*ptr)->name;
 	tmp->path = (*ptr)->path;
 	tmp->upd_time = (*ptr)->upd_time;
@@ -27,52 +27,7 @@ void			swap_content(t_file **ptr, t_file **next)
 	(*next)->path = tmp->path;
 	(*next)->upd_time = tmp->upd_time;
 	free(tmp);
-}
-
-// static void		sort_lexico(t_file **lst)
-// {
-// 	size_t		time;
-// 	t_file		*ptr;
-// 	t_file		*tmp;
-
-// 	ptr = *lst;
-// 	time = ptr->upd_time;
-// 	while (ptr && ptr->upd_time == time)
-// 	{
-// 		if (ptr->next && ptr->next->upd_time == time)
-// 			ptr = ptr->next;
-// 		else
-// 			break;
-// 	}
-// 	tmp = ptr->next;
-// 	ptr->next = NULL;
-// 	ptr = *lst;
-// 	basic_sort_lst(&ptr);
-// 	while (ptr)
-// 		ptr = ptr->next;
-// 	ptr->next = tmp;
-// 	if (tmp)
-// 		sort_lexico(&tmp);
-// }
-
-void			sort_time(t_file **lst)
-{
-	t_file		*ptr;
-
-	ptr = *lst;
-	while (ptr->next)
-	{
-		if (ptr->upd_time < ptr->next->upd_time)
-			swap_content(&ptr, &(ptr->next));
-		ptr = ptr->next;
-	}
-	ptr = *lst;
-	while (ptr->next && ptr->upd_time >= ptr->next->upd_time)
-		ptr = ptr->next;
-	if  (ptr->next)
-		sort_time(lst);
-	// else
-	// 	sort_lexico(lst);
+	return (1);
 }
 
 void			sort_args(char **argv, t_opt *options)
@@ -123,7 +78,6 @@ void			reverse_sort(t_file **lst)
     *lst = prev;
 }
 
-
 void			basic_sort_lst(t_file **lst)
 {
 	t_file		*ptr;
@@ -136,8 +90,32 @@ void			basic_sort_lst(t_file **lst)
 		ptr = ptr->next;
 	}
 	ptr = *lst;
-	while (ptr->next && ft_strcmp(ptr->name, ptr->next->name) < 0)
+	while (ptr->next && ft_strcmp(ptr->name, ptr->next->name) <= 0)
 		ptr = ptr->next;
 	if (ptr->next)
 		basic_sort_lst(lst);
+}
+
+void	sort_time(t_file **lst)
+{
+	t_file				*curr;
+	int					swap;
+
+	swap = 1;
+	while (swap)
+	{
+		swap = 0;
+		curr = *lst;
+		while (curr->next)
+		{
+			if (curr->upd_time.tv_sec < curr->next->upd_time.tv_sec)
+				swap = swap_content(&curr, &(curr->next));
+			else if (curr->upd_time.tv_sec == curr->next->upd_time.tv_sec)
+				if (curr->upd_time.tv_nsec < curr->next->upd_time.tv_nsec || 
+					(curr->upd_time.tv_nsec == curr->next->upd_time.tv_nsec 
+						&& *(curr->name) > *(curr->next->name)))
+					swap = swap_content(&curr, &(curr->next));
+			curr = curr->next;
+		}
+	}
 }
