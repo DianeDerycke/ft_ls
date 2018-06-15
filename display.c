@@ -6,33 +6,13 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/15 02:48:20 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/15 15:47:54 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void	sort_display(t_file **lst, char *path, t_opt *options)
+void	display_content_dir(t_file *lst, t_opt *options)
 {
-	if (*lst)
-	{
-		get_data_file(lst, path);
-		if (options->t)
-			sort_time(lst);
-		else
-			basic_sort_lst(lst);
-		if (options->r == 1)
-			reverse_sort(lst);
-	}
-	display_dir(*lst, path, options);
-}
-
-void	display_dir(t_file *lst, char *path, t_opt *options)
-{
-	if ((is_dir(path) || is_lnk(path)) && options->argc == 1)
-	{
-		ft_putstr(path);
-		ft_putstr(":\n");
-	}
 	if (!lst)
 		return ;
 	if (options->l && !options->one)
@@ -54,30 +34,35 @@ void	display_dir(t_file *lst, char *path, t_opt *options)
 	reset_options(options);
 }
 
-void	display_files(char **argv, t_opt *options)
+void	display_files(t_file **lst, t_opt *options)
 {
-	int		i;
 	struct stat 	file_stat;
+	t_file			*ptr;
 
-	i = 0;
-	while (argv[i])
+	ptr = *lst;
+	while (ptr)
 	{
-		if (!(file_exist(argv[i])))
-			error_no_file_or_dir(argv[i]);
-		i++;
+		if (!(file_exist(ptr->name)))
+			error_no_file_or_dir(ptr->name);
+		ptr = ptr->next;
 	}
-	i = 0;
-	while (argv[i])
+	ptr = *lst;
+	while (ptr)
 	{
-		if (file_exist(argv[i]) && !(is_dir(argv[i])))
+		if (file_exist(ptr->name) && !(is_dir(ptr->name)))
 		{
-		    if (lstat(argv[i],&file_stat) < 0)
+		    if (lstat(ptr->name,&file_stat) < 0)
 		        return ;
 			if (options->l && !options->one)
-				long_format(argv[i], argv[i], options);
+				long_format(ptr->name, ptr->name, options);
 			else if (!(S_ISLNK(file_stat.st_mode)))
-				ft_putendl(argv[i]);
+			{
+				ft_putendl(ptr->name);
+				delete_node(ptr);
+			}
 		}
-		i++;
+		ptr = ptr->next;
 	}
 }
+
+

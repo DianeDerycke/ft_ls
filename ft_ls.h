@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/15 01:12:09 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/15 15:46:21 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct 			s_opt
 //SRC
 char					*create_path(char *path, char *dirname);
 void					get_data_file(t_file **dir, char *path);
-
+char					*define_path(char *path, char *name);
 
 
 //PARSER
@@ -68,6 +68,7 @@ t_file					*init_lst(void);
 int						push_back(t_file **lst, char *str);
 void					free_lst(t_file	**subdir);
 int						swap_content(t_file **ptr, t_file **next);
+void 					delete_node(t_file *ptr);
 
 
 //OPTIONS FUNCTIONS
@@ -82,9 +83,8 @@ char					*concat_time_year(char *time_str);
 
 
 //DISPLAY
-void					display_dir(t_file *lst, char *path, t_opt *options);
-void					display_files(char **argv, t_opt *options);
-void					display_reverse(t_file *lst, char *path, t_opt *options);
+void					display_content_dir(t_file *lst, t_opt *options);
+void					display_files(t_file **lst, t_opt *options);
 void					display_total_size(t_opt *options);
 void					field_user(struct stat f_stat, t_opt *options);
 void					field_grp(struct stat f_stat, t_opt *options);
@@ -99,10 +99,7 @@ void    				dis_time(struct stat f_stat);
 //SORT FUNCTIONS
 void					basic_sort_lst(t_file **lst);
 void					reverse_sort(t_file **lst);
-void					sort_args(char **argv, t_opt *options);
 void					sort_time(t_file **lst);
-void					sort_lexico(t_file **lst);
-
 
 //VERIFICATION
 int 					file_exist(const char *path);
@@ -113,5 +110,8 @@ int						is_lnk(const char *path);
 //ERROR
 void					error_option(char c);
 void					error_no_file_or_dir(char *str);
+
+
+void					apply_right_sort(t_file **lst,char *path, t_opt *options);
 
 #endif

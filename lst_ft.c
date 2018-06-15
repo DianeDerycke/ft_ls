@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 13:27:35 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/15 15:29:05 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -35,11 +35,22 @@ int		push_back(t_file **lst, char *str)
 	{
 		if (!((*lst) = init_lst()))
 			return (-1);
+		(*lst)->next = NULL;
 		(*lst)->name = ft_strdup(str);
 	}
 	return (0);
 }
 
+void 	delete_node(t_file *ptr)
+{
+	if (ptr->next)
+		ptr->next->prev = ptr->prev;
+	if (ptr->prev)
+		ptr->prev->next = ptr->next;
+	free(ptr->name);
+	free(ptr->path);
+	free(ptr);
+}
 
 void	free_lst(t_file	**subdir)
 {

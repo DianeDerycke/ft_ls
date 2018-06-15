@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/14 23:25:42 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/15 14:59:04 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -30,36 +30,20 @@ int			swap_content(t_file **ptr, t_file **next)
 	return (1);
 }
 
-void			sort_args(char **argv, t_opt *options)
+void		apply_right_sort(t_file **lst, char *path, t_opt *options)
 {
-	int		i;
-	int		j;
-	char	*tmp;
-
-	i = 0;
-	j = i + 1;
-	tmp = NULL;
-	while (argv[j])
-	{
-		if (options->r != 1 ? ft_strcmp(argv[i], argv[j]) > 0 : 
-			ft_strcmp(argv[i], argv[j]) < 0)
-		{
-			tmp = argv[i];
-			argv[i] = argv[j];
-			argv[j] = tmp;
-		}
-		i++;
-		j++;
-	}
-	i = 0;
-	while (argv[i + 1] && (options->r != 1 ? ft_strcmp(argv[i], argv[i + 1]) <= 0 : 
-		ft_strcmp(argv[i], argv[i + 1]) >= 0))
-		i++;
-	if (argv[i + 1])
-		sort_args(argv, options);
+	if (!(*lst))
+		return ;
+	get_data_file(lst, path);
+	if (options->t)
+		sort_time(lst);
+	else
+		basic_sort_lst(lst);
+	if (options->r == 1)
+		reverse_sort(lst);
 }
 
-void			reverse_sort(t_file **lst)
+void		reverse_sort(t_file **lst)
 {
     t_file		*prev;
     t_file		*current;
@@ -78,7 +62,7 @@ void			reverse_sort(t_file **lst)
     *lst = prev;
 }
 
-void			basic_sort_lst(t_file **lst)
+void		basic_sort_lst(t_file **lst)
 {
 	t_file		*ptr;
 
@@ -96,7 +80,7 @@ void			basic_sort_lst(t_file **lst)
 		basic_sort_lst(lst);
 }
 
-void	sort_time(t_file **lst)
+void		sort_time(t_file **lst)
 {
 	t_file				*curr;
 	int					swap;
@@ -111,10 +95,12 @@ void	sort_time(t_file **lst)
 			if (curr->upd_time.tv_sec < curr->next->upd_time.tv_sec)
 				swap = swap_content(&curr, &(curr->next));
 			else if (curr->upd_time.tv_sec == curr->next->upd_time.tv_sec)
+			{
 				if (curr->upd_time.tv_nsec < curr->next->upd_time.tv_nsec || 
 					(curr->upd_time.tv_nsec == curr->next->upd_time.tv_nsec 
-						&& *(curr->name) > *(curr->next->name)))
+						&& ft_strcmp(curr->name, curr->next->name) > 0))
 					swap = swap_content(&curr, &(curr->next));
+			}
 			curr = curr->next;
 		}
 	}

@@ -6,12 +6,12 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/15 00:01:50 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/15 14:53:43 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-static char		*define_path(char *path, char *name)
+char		*define_path(char *path, char *name)
 {
 	if (path[0] == '/' && ft_strlen(path) == 1)
 		return (ft_strjoin(ft_strdup(path), name));
@@ -58,10 +58,11 @@ int			read_args(char *path, t_opt *options)
 		if (options->a != 1 && readf->d_name[0] == '.')
 			continue ;
 		if (push_back(&subdir, readf->d_name) < 0)
-			return (-1);			
+			return (-1);
 	}
 	closedir(openf);
-	sort_display(&subdir, path, options);
+	apply_right_sort(&subdir, path, options);
+	display_content_dir(subdir, options);
 	if (options->big_r)
 		recursive(subdir, path, options);
 	free_lst(&subdir);

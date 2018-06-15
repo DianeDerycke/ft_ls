@@ -6,37 +6,62 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/15 02:46:19 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/15 15:35:36 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-int		main(int argc, char **argv)
+static int		add_file_to_lst(char **argv, t_file **lst)
+{
+	int 	i;
+
+	i = 0;
+		while (argv[i])
+	{
+		if (push_back(lst, argv[i]) < 0)
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+int				main(int argc, char **argv)
 {
 	t_opt		options;
+	t_file		*lst;
+	t_file		*tmp;
 	int		n;
 
 	n = 0;
+	lst = NULL;
+	tmp = NULL;
 	if (argc < 1)
 		return (-1);
 	init_options(&options);
 	n = get_path_index(argv, &options);
-	// printf("N VALUE %d\n", n);
 	if (!(argv[n]))
 		read_args(".", &options);
 	else
 	{
-		sort_args(argv + n, &options);
-		display_files(argv + n, &options);
 		if (argc - n >= 2)
 			options.argc = 1;
-		while (argv[n])
+		if ((add_file_to_lst(argv + n, &lst)) < 0)
+			return (-1);
+		apply_right_sort(&lst, "", &options);
+		display_files(&lst, &options);
+		while (lst)
 		{
-			if (file_exist(argv[n]) && (is_dir(argv[n]) || (is_lnk(argv[n]) && options.l != 1)))
-				if (read_args(argv[n], &options) < 0)
-					return (0);
-			n++;
-		}		
+			if ((file_exist(lst->name) && is_dir(lst->name)) || (is_lnk(lst->name) && options.l != 1))
+			{
+				if (lst->prev)
+					display_dir_path(lst->name);
+				if (read_args(lst->name, &options) < 0)
+					return (-1);
+			}
+			lst = lst->next;
+		}
+		lst = tmp;
+		free_lst(&lst);
 	}
 	// while (1);
 	return (0);

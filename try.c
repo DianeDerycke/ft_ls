@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   try.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/12 15:08:41 by dideryck          #+#    #+#             */
-/*   Updated: 2018/06/15 13:33:51 by DERYCKE          ###   ########.fr       */
+/*   Created: 2018/06/15 11:52:25 by DERYCKE           #+#    #+#             */
+/*   Updated: 2018/06/15 11:52:59 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_ls.h"
 
-#include "libft.h"
-
-int		ft_strcmp(const char *str1, const char *str2)
+int		main(void)
 {
-	const unsigned char		*s1;
-	const unsigned char		*s2;
-
-	s1 = (const unsigned char *)str1;
-	s2 = (const unsigned char *)str2;
-	while (*s1)
-	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
-		s1++;
-		s2++;
-	}
-	return (*s1 == *s2 ? 0 : *s1 - *s2);
+	printf("%d\n",strcmp("fileA1", "fileA2"));
+	return (0);
 }
