@@ -24,14 +24,16 @@ static void		valid_option(char c, t_opt *options	)
 		options->l = 1;
 	else if (c == 'R')
 		options->big_r = 1;
-	else if (c =='1')
+	else if (c =='1' && options->l == 1)
 		options->one = 1;
+	else if (c == '-')
+		options->tild = 1;
 }
 
 static void		parsing(char *argv, t_opt *options)
 {
 	int		i;
-	char	valid_opt[7] = "atrlR1";
+	char	valid_opt[7] = "atrlR1-";
 
 	i = 0;
 	if (argv[i] == '-')
@@ -39,7 +41,14 @@ static void		parsing(char *argv, t_opt *options)
 	while (argv[i])
 	{
 		if (!(ft_strchr(valid_opt, argv[i])))
+		{
+			if (ft_strcmp(argv, "--") == 0 && options->tild == 1)
+			{
+				error_option(argv[i]);
+				return ;
+			}
 			error_option(argv[i]);
+		}
 		else
 			valid_option(argv[i], options);
 		i++;
@@ -51,10 +60,13 @@ int		get_path_index(char **argv, t_opt *options)
 	int		n;
 
 	n = 0;
-	while (argv[n] && argv[n][0] == '-')
+	argv++;
+	while (argv[n] && argv[n][0] == '-' && ft_strlen(argv[n]) > 1)
 	{
 		parsing(argv[n], options);
 		n++;
+		if (options->tild == 1)
+			break ;
 	}
-	return (n);
+	return (n + 1);
 }

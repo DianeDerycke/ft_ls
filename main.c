@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/14 15:27:11 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/15 02:46:19 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -16,12 +16,13 @@ int		main(int argc, char **argv)
 	t_opt		options;
 	int		n;
 
-	n = 1;
+	n = 0;
 	if (argc < 1)
 		return (-1);
 	init_options(&options);
-	n = get_path_index(&argv[n], &options) + 1;
-	if (!argv[n])
+	n = get_path_index(argv, &options);
+	// printf("N VALUE %d\n", n);
+	if (!(argv[n]))
 		read_args(".", &options);
 	else
 	{
@@ -32,7 +33,8 @@ int		main(int argc, char **argv)
 		while (argv[n])
 		{
 			if (file_exist(argv[n]) && (is_dir(argv[n]) || (is_lnk(argv[n]) && options.l != 1)))
-				read_args(argv[n], &options);
+				if (read_args(argv[n], &options) < 0)
+					return (0);
 			n++;
 		}		
 	}

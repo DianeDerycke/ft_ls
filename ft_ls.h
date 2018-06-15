@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/14 16:57:35 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/15 01:12:09 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct 			s_opt
 	int					t;
 	int					r;
 	int					l;
+	int 				tild;
 	int					big_r;
 	int					one;
 	int 				argc;
@@ -60,7 +61,7 @@ void					get_data_file(t_file **dir, char *path);
 
 //PARSER
 int						get_path_index(char **argv, t_opt *options);
-void					read_args(char *path, t_opt *options);
+int						read_args(char *path, t_opt *options);
 
 //LST
 t_file					*init_lst(void);
