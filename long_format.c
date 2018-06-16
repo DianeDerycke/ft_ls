@@ -6,13 +6,27 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/15 14:19:57 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 03:46:06 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void    dis_mode(struct stat f_stat)
+char    ext_attr(struct stat f_stat, char *path)
 {
+    char    buffer[101];
+
+    (void)f_stat;
+    if (listxattr(path, buffer, sizeof(buffer), XATTR_NOFOLLOW) > 0)
+        return ('@');
+    return (' ');
+
+}
+
+void    dis_mode(struct stat f_stat, char *path)
+{
+    char    c;
+
+    c = '-';
     if (S_ISBLK(f_stat.st_mode))
         ft_putstr("b");
     else if (S_ISCHR(f_stat.st_mode))
@@ -27,17 +41,18 @@ void    dis_mode(struct stat f_stat)
         ft_putstr("p");
     else
         ft_putstr("-");
-    ft_putstr((f_stat.st_mode & S_IRUSR) ? "r" : "-");
-    ft_putstr((f_stat.st_mode & S_IWUSR) ? "w" : "-");
-    ft_putstr((f_stat.st_mode & S_IXUSR) ? "x" : "-");
-    ft_putstr((f_stat.st_mode & S_IRGRP) ? "r" : "-");
-    ft_putstr((f_stat.st_mode & S_IWGRP) ? "w" : "-");
-    ft_putstr((f_stat.st_mode & S_IXGRP) ? "x" : "-");
-    ft_putstr((f_stat.st_mode & S_IROTH) ? "r" : "-");
-    ft_putstr((f_stat.st_mode & S_IWOTH) ? "w" : "-");
-    ft_putstr((f_stat.st_mode & S_IXOTH) ? "x" : "-");
-    //if no attribute > go mettre un espace
-    ft_putchar(' ');
+    ft_putchar((f_stat.st_mode & S_IRUSR) ? 'r' : '-');
+    ft_putchar((f_stat.st_mode & S_IWUSR) ? 'w' : '-');
+    ft_putchar((f_stat.st_mode & S_IXUSR) ? 'x' : '-');//
+    ft_putchar((f_stat.st_mode & S_IRGRP) ? 'r' : '-');
+    ft_putchar((f_stat.st_mode & S_IWGRP) ? 'w' : '-');
+    ft_putchar((f_stat.st_mode & S_IXGRP) ? 'x' : '-');//
+    
+    ft_putchar((f_stat.st_mode & S_IROTH) ? 'r' : '-');
+    ft_putchar((f_stat.st_mode & S_IWOTH) ? 'w' : '-');
+    
+    ft_putchar((f_stat.st_mode & S_IXOTH) ? 'x' : '-');//
+    ft_putchar(ext_attr(f_stat, path));
 }
 
 void    dis_info(struct stat f_stat, t_opt *options)
@@ -83,7 +98,7 @@ int     long_format(char *path, char *filename, t_opt *options)
 
     if (lstat(path,&f_stat) < 0)
         return (1);
-    dis_mode(f_stat);
+    dis_mode(f_stat, path);
     dis_info(f_stat, options);
     dis_time(f_stat);
     if (S_ISLNK(f_stat.st_mode))

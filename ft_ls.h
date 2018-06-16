@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/15 15:46:21 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 03:43:33 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void 					delete_node(t_file *ptr);
 
 //OPTIONS FUNCTIONS
 void					recursive(t_file *subdir, char *path, t_opt *options);
+char    				ext_attr(struct stat f_stat, char *path);
 int						long_format(char *path, char *filename, t_opt *options);
 int    					find_max_for_each(t_file *lst, t_opt *options);
 void					sort_display(t_file **lst, char *path, t_opt *options); // A modifier
@@ -92,7 +93,7 @@ void    				display_number(long long int max, char *str);
 void        			display_usr_grp(unsigned short max, char *str);
 void					display_dir_path(char *str);
 void					dis_link(char *path, char *filename);
-void    				dis_mode(struct stat file_stat);
+void    				dis_mode(struct stat file_stat, char *path);
 void    				dis_info(struct stat file_stat, t_opt *options);
 void    				dis_time(struct stat f_stat);
 
