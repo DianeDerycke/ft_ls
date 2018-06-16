@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/16 02:23:59 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 11:58:01 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -40,7 +40,7 @@ int				main(int argc, char **argv)
 	init_options(&options);
 	n = get_path_index(argv, &options);
 	if (!(argv[n]))
-		read_args(".", &options);
+		read_args(".",".", &options);
 	else
 	{
 		if (argc - n >= 2)
@@ -57,8 +57,10 @@ int				main(int argc, char **argv)
 			{
 				if (n == 1)
 					display_dir_path(lst->name);
-				if (read_args(lst->name, &options) < 0)
+				if (read_args(lst->name, lst->name, &options) < 0)
 					return (-1);
+				if (lst->next)
+					ft_putchar('\n');
 			}
 			lst = lst->next;
 		}

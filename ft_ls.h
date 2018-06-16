@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/16 03:43:33 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 11:42:25 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char					*define_path(char *path, char *name);
 
 //PARSER
 int						get_path_index(char **argv, t_opt *options);
-int						read_args(char *path, t_opt *options);
+int						read_args(char *filename, char *path, t_opt *options);
 
 //LST
 t_file					*init_lst(void);
@@ -111,7 +111,7 @@ int						is_lnk(const char *path);
 //ERROR
 void					error_option(char c);
 void					error_no_file_or_dir(char *str);
-
+void					perm_denied(char *filename, char *path);
 
 void					apply_right_sort(t_file **lst,char *path, t_opt *options);
 

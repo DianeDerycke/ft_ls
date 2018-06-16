@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 12:18:39 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/07 13:39:01 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 11:56:29 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -33,7 +33,6 @@ void	display_total_size(t_opt *options)
 
 void	display_dir_path(char *str)
 {
-	ft_putchar('\n');
 	ft_putstr(str);
 	ft_putstr(":\n");
 }

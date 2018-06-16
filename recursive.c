@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/15 14:53:43 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 11:56:16 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -32,8 +32,11 @@ void			recursive(t_file *subdir, char *path, t_opt *options)
 			if (is_dir(newpath))
 			{
 				if (!(is_lnk(newpath)) && options->argc != 1)
+				{
+					ft_putchar('\n');
 					display_dir_path(newpath);
-				read_args(newpath, options);
+				}
+				read_args(subdir->name, newpath, options);
 			}
 			free(newpath);
 		}
@@ -41,17 +44,17 @@ void			recursive(t_file *subdir, char *path, t_opt *options)
 	}
 }
 
-int			read_args(char *path, t_opt *options)
+int			read_args(char *filename, char *path, t_opt *options)
 {
 	DIR 			*openf;
 	struct dirent 	*readf;
 	t_file			*subdir;
 
 	subdir = NULL;
-	if (!(openf = opendir(path)))
+	if ((openf = opendir(path)) == NULL)
 	{
-		ft_putendl(path);
-		return (0);
+		perm_denied(filename, path);
+		return (-1);
 	}
 	while ((readf = readdir(openf)) != NULL)
 	{
