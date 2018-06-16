@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/14 15:14:23 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 02:13:03 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -44,7 +44,8 @@ void	get_data_file(t_file **dir, char *path)
 	tmp = *dir;
 	while (*dir)
 	{
-		(*dir)->path = create_path(path, (*dir)->name);
+		if (*path)
+			(*dir)->path = create_path(path, (*dir)->name);
 		if (lstat((*dir)->path, &file_stat) < 0)
 			return ;
 		(*dir)->upd_time = file_stat.st_mtimespec;

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/15 15:29:05 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 00:40:52 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -45,8 +45,12 @@ void 	delete_node(t_file *ptr)
 {
 	if (ptr->next)
 		ptr->next->prev = ptr->prev;
+	else
+		ptr->next = NULL;
 	if (ptr->prev)
 		ptr->prev->next = ptr->next;
+	else
+		ptr->prev = NULL;
 	free(ptr->name);
 	free(ptr->path);
 	free(ptr);

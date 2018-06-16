@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/15 15:47:54 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 01:29:50 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -56,10 +56,7 @@ void	display_files(t_file **lst, t_opt *options)
 			if (options->l && !options->one)
 				long_format(ptr->name, ptr->name, options);
 			else if (!(S_ISLNK(file_stat.st_mode)))
-			{
 				ft_putendl(ptr->name);
-				delete_node(ptr);
-			}
 		}
 		ptr = ptr->next;
 	}
