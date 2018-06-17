@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/16 23:50:00 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 03:04:20 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -34,7 +34,7 @@ void			recursive(t_file *subdir, char *path, t_opt *options)
 		newpath = define_path(path, subdir->name);
 		if (is_dir(newpath))
 		{
-			if (!(is_lnk(newpath)) && options->argc != 1)
+			if (!(is_lnk(newpath)))
 			{
 				ft_putchar('\n');
 				display_dir_path(newpath);

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 03:00:28 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 03:08:37 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -47,8 +47,6 @@ int				main(int argc, char **argv)
 		read_args(".",".", &options);
 	else
 	{
-		if (argc - n >= 2)
-			options.argc = 1;
 		if (add_file_to_lst(argv + n, &lst) < 0)
 			return (-1);
 		apply_right_sort(&lst, ".", &options);

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/16 23:34:07 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 03:05:24 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct 			s_opt
 	int 				tild;
 	int					big_r;
 	int					one;
-	int 				argc;
 	int 				d_size;
 	long int 			max_size;
 	unsigned short int 	max_lnk;
