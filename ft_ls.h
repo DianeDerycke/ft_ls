@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 03:05:24 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 04:25:09 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ void					sort_time(t_file **lst);
 
 //VERIFICATION
 int 					file_exist(const char *path);
-int						is_dir(const char *path);
+int						is_stat_dir(const char *path);
+int						is_lstat_dir(const char *path);
 int						is_lnk(const char *path);
 
 

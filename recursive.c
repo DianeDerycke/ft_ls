@@ -6,18 +6,10 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 03:04:20 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 04:25:15 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
-
-char		*define_path(char *path, char *name)
-{
-	if (path[0] == '/' && ft_strlen(path) == 1)
-		return (ft_strjoin(ft_strdup(path), name));
-	else
-		return (create_path(path, name));
-}
 
 void			recursive(t_file *subdir, char *path, t_opt *options)
 {
@@ -32,16 +24,17 @@ void			recursive(t_file *subdir, char *path, t_opt *options)
 			continue ;
 		}
 		newpath = define_path(path, subdir->name);
-		if (is_dir(newpath))
+		if (is_lstat_dir(newpath))
 		{
-			if (!(is_lnk(newpath)))
-			{
+			// if (!(is_lnk(newpath)))
+			// {
 				ft_putchar('\n');
 				display_dir_path(newpath);
-			}
+			// }			
 			read_args(subdir->name, newpath, options);
+			ft_strdel(&newpath);
 		}
-		free(newpath);
+		ft_strdel(&newpath);
 		subdir = subdir->next;
 	}
 }

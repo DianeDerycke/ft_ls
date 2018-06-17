@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 03:08:37 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 04:25:20 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -53,7 +53,7 @@ int				main(int argc, char **argv)
 		display_files(&lst, &options);
 		while (lst)
 		{
-			if (is_dir(lst->name) || is_lnk(lst->name))
+			if (is_stat_dir(lst->name) || is_lnk(lst->name))
 			{
 				if (argv[n + 1])
 					display_dir_path(lst->name);

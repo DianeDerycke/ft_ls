@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 03:01:52 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 04:26:37 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -41,7 +41,7 @@ void	display_files(t_file **lst, t_opt *options)
 	ptr = *lst;
 	while (ptr)
 	{
-		if (!(is_dir(ptr->name)))
+		if (!(is_stat_dir(ptr->name)))
 		{
 			nb_file++;
 			if (options->l && !options->one)
