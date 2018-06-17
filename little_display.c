@@ -6,12 +6,12 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 12:18:39 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 02:36:13 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 13:24:36 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-void	dis_link(char *path, char *filename)
+void	display_link(char *path, char *filename)
 {
 	char	tmp[1024];
 	int		buffsize;

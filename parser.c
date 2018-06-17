@@ -40,7 +40,8 @@ static void		parsing(char *argv, t_opt *options)
 		i++;
 	while (argv[i])
 	{
-		if (!(ft_strchr(valid_opt, argv[i])) || (argv[i] == '-' && ft_strlen(argv) > 2))
+		if (!(ft_strchr(valid_opt, argv[i])) || 
+			(argv[i] == '-' && ft_strlen(argv) > 2))
 			error_option(argv[i]);
 		else
 			valid_option(argv[i], options);
@@ -54,7 +55,8 @@ int		get_path_index(char **argv, t_opt *options)
 
 	n = 0;
 	argv++;
-	while (argv[n] && argv[n][0] == '-' && ft_strlen(argv[n]) > 1)
+	while (argv[n] && argv[n][0] == '-' && 
+		ft_strlen(argv[n]) > 1)
 	{
 		parsing(argv[n], options);
 		n++;

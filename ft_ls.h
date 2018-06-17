@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 04:25:09 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 13:26:48 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ typedef struct 			s_opt
 	long int 			max_size;
 	unsigned short int 	max_lnk;
 	unsigned short int	len_usr;
-	unsigned short int	len_grp; 
+	unsigned short int	len_grp;
+	int 				nb_file;
+	int 				nb_dir;
 }						t_opt;
 
 //SRC
@@ -83,18 +85,20 @@ char					*concat_time_year(char *time_str);
 
 
 //DISPLAY
+void					display_dir_path(char *str);
 void					display_content_dir(t_file *lst, t_opt *options);
 void					display_files(t_file **lst, t_opt *options);
+void					display_link(char *path, char *filename);
+
+//LONG FORMAT
 void					display_total_size(t_opt *options);
+void    				display_mode(struct stat file_stat, char *path);
+void    				display_info(struct stat file_stat, t_opt *options);
+void    				display_time(struct stat f_stat);
+void        			display_usr_grp(unsigned short max, char *str);
 void					field_user(struct stat f_stat, t_opt *options);
 void					field_grp(struct stat f_stat, t_opt *options);
 void    				display_number(long long int max, char *str);
-void        			display_usr_grp(unsigned short max, char *str);
-void					display_dir_path(char *str);
-void					dis_link(char *path, char *filename);
-void    				dis_mode(struct stat file_stat, char *path);
-void    				dis_info(struct stat file_stat, t_opt *options);
-void    				dis_time(struct stat f_stat);
 
 //SORT FUNCTIONS
 void					basic_sort_lst(t_file **lst);

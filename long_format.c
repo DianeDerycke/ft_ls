@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/16 03:46:06 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 13:32:21 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -22,11 +22,8 @@ char    ext_attr(struct stat f_stat, char *path)
 
 }
 
-void    dis_mode(struct stat f_stat, char *path)
+void    display_mode(struct stat f_stat, char *path)
 {
-    char    c;
-
-    c = '-';
     if (S_ISBLK(f_stat.st_mode))
         ft_putstr("b");
     else if (S_ISCHR(f_stat.st_mode))
@@ -47,15 +44,13 @@ void    dis_mode(struct stat f_stat, char *path)
     ft_putchar((f_stat.st_mode & S_IRGRP) ? 'r' : '-');
     ft_putchar((f_stat.st_mode & S_IWGRP) ? 'w' : '-');
     ft_putchar((f_stat.st_mode & S_IXGRP) ? 'x' : '-');//
-    
     ft_putchar((f_stat.st_mode & S_IROTH) ? 'r' : '-');
     ft_putchar((f_stat.st_mode & S_IWOTH) ? 'w' : '-');
-    
     ft_putchar((f_stat.st_mode & S_IXOTH) ? 'x' : '-');//
     ft_putchar(ext_attr(f_stat, path));
 }
 
-void    dis_info(struct stat f_stat, t_opt *options)
+void    display_info(struct stat f_stat, t_opt *options)
 {
     char            *max;
     char            *tmp;
@@ -76,14 +71,15 @@ void    dis_info(struct stat f_stat, t_opt *options)
     free(tmp);
 }
 
-void    dis_time(struct stat f_stat)
+void    display_time(struct stat f_stat)
 {
     char            *time_cat;
     time_t          curr_t;
 
     time_cat = NULL;
     curr_t = time(&curr_t);
-    if ((f_stat.st_mtime < (curr_t - 15778800)) || (f_stat.st_mtime > curr_t + 15778800))
+    if ((f_stat.st_mtime < (curr_t - 15778800)) || 
+        (f_stat.st_mtime > curr_t + 15778800))
         time_cat = concat_time_year(ctime(&f_stat.st_mtime));
     else
         time_cat = concat_time(ctime(&f_stat.st_mtime));
@@ -98,11 +94,11 @@ int     long_format(char *path, char *filename, t_opt *options)
 
     if (lstat(path,&f_stat) < 0)
         return (1);
-    dis_mode(f_stat, path);
-    dis_info(f_stat, options);
-    dis_time(f_stat);
+    display_mode(f_stat, path);
+    display_info(f_stat, options);
+    display_time(f_stat);
     if (S_ISLNK(f_stat.st_mode))
-        dis_link(path, filename);
+        display_link(path, filename);
     else
         ft_putendl(filename);
     return (0);

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 04:26:37 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 13:06:29 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -35,15 +35,13 @@ void	display_content_dir(t_file *lst, t_opt *options)
 void	display_files(t_file **lst, t_opt *options)
 {
 	t_file			*ptr;
-	static int		nb_dir = 0;
-	static int		nb_file = 0;
 
 	ptr = *lst;
 	while (ptr)
 	{
 		if (!(is_stat_dir(ptr->name)))
 		{
-			nb_file++;
+			(options->nb_file)++;
 			if (options->l && !options->one)
 				long_format(ptr->name, ptr->name, options);
 			else
@@ -51,13 +49,13 @@ void	display_files(t_file **lst, t_opt *options)
 			delete_node(ptr);
 		}
 		else
-			nb_dir++;
+			options->nb_dir++;
 		ptr = ptr->next;
 	}
-	if (nb_dir && nb_file)
+	if (options->nb_dir && options->nb_file)
 	{
-		nb_dir = 0;
-		nb_file = 0;
+		options->nb_dir = 0;
+		options->nb_file = 0;
 		ft_putchar('\n');
 	}
 }

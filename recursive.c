@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 04:25:15 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 13:29:37 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -18,7 +18,8 @@ void			recursive(t_file *subdir, char *path, t_opt *options)
 	newpath = NULL;
 	while (subdir)
 	{
-		if (ft_strcmp(subdir->name, ".") == 0 || ft_strcmp(subdir->name, "..") == 0)
+		if (ft_strcmp(subdir->name, ".") == 0 || 
+			ft_strcmp(subdir->name, "..") == 0)
 		{
 			subdir = subdir->next;
 			continue ;
@@ -26,13 +27,9 @@ void			recursive(t_file *subdir, char *path, t_opt *options)
 		newpath = define_path(path, subdir->name);
 		if (is_lstat_dir(newpath))
 		{
-			// if (!(is_lnk(newpath)))
-			// {
-				ft_putchar('\n');
-				display_dir_path(newpath);
-			// }			
+			ft_putchar('\n');
+			display_dir_path(newpath);
 			read_args(subdir->name, newpath, options);
-			ft_strdel(&newpath);
 		}
 		ft_strdel(&newpath);
 		subdir = subdir->next;

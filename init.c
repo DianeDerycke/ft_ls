@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 11:21:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 03:06:07 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 13:06:38 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -34,6 +34,8 @@ void	init_options(t_opt *options)
 	options->max_size = 0;
 	options->len_usr = 0;
 	options->len_grp = 0;
+	options->nb_file = 0;
+	options->nb_dir = 0;
 }
 
 t_file		*init_lst(void)
