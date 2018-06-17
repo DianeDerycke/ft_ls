@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/16 02:16:35 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/16 22:48:00 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -69,7 +69,7 @@ void		basic_sort_lst(t_file **lst)
 	ptr = *lst;
 	while (ptr->next)
 	{
-		if (ft_strcmp(ptr->name, ptr->next->name) > 0)
+		if (*(ptr->name) && ft_strcmp(ptr->name, ptr->next->name) > 0)
 			swap_content(&ptr, &(ptr->next));
 		ptr = ptr->next;
 	}

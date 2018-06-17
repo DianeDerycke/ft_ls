@@ -6,15 +6,13 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/16 01:29:50 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 03:01:52 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
 void	display_content_dir(t_file *lst, t_opt *options)
 {
-	if (!lst)
-		return ;
 	if (options->l && !options->one)
 	{
 		if (find_max_for_each(lst, options) > 0)
@@ -25,7 +23,7 @@ void	display_content_dir(t_file *lst, t_opt *options)
 			lst = lst->next;
 		}
 	}
-	else
+	else 
 		while (lst)
 		{
 			ft_putendl(lst->name);
@@ -36,30 +34,30 @@ void	display_content_dir(t_file *lst, t_opt *options)
 
 void	display_files(t_file **lst, t_opt *options)
 {
-	struct stat 	file_stat;
 	t_file			*ptr;
+	static int		nb_dir = 0;
+	static int		nb_file = 0;
 
 	ptr = *lst;
 	while (ptr)
 	{
-		if (!(file_exist(ptr->name)))
-			error_no_file_or_dir(ptr->name);
-		ptr = ptr->next;
-	}
-	ptr = *lst;
-	while (ptr)
-	{
-		if (file_exist(ptr->name) && !(is_dir(ptr->name)))
+		if (!(is_dir(ptr->name)))
 		{
-		    if (lstat(ptr->name,&file_stat) < 0)
-		        return ;
+			nb_file++;
 			if (options->l && !options->one)
 				long_format(ptr->name, ptr->name, options);
-			else if (!(S_ISLNK(file_stat.st_mode)))
+			else
 				ft_putendl(ptr->name);
+			delete_node(ptr);
 		}
+		else
+			nb_dir++;
 		ptr = ptr->next;
 	}
+	if (nb_dir && nb_file)
+	{
+		nb_dir = 0;
+		nb_file = 0;
+		ft_putchar('\n');
+	}
 }
-
-

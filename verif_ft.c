@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/16 02:13:03 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 01:53:51 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -15,14 +15,19 @@ int 	file_exist(const char *path)
 {
   struct stat   buffer;
 
-  return (lstat(path, &buffer) == 0);
+  if (lstat(path, &buffer) == 0)
+  	return (1);
+  else if (stat(path, &buffer) == 0)
+  	return (1);
+
+  return (0);
 }
 
 int		is_dir(const char *path) 
 {
 	struct stat statbuf;
 
-	if (lstat(path, &statbuf) != 0)
+	if (stat(path, &statbuf) != 0)
 		return (0);
 	return (S_ISDIR(statbuf.st_mode));
 }
@@ -38,20 +43,19 @@ int		is_lnk(const char *path)
 
 void	get_data_file(t_file **dir, char *path)
 {
-	t_file			*tmp;
+	t_file			*ptr;
 	struct stat 	file_stat;
 
-	tmp = *dir;
-	while (*dir)
+	ptr = *dir;
+	while (ptr)
 	{
 		if (*path)
-			(*dir)->path = create_path(path, (*dir)->name);
-		if (lstat((*dir)->path, &file_stat) < 0)
+			ptr->path = create_path(path, ptr->name);
+		if (lstat(ptr->path, &file_stat) < 0)
 			return ;
-		(*dir)->upd_time = file_stat.st_mtimespec;
-		*dir = (*dir)->next;
+		ptr->upd_time = file_stat.st_mtimespec;
+		ptr = ptr->next;
 	}
-	*dir = tmp;
 }
 
 char	*create_path(char *path, char *dirname)

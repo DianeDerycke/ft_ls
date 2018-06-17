@@ -40,15 +40,8 @@ static void		parsing(char *argv, t_opt *options)
 		i++;
 	while (argv[i])
 	{
-		if (!(ft_strchr(valid_opt, argv[i])))
-		{
-			if (ft_strcmp(argv, "--") == 0 && options->tild == 1)
-			{
-				error_option(argv[i]);
-				return ;
-			}
+		if (!(ft_strchr(valid_opt, argv[i])) || (argv[i] == '-' && ft_strlen(argv) > 2))
 			error_option(argv[i]);
-		}
 		else
 			valid_option(argv[i], options);
 		i++;
