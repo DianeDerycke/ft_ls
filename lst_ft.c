@@ -6,12 +6,12 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/16 00:40:52 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 19:18:27 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-int		push_back(t_file **lst, char *str)
+void		push_back(t_file **lst, char *str)
 {
 	t_file	*new;
 	t_file	*tmp;
@@ -24,7 +24,7 @@ int		push_back(t_file **lst, char *str)
 		while ((*lst)->next)
 			*lst = (*lst)->next;
 		if (!(new = ft_memalloc(sizeof(t_file))))
-			return (-1);
+			MALLOC_ERROR;
 		(*lst)->next = new;
 		new->name = ft_strdup(str);
 		new->prev = *lst;
@@ -33,12 +33,10 @@ int		push_back(t_file **lst, char *str)
 	}
 	else
 	{
-		if (!((*lst) = init_lst()))
-			return (-1);
+		*lst = init_lst();
 		(*lst)->next = NULL;
 		(*lst)->name = ft_strdup(str);
 	}
-	return (0);
 }
 
 void 	delete_node(t_file *ptr)
@@ -68,5 +66,19 @@ void	free_lst(t_file	**subdir)
 		free((*subdir)->path);
 		free(*subdir);
 		*subdir = tmp;
+	}
+}
+
+void		add_file_to_lst(char **argv, t_file **lst)
+{
+	int 	i;
+
+	i = -1;
+	while (argv[++i])
+	{
+		if (file_exist(argv[i]))
+			push_back(lst, argv[i]);
+		else
+			error_no_file_or_dir(argv[i]);			
 	}
 }

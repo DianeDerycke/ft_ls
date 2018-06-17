@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 13:32:21 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 19:44:56 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -24,30 +24,34 @@ char    ext_attr(struct stat f_stat, char *path)
 
 void    display_mode(struct stat f_stat, char *path)
 {
+    char      mod[13];
+
     if (S_ISBLK(f_stat.st_mode))
-        ft_putstr("b");
+        mod[0] = 'b';
     else if (S_ISCHR(f_stat.st_mode))
-        ft_putstr("c");
+        mod[0] = 'c';
     else if (S_ISDIR(f_stat.st_mode))
-        ft_putstr("d");
+        mod[0] = 'd';
     else if (S_ISLNK(f_stat.st_mode))
-        ft_putstr("l");
+        mod[0] = 'l';
     else if (S_ISSOCK(f_stat.st_mode))
-        ft_putstr("s");
+        mod[0] = 's';
     else if (S_ISFIFO(f_stat.st_mode))
-        ft_putstr("p");
+        mod[0] = 'p';
     else
-        ft_putstr("-");
-    ft_putchar((f_stat.st_mode & S_IRUSR) ? 'r' : '-');
-    ft_putchar((f_stat.st_mode & S_IWUSR) ? 'w' : '-');
-    ft_putchar((f_stat.st_mode & S_IXUSR) ? 'x' : '-');//
-    ft_putchar((f_stat.st_mode & S_IRGRP) ? 'r' : '-');
-    ft_putchar((f_stat.st_mode & S_IWGRP) ? 'w' : '-');
-    ft_putchar((f_stat.st_mode & S_IXGRP) ? 'x' : '-');//
-    ft_putchar((f_stat.st_mode & S_IROTH) ? 'r' : '-');
-    ft_putchar((f_stat.st_mode & S_IWOTH) ? 'w' : '-');
-    ft_putchar((f_stat.st_mode & S_IXOTH) ? 'x' : '-');//
-    ft_putchar(ext_attr(f_stat, path));
+        mod[0] = '-';
+    mod[1] = (f_stat.st_mode & S_IRUSR) ? 'r' : '-';
+    mod[2] = (f_stat.st_mode & S_IWUSR) ? 'w' : '-';
+    mod[3] = (f_stat.st_mode & S_IXUSR) ? 'x' : '-';//
+    mod[4] = (f_stat.st_mode & S_IRGRP) ? 'r' : '-';
+    mod[5] = (f_stat.st_mode & S_IWGRP) ? 'w' : '-';
+    mod[6] = (f_stat.st_mode & S_IXGRP) ? 'x' : '-';//
+    mod[7] = (f_stat.st_mode & S_IROTH) ? 'r' : '-';
+    mod[8] = (f_stat.st_mode & S_IWOTH) ? 'w' : '-';
+    mod[9] = (f_stat.st_mode & S_IXOTH) ? 'x' : '-';//
+    mod[10] = ext_attr(f_stat, path);
+    mod[11] = '\0';
+    ft_putstr(mod);
 }
 
 void    display_info(struct stat f_stat, t_opt *options)
@@ -91,7 +95,6 @@ void    display_time(struct stat f_stat)
 int     long_format(char *path, char *filename, t_opt *options)
 {
     struct stat     f_stat;
-
     if (lstat(path,&f_stat) < 0)
         return (1);
     display_mode(f_stat, path);

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 13:29:37 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 18:24:08 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -49,8 +49,7 @@ int			read_args(char *filename, char *path, t_opt *options)
 	{
 		if (options->a != 1 && readf->d_name[0] == '.')
 			continue ;
-		if (push_back(&subdir, readf->d_name) < 0)
-			return (-1);
+		push_back(&subdir, readf->d_name);
 	}
 	closedir(openf);
 	apply_right_sort(&subdir, path, options);

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 13:31:35 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 18:19:17 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -41,4 +41,13 @@ int		perm_denied(char *filename, char *path)
 	else
 		ft_putendl(path);
 	return (-1);
+}
+
+void	malloc_error(void)
+{
+	extern int 		errno;
+
+	if (errno)
+		ft_putstr_fd(strerror(errno), 2);
+	exit(1);
 }
