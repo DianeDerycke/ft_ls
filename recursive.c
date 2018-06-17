@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 18:24:08 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 19:55:15 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -43,8 +43,8 @@ int			read_args(char *filename, char *path, t_opt *options)
 	t_file			*subdir;
 
 	subdir = NULL;
-	if ((openf = opendir(path)) == NULL)
-		return (perm_denied(filename, path));
+	if (!(openf = opendir(path)))
+		return (perm_denied(filename));
 	while ((readf = readdir(openf)) != NULL)
 	{
 		if (options->a != 1 && readf->d_name[0] == '.')

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 18:19:17 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 19:52:50 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -28,7 +28,7 @@ void	error_no_file_or_dir(char *str)
 	ft_putendl_fd(": No such file or directory", 2);		
 }
 
-int		perm_denied(char *filename, char *path)
+int		perm_denied(char *filename)
 {
 	extern int 		errno;
 
@@ -38,8 +38,6 @@ int		perm_denied(char *filename, char *path)
 		ft_putstr_fd(filename, 2);
 		ft_putstr_fd(": Permissions denied", 2);		
 	}
-	else
-		ft_putendl(path);
 	return (-1);
 }
 

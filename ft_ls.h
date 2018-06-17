@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 19:18:07 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/17 19:53:00 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int						is_lnk(const char *path);
 //ERROR
 void					error_option(char c);
 void					error_no_file_or_dir(char *str);
-int						perm_denied(char *filename, char *path);
+int						perm_denied(char *filename);
 void					malloc_error(void);
 
 //TOOLS
