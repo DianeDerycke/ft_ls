@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 15:46:39 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 18:23:36 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -32,5 +32,6 @@ int				main(int argc, char **argv)
 		display_files(&lst, &options);
 		return (treat_arg(lst, argv, n, &options));
 	}
+
 	return (EXIT_SUCCESS);
 }
