@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 10:33:49 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 18:00:06 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -18,7 +18,7 @@ void	error_option(char c)
 	ft_putchar_fd(c, 2);
 	ft_putchar_fd('\n', 2);
 	ft_putstr_fd("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", 2);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	error_no_file_or_dir(char *str)
@@ -32,7 +32,7 @@ int		perm_denied(char *filename)
 {
 	extern int 		errno;
 
-	if (errno == 13)
+	if (errno)
 	{
 		ft_putstr_fd("\nls: ", 2);
 		ft_putstr_fd(filename, 2);
@@ -41,11 +41,11 @@ int		perm_denied(char *filename)
 	return (EXIT_FAILURE);
 }
 
-void	error_malloc_error(void)
+void	malloc_error(void)
 {
 	extern int 		errno;
 
 	if (errno)
 		ft_putstr_fd(strerror(errno), 2);
-	exit(1);
+	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 10:54:41 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 15:45:13 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 17:27:20 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -38,8 +38,8 @@ static void		find_max_lnk_n_size(struct stat f_stat, t_opt *options)
 
 	if (f_stat.st_nlink > options->max_lnk)
 		options->max_lnk = f_stat.st_nlink;
-	if (f_stat.st_size > options->max_size)
-    	options->max_size = f_stat.st_size;
+	if (f_stat.st_size > options->max_sizef)
+    	options->max_sizef = f_stat.st_size;
 }
 
 int    			find_max_for_each(t_file *lst, t_opt *options)

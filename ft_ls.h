@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 16:39:57 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 17:26:48 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct 			s_opt
 	int					big_r;
 	int					one;
 	int 				d_size;
-	long int 			max_size;
+	long int 			max_sizef;
 	unsigned short int 	max_lnk;
 	unsigned short int	len_usr;
 	unsigned short int	len_grp;
