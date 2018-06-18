@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 19:16:45 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 15:49:10 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -19,12 +19,11 @@ void	get_data_file(t_file **dir, char *path)
 	ptr = *dir;
 	while (ptr)
 	{
-		if (*path)
-			ptr->path = define_path(path, ptr->name);
+		ptr->path = define_path(path, ptr->name);
 		if (lstat(ptr->path, &file_stat) < 0)
 			return ;
 		ptr->upd_time = file_stat.st_mtimespec;
-		ptr = ptr->next;
+		ptr = ptr->next;			
 	}
 }
 
@@ -60,12 +59,12 @@ int 		treat_arg(t_file *lst, char **argv, int n, t_opt *options)
 			if (argv[n+1])
 				display_dir_path(lst->name);
 			if (read_args(lst->name, lst->name, options) < 0)
-				return (-1);
+				return (EXIT_FAILURE);
 			if (lst->next)
 				ft_putchar('\n');			
 		}
-		lst = lst->next;		
+		lst = lst->next;
 	}
 	free_lst(tmp);
-	return (0);
+	return (EXIT_SUCCESS);
 }

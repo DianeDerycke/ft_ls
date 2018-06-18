@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 11:21:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 18:23:37 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 10:34:30 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -43,6 +43,6 @@ t_file		*init_lst(void)
 	t_file	*new;
 
 	if (!(new = ft_memalloc(sizeof(t_file))))
-		MALLOC_ERROR;
+		malloc_error();
 	return (new);
 }

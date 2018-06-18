@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 19:53:00 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 16:39:57 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@
 # include <pwd.h>
 # include <uuid/uuid.h>
 # include <sys/xattr.h>
-
-#ifndef MALLOC_ERROR
-#define MALLOC_ERROR malloc_error()
-#endif
 
 typedef struct			s_file
 {
@@ -68,7 +64,7 @@ int 					treat_arg(t_file *lst, char **argv, int n, t_opt *options);
 //LST
 t_file					*init_lst(void);
 void					push_back(t_file **lst, char *str);
-void					free_lst(t_file	**subdir);
+void					free_lst(t_file	**lst);
 void 					delete_node(t_file *ptr);
 void					add_file_to_lst(char **argv, t_file **lst);
 
@@ -92,13 +88,13 @@ void					display_link(char *path, char *filename);
 
 //LONG FORMAT
 void					display_total_size(t_opt *options);
-void    				display_mode(struct stat file_stat, char *path);
+void    				display_mod(struct stat file_stat, char *path);
 void    				display_info(struct stat file_stat, t_opt *options);
 void    				display_time(struct stat f_stat);
 void        			display_usr_grp(unsigned short max, char *str);
 void					field_user(struct stat f_stat, t_opt *options);
 void					field_grp(struct stat f_stat, t_opt *options);
-char    				ext_attr(struct stat f_stat, char *path);
+char    				ext_attr(char *path);
 void    				display_number(long long int max, char *str);
 
 //SORT FUNCTIONS

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 19:52:50 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 10:33:49 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -38,10 +38,10 @@ int		perm_denied(char *filename)
 		ft_putstr_fd(filename, 2);
 		ft_putstr_fd(": Permissions denied", 2);		
 	}
-	return (-1);
+	return (EXIT_FAILURE);
 }
 
-void	malloc_error(void)
+void	error_malloc_error(void)
 {
 	extern int 		errno;
 

@@ -6,21 +6,21 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 12:47:48 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 13:32:51 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 16:55:43 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-char	*concat_time(char *time_str)
+char	*concat_time(char *str)
 {
-	char	*tmp;
+	char	*time;
 
-	tmp = NULL;
-	if (!time_str)
+	time = NULL;
+	if (!str)
 		return (NULL);
-	if (!(tmp = ft_strndup(time_str + 4, 12)))
+	if (!(time = ft_strndup(str + 4, 12)))
 		return (NULL);
-	return (tmp);
+	return (time);
 }
 
 char	*concat_time_year(char *time_str)

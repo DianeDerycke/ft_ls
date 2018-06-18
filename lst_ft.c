@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 19:18:27 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 10:34:16 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -24,7 +24,7 @@ void		push_back(t_file **lst, char *str)
 		while ((*lst)->next)
 			*lst = (*lst)->next;
 		if (!(new = ft_memalloc(sizeof(t_file))))
-			MALLOC_ERROR;
+			malloc_error();
 		(*lst)->next = new;
 		new->name = ft_strdup(str);
 		new->prev = *lst;
@@ -39,33 +39,33 @@ void		push_back(t_file **lst, char *str)
 	}
 }
 
-void 	delete_node(t_file *ptr)
+void 	delete_node(t_file *elem)
 {
-	if (ptr->next)
-		ptr->next->prev = ptr->prev;
+	if (elem->next)
+		elem->next->prev = elem->prev;
 	else
-		ptr->next = NULL;
-	if (ptr->prev)
-		ptr->prev->next = ptr->next;
+		elem->next = NULL;
+	if (elem->prev)
+		elem->prev->next = elem->next;
 	else
-		ptr->prev = NULL;
-	free(ptr->name);
-	free(ptr->path);
-	free(ptr);
+		elem->prev = NULL;
+	ft_strdel(&(elem->name));
+	ft_strdel(&(elem->path));
+	free(elem);
 }
 
-void	free_lst(t_file	**subdir)
+void	free_lst(t_file	**lst)
 {
 	t_file	*tmp;
 
 	tmp = NULL;
-	while ((*subdir))
+	while ((*lst))
 	{
-		tmp = (*subdir)->next;
-		free((*subdir)->name);
-		free((*subdir)->path);
-		free(*subdir);
-		*subdir = tmp;
+		tmp = (*lst)->next;
+		ft_strdel(&(*lst)->name);
+		ft_strdel(&(*lst)->path);
+		free(*lst);
+		*lst = tmp;
 	}
 }
 

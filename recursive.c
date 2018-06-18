@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/17 19:55:15 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/18 16:40:02 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -40,22 +40,22 @@ int			read_args(char *filename, char *path, t_opt *options)
 {
 	DIR 			*openf;
 	struct dirent 	*readf;
-	t_file			*subdir;
+	t_file			*lst;
 
-	subdir = NULL;
+	lst = NULL;
 	if (!(openf = opendir(path)))
 		return (perm_denied(filename));
 	while ((readf = readdir(openf)) != NULL)
 	{
 		if (options->a != 1 && readf->d_name[0] == '.')
 			continue ;
-		push_back(&subdir, readf->d_name);
+		push_back(&lst, readf->d_name);
 	}
 	closedir(openf);
-	apply_right_sort(&subdir, path, options);
-	display_content_dir(subdir, options);
+	apply_right_sort(&lst, path, options);
+	display_content_dir(lst, options);
 	if (options->big_r)
-		recursive(subdir, path, options);
-	free_lst(&subdir);
-	return (1);
+		recursive(lst, path, options);
+	free_lst(&lst);
+	return (EXIT_SUCCESS);
 }
