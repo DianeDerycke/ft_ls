@@ -6,17 +6,17 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 19:06:32 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 01:29:03 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
 void	display_content_dir(t_file *lst, t_opt *options)
 {
-	if (options->l && !options->one)
+	if (options->l && !options->one && lst)
 	{
 		if (find_max_for_each(lst, options) == 0)
-			display_total_size(options);
+			display_total_size(options->d_size);
 		while (lst)
 		{
 			long_format(lst->path, lst->name, options);
@@ -32,32 +32,23 @@ void	display_content_dir(t_file *lst, t_opt *options)
 	reset_options(options);
 }
 
-void	display_files(t_file **lst, t_opt *options)
+void	display_files(t_file *lst, t_file **files, t_opt *options)
 {
 	t_file			*ptr;
 
-	ptr = *lst;
+	ptr = *files;
+	options->nb_file++;
 	while (ptr)
 	{
-		if (!(is_stat_dir(ptr->name)))
-		{
-			(options->nb_file)++;
-			if (options->l && !options->one)
-				long_format(ptr->name, ptr->name, options);
-			else
-				ft_putendl(ptr->name);
-			delete_node(ptr);
-		}
+		if (options->l && !options->one)
+			long_format(ptr->name, ptr->name, options);
 		else
-			options->nb_dir++;
+			ft_putendl(ptr->name);
 		ptr = ptr->next;
 	}
-	if (options->nb_dir && options->nb_file)
-	{
-		options->nb_dir = 0;
-		options->nb_file = 0;
+	if (lst)
 		ft_putchar('\n');
-	}
+	free_lst(files);
 }
 
 void    display_number(long long int max, char *str)

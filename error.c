@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 18:00:06 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 00:05:22 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -23,9 +23,14 @@ void	error_option(char c)
 
 void	error_no_file_or_dir(char *str)
 {
+	extern int		errno;
+
+	if (errno)
+	{
 	ft_putstr_fd("ls: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd(": No such file or directory", 2);		
+	}
 }
 
 int		perm_denied(char *filename)

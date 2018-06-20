@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 10:54:41 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 19:11:51 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 01:09:22 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -56,14 +56,14 @@ int    			find_max_for_each(t_file *lst, t_opt *options)
 {
     struct stat     f_stat;
 
-    while (lst)
+    while (lst->next)
     {
         if (lstat(lst->path, &f_stat) == 0)
         {
             options->d_size += f_stat.st_blocks;
             find_max_lnk_n_size(f_stat, options);
     	    find_max_len_usr(f_stat, options);
-    	    find_max_len_grp(f_stat, options);
+    	    find_max_len_grp(f_stat, options);            
         }
         lst = lst->next;
     }

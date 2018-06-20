@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 10:16:07 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 00:15:23 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -32,14 +32,12 @@ int			swap_content(t_file **ptr, t_file **next)
 
 void		apply_right_sort(t_file **lst, char *path, t_opt *options)
 {
-	if (!(*lst))
-		return ;
 	get_data_file(lst, path);
-	if (options->t)
+	if (options->t && *lst)
 		sort_time(lst);
-	else
+	else if (*lst)
 		basic_sort_lst(lst);
-	if (options->r == 1)
+	if (options->r && *lst)
 		reverse_sort(lst);
 }
 
@@ -54,7 +52,7 @@ void		reverse_sort(t_file **lst)
     next = NULL;
     while (current != NULL)
     {
-        next  = current->next;
+        next = current->next;
         current->next = prev;
         prev = current;
         current = next;

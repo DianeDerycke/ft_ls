@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 17:59:16 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 01:28:58 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -69,16 +69,30 @@ void	free_lst(t_file	**lst)
 	}
 }
 
-void		add_file_to_lst(char **argv, t_file **lst)
+void		add_file_to_lst(char **argv, t_file **lst, t_opt *options)
 {
 	int 	i;
+	t_file		*tmp;
+	t_file		*files;
 
 	i = -1;
+	tmp = NULL;
+	files = NULL;
 	while (argv[++i])
 	{
-		if (file_exist(argv[i]))
-			push_back(lst, argv[i]);
+		if (file_exist(argv[i]) && (!(is_stat_dir(argv[i]))))
+			push_back(&files, argv[i]);
+		else if (!(file_exist(argv[i])))
+			push_back(&tmp, argv[i]);
 		else
-			error_no_file_or_dir(argv[i]);			
+			push_back(lst, argv[i]);
 	}
+	display_error_files(&tmp, options);
+	if (files)
+	{
+		apply_right_sort(&files, ".", options);
+		display_files(*lst, &files, options);	
+	}
+	if (*lst && (*lst)->next)
+		options->nb_file++;
 }

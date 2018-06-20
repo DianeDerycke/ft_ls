@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 18:23:34 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 00:08:09 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -47,24 +47,28 @@ char	*create_path(char *path, char *dirname)
 	return (tmp);
 }
 
-int 		treat_arg(t_file *lst, char **argv, int n, t_opt *options)
+int 		treat_arg(t_file *lst, t_opt *options)
 {
-	t_file		**tmp;
+	t_file		*tmp;
 
-	tmp = &lst;
+	tmp = lst;
+	if (!lst)
+		return (EXIT_FAILURE);
+	apply_right_sort(&lst, ".", options);
 	while (lst)
 	{
 		if (is_stat_dir(lst->name) || is_lnk(lst->name))
 		{
-			if (argv[n+1])
+			if (options->nb_file)
 				display_dir_path(lst->name);
-			if (read_args(lst->name, lst->name, options) < 0)
+			if (read_args(lst->name, lst->name, options) == 1)
 				return (EXIT_FAILURE);
 			if (lst->next)
 				ft_putchar('\n');			
 		}
 		lst = lst->next;
 	}
-	free_lst(tmp);
+	lst = tmp;
+	free_lst(&tmp);
 	return (EXIT_SUCCESS);
 }

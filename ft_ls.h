@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/18 17:26:48 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 01:23:17 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ typedef struct 			s_opt
 //PARSER
 int						get_path_index(char **argv, t_opt *options);
 int						read_args(char *filename, char *path, t_opt *options);
-int 					treat_arg(t_file *lst, char **argv, int n, t_opt *options);
+int 					treat_arg(t_file *lst, t_opt *options);
 
 //LST
 t_file					*init_lst(void);
 void					push_back(t_file **lst, char *str);
 void					free_lst(t_file	**lst);
 void 					delete_node(t_file *ptr);
-void					add_file_to_lst(char **argv, t_file **lst);
+void					add_file_to_lst(char **argv, t_file **lst, t_opt *options);
 
 
 //OPTIONS FUNCTIONS
@@ -83,11 +83,11 @@ char					*concat_time_year(char *time_str);
 //DISPLAY
 void					display_dir_path(char *str);
 void					display_content_dir(t_file *lst, t_opt *options);
-void					display_files(t_file **lst, t_opt *options);
+void					display_files(t_file *lst, t_file **files, t_opt *options);
 void					display_link(char *path, char *filename);
 
 //LONG FORMAT
-void					display_total_size(t_opt *options);
+void					display_total_size(int total_size);
 void    				display_mod(struct stat file_stat, char *path);
 void    				display_info(struct stat file_stat, t_opt *options);
 void    				display_time(struct stat f_stat);
@@ -113,6 +113,7 @@ int						is_lnk(const char *path);
 //ERROR
 void					error_option(char c);
 void					error_no_file_or_dir(char *str);
+void					display_error_files(t_file **lst, t_opt *options);
 int						perm_denied(char *filename);
 void					malloc_error(void);
 
