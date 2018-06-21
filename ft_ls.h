@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 03:15:08 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 01:00:10 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,15 @@ void					display_files(t_file *lst, t_file **files, t_opt *options);
 void					display_link(char *path, char *filename);
 
 //LONG FORMAT
-void					display_total_size(int total_size);
-void    				display_mod(struct stat file_stat, char *path);
-void    				display_info(struct stat file_stat, t_opt *options);
-void    				display_time(struct stat f_stat);
-void        			display_usr_grp(unsigned short max, char *str);
+void    				file_type(mode_t mode);
+void					permissions(mode_t mode, char *path);
 void					field_user(struct stat f_stat, t_opt *options);
 void					field_grp(struct stat f_stat, t_opt *options);
 char    				ext_attr(char *path);
+void					display_total_size(int total_size);
+void    				display_info(struct stat file_stat, t_opt *options);
+void    				display_time(struct stat f_stat);
+void        			display_usr_grp(unsigned short max, char *str);
 void    				display_number(long long int max, char *str);
 
 //SORT FUNCTIONS

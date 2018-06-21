@@ -6,59 +6,11 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 12:26:02 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 00:55:53 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
 
-char    ext_attr(char *path)
-{
-    if (listxattr(path, NULL, 1, XATTR_NOFOLLOW) > 0)
-        return ('@');
-    return (' ');
-
-}
-
-void    display_mod(struct stat f_stat, char *path)
-{
-    char      mod[13];
-
-    if (S_ISBLK(f_stat.st_mode))
-        mod[0] = 'b';
-    else if (S_ISCHR(f_stat.st_mode))
-        mod[0] = 'c';
-    else if (S_ISDIR(f_stat.st_mode))
-        mod[0] = 'd';
-    else if (S_ISLNK(f_stat.st_mode))
-        mod[0] = 'l';
-    else if (S_ISSOCK(f_stat.st_mode))
-        mod[0] = 's';
-    else if (S_ISFIFO(f_stat.st_mode))
-        mod[0] = 'p';
-    else
-        mod[0] = '-';
-    mod[1] = (f_stat.st_mode & S_IRUSR) ? 'r' : '-';
-    mod[2] = (f_stat.st_mode & S_IWUSR) ? 'w' : '-';
-    if (f_stat.st_mode & S_ISUID)
-        mod[3] = f_stat.st_mode & S_IXUSR ? 's' : 'S';
-    else
-        mod[3] = (f_stat.st_mode & S_IXUSR) ? 'x' : '-';//
-    mod[4] = (f_stat.st_mode & S_IRGRP) ? 'r' : '-';
-    mod[5] = (f_stat.st_mode & S_IWGRP) ? 'w' : '-';
-    if (f_stat.st_mode & S_ISGID)
-        mod[6] = f_stat.st_mode & S_IXGRP ? 's' : 'S';
-    else
-        mod[6] = (f_stat.st_mode & S_IXGRP) ? 'x' : '-';//
-    mod[7] = (f_stat.st_mode & S_IROTH) ? 'r' : '-';
-    mod[8] = (f_stat.st_mode & S_IWOTH) ? 'w' : '-';
-    if (f_stat.st_mode & S_ISVTX)
-        mod[9] = f_stat.st_mode & S_IXOTH ? 't' : 'T';
-    else
-        mod[9] = (f_stat.st_mode & S_IXOTH) ? 'x' : '-';//
-    mod[10] = ext_attr(path);
-    mod[11] = '\0';
-    ft_putstr(mod);
-}
 
 void    display_info(struct stat f_stat, t_opt *options)
 {
@@ -72,10 +24,11 @@ void    display_info(struct stat f_stat, t_opt *options)
     field_user(f_stat, options);
     field_grp(f_stat, options);
     //Display size file
+    if ((S_ISCHR(f_stat.st_mode) || (S_ISBLK(f_stat.st_mode))))
+        return ;
     max = ft_itoa(options->max_sizef);
     display_number(ft_strlen(max), ft_itoa(f_stat.st_size));
-    if (max)
-        ft_strdel(&max);
+    ft_strdel(&max);
 }
 
 void    display_time(struct stat f_stat)
@@ -104,7 +57,8 @@ int     long_format(char *path, char *filename, t_opt *options)
     line = NULL;
     if (lstat(path,&f_stat) < 0)
         return (EXIT_FAILURE);
-    display_mod(f_stat, path);
+    file_type(f_stat.st_mode);
+    permissions(f_stat.st_mode, path);
     display_info(f_stat, options);
     display_time(f_stat);
     if (S_ISLNK(f_stat.st_mode))
