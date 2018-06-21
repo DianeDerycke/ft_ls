@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 01:29:03 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 12:58:02 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -41,7 +41,10 @@ void	display_files(t_file *lst, t_file **files, t_opt *options)
 	while (ptr)
 	{
 		if (options->l && !options->one)
+		{
+			find_max_for_each(ptr, options);
 			long_format(ptr->name, ptr->name, options);
+		}
 		else
 			ft_putendl(ptr->name);
 		ptr = ptr->next;

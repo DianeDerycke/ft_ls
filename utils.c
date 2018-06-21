@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 00:08:09 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 13:05:18 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -29,6 +29,8 @@ void	get_data_file(t_file **dir, char *path)
 
 char		*define_path(char *path, char *name)
 {
+	if (name[0] == '/')
+		return (ft_strdup(name));
 	if (path[ft_strlen(path) - 1] == '/')
 		return (ft_strjoin(ft_strdup(path), name));
 	return (create_path(path, name));
@@ -57,7 +59,7 @@ int 		treat_arg(t_file *lst, t_opt *options)
 	apply_right_sort(&lst, ".", options);
 	while (lst)
 	{
-		if (is_stat_dir(lst->name) || is_lnk(lst->name))
+		if (is_stat_dir(lst->name) || (is_lnk(lst->name)))
 		{
 			if (options->nb_file)
 				display_dir_path(lst->name);

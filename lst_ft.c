@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 01:28:58 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 12:59:43 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -80,7 +80,8 @@ void		add_file_to_lst(char **argv, t_file **lst, t_opt *options)
 	files = NULL;
 	while (argv[++i])
 	{
-		if (file_exist(argv[i]) && (!(is_stat_dir(argv[i]))))
+		if ((file_exist(argv[i]) && !(is_stat_dir(argv[i]))) || 
+			(is_lnk(argv[i]) && options->l == 1))
 			push_back(&files, argv[i]);
 		else if (!(file_exist(argv[i])))
 			push_back(&tmp, argv[i]);
