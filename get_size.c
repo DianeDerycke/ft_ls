@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 10:54:41 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 01:09:22 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/21 02:44:33 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -56,7 +56,7 @@ int    			find_max_for_each(t_file *lst, t_opt *options)
 {
     struct stat     f_stat;
 
-    while (lst->next)
+    while (lst)
     {
         if (lstat(lst->path, &f_stat) == 0)
         {
