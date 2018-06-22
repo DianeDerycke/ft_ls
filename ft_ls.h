@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 01:00:10 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 02:13:16 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct 			s_opt
 	unsigned short int	len_usr;
 	unsigned short int	len_grp;
 	int 				nb_file;
-	int 				nb_dir;
 }						t_opt;
 
 
@@ -59,13 +58,12 @@ typedef struct 			s_opt
 //PARSER
 int						get_path_index(char **argv, t_opt *options);
 int						read_args(char *filename, char *path, t_opt *options);
-int 					treat_arg(t_file *lst, t_opt *options);
 
 //LST
+int						swap_content(t_file **ptr, t_file **next);
 t_file					*init_lst(void);
 void					push_back(t_file **lst, char *str);
 void					free_lst(t_file	**lst);
-void 					delete_node(t_file *ptr);
 void					add_file_to_lst(char **argv, t_file **lst, t_opt *options);
 
 
@@ -73,7 +71,6 @@ void					add_file_to_lst(char **argv, t_file **lst, t_opt *options);
 void					recursive(t_file *subdir, char *path, t_opt *options);
 int						long_format(char *path, char *filename, t_opt *options);
 int    					find_max_for_each(t_file *lst, t_opt *options);
-void					sort_display(t_file **lst, char *path, t_opt *options); // A modifier
 void					init_options(t_opt *options);
 void					reset_options(t_opt *options);
 char					*concat_time(char *str);
@@ -87,19 +84,20 @@ void					display_files(t_file *lst, t_file **files, t_opt *options);
 void					display_link(char *path, char *filename);
 
 //LONG FORMAT
+void					display_total_size(int total_size);
 void    				file_type(mode_t mode);
 void					permissions(mode_t mode, char *path);
+char    				ext_attr(char *path);
+void    				display_info(struct stat file_stat, t_opt *options);
 void					field_user(struct stat f_stat, t_opt *options);
 void					field_grp(struct stat f_stat, t_opt *options);
-char    				ext_attr(char *path);
-void					display_total_size(int total_size);
-void    				display_info(struct stat file_stat, t_opt *options);
-void    				display_time(struct stat f_stat);
 void        			display_usr_grp(unsigned short max, char *str);
+void    				major_minor_dev_number(dev_t dev_id);
 void    				display_number(long long int max, char *str);
+void    				display_time(struct stat f_stat);
 
 //SORT FUNCTIONS
-void					basic_sort_lst(t_file **lst);
+void					lexico_sort(t_file **lst);
 void					reverse_sort(t_file **lst);
 void					sort_time(t_file **lst);
 void					apply_right_sort(t_file **lst,char *path, t_opt *options);
@@ -119,9 +117,8 @@ int						perm_denied(char *filename);
 void					malloc_error(void);
 
 //TOOLS
-char					*create_path(char *path, char *dirname);
 void					get_data_file(t_file **dir, char *path);
-char					*define_path(char *path, char *name);
-int						swap_content(t_file **ptr, t_file **next);
+char					*create_path(char *path, char *dirname);
+int 					treat_arg(t_file *lst, t_opt *options);
 
 #endif

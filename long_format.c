@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 00:55:53 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 01:36:47 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -16,16 +16,18 @@ void    display_info(struct stat f_stat, t_opt *options)
 {
     char            *max;
 
-    // Display total link
+    // Display number of links
     max = ft_itoa(options->max_lnk);
     display_number(ft_strlen(max), ft_itoa(f_stat.st_nlink));
     if (max)
         ft_strdel(&max);
     field_user(f_stat, options);
     field_grp(f_stat, options);
-    //Display size file
+    //if special character file or block special file display major && minor
+    // device number
     if ((S_ISCHR(f_stat.st_mode) || (S_ISBLK(f_stat.st_mode))))
-        return ;
+        return (major_minor_dev_number(f_stat.st_rdev));
+    //else display number bytes of the file
     max = ft_itoa(options->max_sizef);
     display_number(ft_strlen(max), ft_itoa(f_stat.st_size));
     ft_strdel(&max);
@@ -33,9 +35,9 @@ void    display_info(struct stat f_stat, t_opt *options)
 
 void    display_time(struct stat f_stat)
 {
-    char            *time_cat;
     time_t          curr_t;
     int             six_months;
+    char            *time_cat;
 
     curr_t = time(&curr_t);
     six_months = 15778800;
@@ -52,9 +54,7 @@ void    display_time(struct stat f_stat)
 int     long_format(char *path, char *filename, t_opt *options)
 {
     struct stat     f_stat;
-    char            *line;
 
-    line = NULL;
     if (lstat(path,&f_stat) < 0)
         return (EXIT_FAILURE);
     file_type(f_stat.st_mode);

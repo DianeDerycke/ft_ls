@@ -6,29 +6,10 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 00:15:23 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 01:56:49 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
-
-int			swap_content(t_file **ptr, t_file **next)
-{
-	t_file		*tmp;
-
-	if (!(tmp = init_lst()))
-		return (0);
-	tmp->name = (*ptr)->name;
-	tmp->path = (*ptr)->path;
-	tmp->upd_time = (*ptr)->upd_time;
-	(*ptr)->name = (*next)->name;
-	(*ptr)->path = (*next)->path;
-	(*ptr)->upd_time = (*next)->upd_time;
-	(*next)->name = tmp->name;
-	(*next)->path = tmp->path;
-	(*next)->upd_time = tmp->upd_time;
-	free(tmp);
-	return (1);
-}
 
 void		apply_right_sort(t_file **lst, char *path, t_opt *options)
 {
@@ -36,7 +17,7 @@ void		apply_right_sort(t_file **lst, char *path, t_opt *options)
 	if (options->t && *lst)
 		sort_time(lst);
 	else if (*lst)
-		basic_sort_lst(lst);
+		lexico_sort(lst);
 	if (options->r && *lst)
 		reverse_sort(lst);
 }
@@ -60,7 +41,7 @@ void		reverse_sort(t_file **lst)
     *lst = prev;
 }
 
-void		basic_sort_lst(t_file **lst)
+void		lexico_sort(t_file **lst)
 {
 	t_file		*ptr;
 
@@ -75,7 +56,7 @@ void		basic_sort_lst(t_file **lst)
 	while (ptr->next && ft_strcmp(ptr->name, ptr->next->name) <= 0)
 		ptr = ptr->next;
 	if (ptr->next)
-		basic_sort_lst(lst);
+		lexico_sort(lst);
 }
 
 void		sort_time(t_file **lst)

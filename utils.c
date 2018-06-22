@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 13:05:18 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 02:13:04 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -27,25 +27,20 @@ void	get_data_file(t_file **dir, char *path)
 	}
 }
 
-char		*define_path(char *path, char *name)
+char		*create_path(char *path, char *dirname)
 {
-	if (name[0] == '/')
-		return (ft_strdup(name));
-	if (path[ft_strlen(path) - 1] == '/')
-		return (ft_strjoin(ft_strdup(path), name));
-	return (create_path(path, name));
-}
-
-char	*create_path(char *path, char *dirname)
-{
-	char	*newpath;
+	char 	*newpath;
 	char	*tmp;
 
-	if (!(tmp = ft_strdup(path)))
-		return (NULL);
-	if (!(newpath = ft_strjoin(tmp, "/")) || 
-		!(tmp = ft_strjoin(newpath, dirname)))
-		return (NULL);
+	newpath = NULL;
+	tmp = NULL;
+	if (dirname[0] == '/')
+		return (ft_strdup(dirname));
+	if (path[ft_strlen(path) - 1] == '/')
+		return (ft_strjoin(ft_strdup(path), dirname));
+	tmp = ft_strdup(path);
+	newpath = ft_strjoin(tmp, "/");
+	tmp = ft_strjoin(newpath, dirname);
 	return (tmp);
 }
 

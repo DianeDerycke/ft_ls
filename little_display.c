@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 12:18:39 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 03:26:52 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 02:09:08 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -42,16 +42,15 @@ void	display_error_files(t_file **lst, t_opt *options)
 	t_file	*files;
 
 	files = *lst;
-	if (files)
+	if (!files)
+		return ;
+	options->nb_file++;
+	lexico_sort(&files);
+	while (files)
 	{
-		options->nb_file++;
-		basic_sort_lst(&files);
-		while (files)
-		{
-			error_no_file_or_dir(files->name);
-			files = files->next;
-		}
-		*lst = files;
-		free_lst(lst);
+		error_no_file_or_dir(files->name);
+		files = files->next;
 	}
+	*lst = files;
+	free_lst(lst);
 }
