@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 12:14:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 02:55:27 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/23 00:27:24 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -22,7 +22,8 @@ void	field_user(struct stat f_stat, t_opt *options)
         display_usr_grp(options->len_usr, usr_pwd->pw_name);
 	else if (f_stat.st_uid)
         display_number(options->len_usr, ft_itoa(f_stat.st_uid));
-    ft_putchar(' ');
+    if (!options->o)
+        ft_putchar(' ');
 }
 
 void	field_grp(struct stat f_stat, t_opt *options)

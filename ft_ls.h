@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 02:46:22 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/23 01:23:50 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define FT_LS_H
 
 # include <string.h>
-# include <stdio.h>
 # include <dirent.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/stat.h>
 # include "libft/libft.h"
 # include <sys/types.h>
+# include <sys/acl.h>
 # include <grp.h>
 # include <time.h>
 # include <pwd.h>
@@ -39,6 +39,8 @@ typedef struct			s_file
 typedef struct 			s_opt
 {
 	int					a;
+	int 				o;
+	int 				g;
 	int					t;
 	int					r;
 	int					l;

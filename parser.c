@@ -16,6 +16,10 @@ static void		valid_option(char c, t_opt *options	)
 {
 	if (c == 'a')
 		options->a = 1;
+	else if (c == 'o')
+		options->o = 1;
+	else if (c == 'g')
+		options->g = 1;
 	else if (c == 't')
 		options->t = 1;
 	else if (c == 'r')
@@ -24,7 +28,7 @@ static void		valid_option(char c, t_opt *options	)
 		options->l = 1;
 	else if (c == 'R')
 		options->big_r = 1;
-	else if (c =='1' && options->l == 1)
+	else if (c =='1' && (options->l == 1 || options->o || options->g))
 		options->one = 1;
 	else if (c == '-')
 		options->tild = 1;
@@ -33,7 +37,7 @@ static void		valid_option(char c, t_opt *options	)
 static void		parsing(char *argv, t_opt *options)
 {
 	int		i;
-	char	valid_opt[7] = "atrlR1-";
+	char	valid_opt[10] = "aogtrlR1-";
 
 	i = 0;
 	if (argv[i] == '-')

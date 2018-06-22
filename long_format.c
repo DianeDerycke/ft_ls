@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 02:49:09 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/23 00:49:02 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -51,8 +51,12 @@ void    display_info(struct stat f_stat, t_opt *options)
     display_number(ft_strlen(max), ft_itoa(f_stat.st_nlink));
     if (max)
         ft_strdel(&max);
-    field_user(f_stat, options);
-    field_grp(f_stat, options);
+    if (!options->g)
+        field_user(f_stat, options);
+    else if (options->g && options->o)
+        ft_putchar(' ');
+    if (!options->o)
+        field_grp(f_stat, options);
     //if special character file or block special file display major && minor
     // device number
     if ((S_ISCHR(f_stat.st_mode) || (S_ISBLK(f_stat.st_mode))))

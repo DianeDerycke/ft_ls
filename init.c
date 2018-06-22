@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 11:21:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 01:54:13 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/23 00:40:58 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -23,6 +23,8 @@ void	reset_options(t_opt *options)
 void	init_options(t_opt *options)
 {
 	options->a = 0;
+	options->o = 0;
+	options->g = 0;
 	options->t = 0;
 	options->r = 0;
 	options->l = 0;

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 00:19:00 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 00:59:32 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/23 01:04:54 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -16,8 +16,9 @@ char    ext_attr(char *path)
 {
     if (listxattr(path, NULL, 1, XATTR_NOFOLLOW) > 0)
         return ('@');
+    else if (acl_get_file(path, ACL_TYPE_EXTENDED))
+      return ('+');
     return (' ');
-
 }
 
 void	permissions(mode_t mode, char *path)
