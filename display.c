@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/12 11:37:10 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 01:57:33 by DERYCKE          ###   ########.fr       */
+/*   Created: 2018/06/22 02:50:57 by DERYCKE           #+#    #+#             */
+/*   Updated: 2018/06/22 02:51:19 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -52,4 +52,17 @@ void	display_files(t_file *lst, t_file **files, t_opt *options)
 	if (lst)
 		ft_putchar('\n');
 	free_lst(files);
+}
+
+void	display_total_size(int total_size)
+{
+	ft_putstr("total ");
+	ft_putnbr(total_size);
+	ft_putchar('\n');
+}
+
+void	display_dir_path(char *str)
+{
+	ft_putstr(str);
+	ft_putendl(":");
 }

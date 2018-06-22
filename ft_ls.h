@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 02:20:29 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 02:46:22 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void					display_error_files(t_file **lst, t_opt *options);
 int						perm_denied(char *filename);
 void					malloc_error(void);
 
-//TOOLS
+//UTILS
 void					get_data_file(t_file **dir, char *path);
 char					*create_path(char *path, char *dirname);
 

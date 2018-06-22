@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/21 00:05:22 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 02:47:37 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -31,6 +31,24 @@ void	error_no_file_or_dir(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd(": No such file or directory", 2);		
 	}
+}
+
+void	display_error_files(t_file **lst, t_opt *options)
+{
+	t_file	*files;
+
+	files = *lst;
+	if (!files)
+		return ;
+	options->nb_file++;
+	lexico_sort(&files);
+	while (files)
+	{
+		error_no_file_or_dir(files->name);
+		files = files->next;
+	}
+	*lst = files;
+	free_lst(lst);
 }
 
 int		perm_denied(char *filename)
