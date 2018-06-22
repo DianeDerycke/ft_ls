@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 02:13:16 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/22 02:20:29 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct 			s_opt
 
 //PARSER
 int						get_path_index(char **argv, t_opt *options);
-int						read_args(char *filename, char *path, t_opt *options);
+int						ft_read(char *filename, char *path, t_opt *options);
 
 //LST
 int						swap_content(t_file **ptr, t_file **next);
@@ -119,6 +119,5 @@ void					malloc_error(void);
 //TOOLS
 void					get_data_file(t_file **dir, char *path);
 char					*create_path(char *path, char *dirname);
-int 					treat_arg(t_file *lst, t_opt *options);
 
 #endif
