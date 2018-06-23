@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 03:09:46 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/20 18:31:23 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/23 10:14:42 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+# define RED   "\x1B[31m"
+# define GREEN   "\x1B[32m"
+# define YELLOW   "\x1B[33m"
+# define BLUE   "\x1B[34m"
+# define MAGENTA   "\x1B[35m"
+# define CYAN   "\x1B[36m"
+# define WHITE   "\x1B[37m"
+# define RESET "\x1B[0m"
+
 
 typedef struct 		s_elem
 {

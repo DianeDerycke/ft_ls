@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 02:50:57 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/23 00:41:31 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/23 11:49:24 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -26,7 +26,9 @@ void	display_content_dir(t_file *lst, t_opt *options)
 	else 
 		while (lst)
 		{
+			insert_color(lst->path);
 			ft_putendl(lst->name);
+			ft_putstr(RESET);
 			lst = lst->next;
 		}
 	reset_options(options);
@@ -46,12 +48,31 @@ void	display_files(t_file *lst, t_file **files, t_opt *options)
 			long_format(ptr->name, ptr->name, options);
 		}
 		else
+		{
+			insert_color(lst->path);
 			ft_putendl(ptr->name);
+			ft_putstr(RESET);
+		}
 		ptr = ptr->next;
 	}
 	if (lst)
 		ft_putchar('\n');
 	free_lst(files);
+}
+
+void    display_link(char *path, char *filename)
+{
+    char    tmp[1024];
+    int     buffsize;
+
+    if ((buffsize = readlink(path, tmp, sizeof(tmp) - 1)) != -1)
+        tmp[buffsize] = '\0';
+    ft_putstr(MAGENTA);
+    ft_putstr(filename ? filename : path);
+    ft_putstr(RESET);
+    ft_putstr(" -> ");
+    ft_putstr(tmp);
+    ft_putchar('\n');
 }
 
 void	display_total_size(int total_size)

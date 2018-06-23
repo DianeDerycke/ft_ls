@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/23 01:23:50 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/23 10:08:41 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void					malloc_error(void);
 //UTILS
 void					get_data_file(t_file **dir, char *path);
 char					*create_path(char *path, char *dirname);
+void					insert_color(char *path);
 
 #endif

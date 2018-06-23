@@ -6,23 +6,10 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/23 00:49:02 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/23 11:43:41 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
-
-void    display_link(char *path, char *filename)
-{
-    char    tmp[1024];
-    int     buffsize;
-
-    if ((buffsize = readlink(path, tmp, sizeof(tmp) - 1)) != -1)
-        tmp[buffsize] = '\0';
-    ft_putstr(filename ? filename : path);
-    ft_putstr(" -> ");
-    ft_putstr(tmp);
-    ft_putchar('\n');
-}
 
 void    display_time(struct stat f_stat)
 {
@@ -80,6 +67,10 @@ int     long_format(char *path, char *filename, t_opt *options)
     if (S_ISLNK(f_stat.st_mode))
         display_link(path, filename);
     else
+    {
+        insert_color(path);
         ft_putendl(filename);
+        ft_putstr(RESET);
+    }
     return (EXIT_SUCCESS);
 }
