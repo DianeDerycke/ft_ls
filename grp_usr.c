@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 12:14:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/24 20:41:56 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 00:17:34 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -68,9 +68,14 @@ void    display_number(long long int max, char *str)
 
 void    major_minor_dev_number(dev_t dev_id)
 {
-    ft_putnbr((int)major(dev_id));
+    int     major;
+
+    major = dev_id;
+    while (major / 256)
+        major /= 256;
+    ft_putnbr(major);
     ft_putstr(", ");
-    ft_putnbr((int)minor(dev_id));
+    ft_putnbr((int)(dev_id%256));
     ft_putchar(' ');
 }
 
