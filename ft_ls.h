@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/23 10:08:41 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/24 20:37:07 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string.h>
 # include <dirent.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <sys/stat.h>
 # include "libft/libft.h"

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 03:09:46 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/23 10:14:42 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/24 21:33:26 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # define GREEN   "\x1B[32m"
 # define YELLOW   "\x1B[33m"
 # define BLUE   "\x1B[34m"
+# define L_BLUE "\x1B[94m"
 # define MAGENTA   "\x1B[35m"
-# define CYAN   "\x1B[36m"
+# define CYAN   "\x1B[96m"
 # define WHITE   "\x1B[37m"
 # define RESET "\x1B[0m"
-
 
 typedef struct 		s_elem
 {

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/23 11:48:46 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/24 21:45:49 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_ls.h"
@@ -52,11 +52,15 @@ void		insert_color(char *path)
 	if (lstat(path, &f_stat) != 0)
 		return ;
 	mode = f_stat.st_mode;
-	S_ISBLK(mode) ? ft_putstr(RED) : NULL;
-	S_ISCHR(mode) ? ft_putstr(BLUE) : NULL;
+
 	S_ISDIR(mode) ? ft_putstr(CYAN) : NULL;
-	S_ISFIFO(mode) ? ft_putstr(YELLOW) : NULL;
-	S_ISREG(mode) ? ft_putstr(RESET) : NULL;
+	S_ISBLK(mode) ? ft_putstr(BLUE) : NULL;
+	S_ISCHR(mode) ? ft_putstr(YELLOW) : NULL;
+	S_ISFIFO(mode) ? ft_putstr(L_BLUE) : NULL;
 	S_ISLNK(mode) ? ft_putstr(MAGENTA) : NULL;
 	S_ISSOCK(mode) ? ft_putstr(GREEN) : NULL;
+	S_ISREG(mode) ? ft_putstr(WHITE) : NULL;
+	if (S_ISREG(mode) && (mode & ((S_IXUSR | S_IXGRP | 
+		S_IXOTH))))
+		ft_putstr(RED);	
 }
