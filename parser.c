@@ -6,7 +6,7 @@
 /*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:20:44 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 14:24:20 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/25 15:14:57 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		parsing(char *argv, t_opt *options)
 	char	valid_opt[10];
 
 	i = 0;
-	ft_strcpy(valid_opt, "aogtrlR1");
+	ft_strcpy(valid_opt, "aogtrlR1-");
 	if (argv[i] == '-')
 		i++;
 	while (argv[i])

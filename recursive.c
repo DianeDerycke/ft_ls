@@ -6,7 +6,7 @@
 /*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 14:28:26 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/25 18:12:24 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void		recursive(t_file *subdir, char *path, t_opt *options)
 	newpath = NULL;
 	while (subdir)
 	{
-		if (ft_strcmp(subdir->name, ".") == 0 ||
-			ft_strcmp(subdir->name, "..") == 0)
+		if ((ft_strcmp(subdir->name, ".") == 0 ||
+			ft_strcmp(subdir->name, "..") == 0))
 		{
 			subdir = subdir->next;
 			continue ;
@@ -46,9 +46,9 @@ int			ft_read(char *filename, char *path, t_opt *options)
 	lst = NULL;
 	if (!(openf = opendir(path)))
 		return (perm_denied(filename));
-	while ((readf = readdir(openf)) != NULL)
+	while ((readf = readdir(openf)))
 	{
-		if (options->a != 1 && readf->d_name[0] == '.')
+		if (options->a == 0 && readf->d_name[0] == '.')
 			continue ;
 		push_back(&lst, readf->d_name);
 	}

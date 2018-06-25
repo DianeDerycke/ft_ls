@@ -6,7 +6,7 @@
 /*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 13:41:41 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/25 17:52:23 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,24 @@ void	error_option(char c)
 {
 	ft_putstr_fd("ls: illegal option -- ", 2);
 	ft_putchar_fd(c, 2);
-	ft_putchar_fd('\n', 2);
-	ft_putstr_fd("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] ", 2);
-	ft_putendl_fd("[file ...]", 2);
+	ft_putstr_fd("\nusage: ls ", 2);
+	ft_putendl_fd("[-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]", 2);
 	exit(EXIT_FAILURE);
 }
 
-void	error_no_file_or_dir(char *str)
-{
-	extern int		errno;
-
-	if (errno)
-	{
-		ft_putstr_fd("ls: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-	}
-}
+ void	error_no_file_or_dir(char *str)
+ {
+ 	extern int		errno;
+ 
+ 	if (errno)
+ 	{
+ 		ft_putstr_fd("ls: ", 2);
+ 		ft_putstr_fd(*str ? str : "fts_open", 2);
+ 		ft_putendl_fd(": No such file or directory", 2);		
+ 	}
+ 	if (!(*str))
+ 		exit(EXIT_FAILURE);
+ }
 
 void	display_error_files(t_file **lst, t_opt *options)
 {
