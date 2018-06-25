@@ -6,9 +6,10 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:21:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/05/30 15:23:40 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 15:02:42 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_putnbr_ld(long long int n)

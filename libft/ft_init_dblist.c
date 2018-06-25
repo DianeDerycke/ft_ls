@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 09:22:58 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/02/17 09:24:07 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 15:05:16 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	ft_init_dblist(t_dblist *lst)
 {
-   lst->first = NULL;
-   lst->last = NULL;
+	lst->first = NULL;
+	lst->last = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 21:59:35 by dideryck          #+#    #+#             */
-/*   Updated: 2018/06/06 21:18:00 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 15:03:44 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		ft_size_str(long int nb)
 
 char			*ft_itoa(long int n)
 {
-	char	*str;
+	char			*str;
 	long int		tmp;
 	long int		i;
 	long int		size_str;

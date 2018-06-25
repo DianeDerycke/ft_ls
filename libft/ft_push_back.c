@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 23:50:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/03/24 09:14:23 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 15:03:33 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void				ft_push_back(t_dblist *lst, char *str)
 
 	new = (t_elem *)malloc(sizeof(t_elem));
 	if (!new)
-   		return ;
+		return ;
 	new->content = ft_strdup(str);
 	new->prev = lst->last;
 	new->next = NULL;
 	if (lst->last)
 		lst->last->next = new;
-	else 
+	else
 		lst->first = new;
-   lst->last = new;
+	lst->last = new;
 }

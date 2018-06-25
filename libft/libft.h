@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 03:09:46 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/24 21:33:26 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 14:58:05 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define WHITE   "\x1B[37m"
 # define RESET "\x1B[0m"
 
-typedef struct 		s_elem
+typedef struct		s_elem
 {
 	char					*content;
 	struct s_elem			*prev;
@@ -35,7 +35,7 @@ typedef struct 		s_elem
 
 }					t_elem;
 
-typedef struct 		s_dblist
+typedef struct		s_dblist
 {
 	t_elem			*first;
 	t_elem			*last;
@@ -56,7 +56,6 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 int					ft_isascii(int c);
 
-//Affichage char + conversion
 int					ft_atoi(const char *str);
 char				*ft_itoa(long int n);
 void				ft_putchar(char c);
@@ -70,7 +69,6 @@ void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
 
-//Chaines de caractères
 size_t				ft_strlen(const char *s);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -99,7 +97,6 @@ char				*ft_strjoin(char *s1, char *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 
-
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memset(void *b, int c, size_t len);
@@ -110,7 +107,6 @@ void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 void				ft_bzero(void *s, size_t n);
 
-// Liste chainées
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
@@ -122,7 +118,6 @@ void				ft_init_dblist(t_dblist *lst);
 void				ft_sort_lst(t_dblist *lst);
 void				ft_clear_lst(t_dblist *lst);
 
-//Fonction bonus
 void				ft_pause(void);
 int					ft_is_space(char c);
 void				ft_swap(int *a, int *b);
