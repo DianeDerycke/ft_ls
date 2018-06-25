@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recursive.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 18:12:24 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/26 00:12:36 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			ft_read(char *filename, char *path, t_opt *options)
 		return (perm_denied(filename));
 	while ((readf = readdir(openf)))
 	{
-		if (options->a == 0 && readf->d_name[0] == '.')
+		if (options->a != 1 && readf->d_name[0] == '.')
 			continue ;
 		push_back(&lst, readf->d_name);
 	}

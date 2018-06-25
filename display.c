@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 02:50:57 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 16:56:50 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/26 00:12:32 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	display_content_dir(t_file *lst, t_opt *options)
 	else
 		while (lst)
 		{
-			insert_color(lst->path);
+			// insert_color(lst->path);
 			ft_putendl(lst->name);
 			lst = lst->next;
 		}
@@ -49,7 +49,7 @@ void	display_files(t_file *lst, t_file **files, t_opt *options)
 		}
 		else
 		{
-			insert_color(lst->path);
+			// insert_color(lst->path);
 			ft_putendl(ptr->name);
 		}
 		ptr = ptr->next;
@@ -66,9 +66,9 @@ void	display_link(char *path, char *filename)
 
 	if ((buffsize = readlink(path, tmp, sizeof(tmp) - 1)) != -1)
 		tmp[buffsize] = '\0';
-	ft_putstr(MAGENTA);
+	// ft_putstr(MAGENTA);
 	ft_putstr(filename);
-	ft_putstr(RESET);
+	// ft_putstr(RESET);
 	ft_putstr(" -> ");
 	ft_putstr(tmp);
 	ft_putchar('\n');

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 14:32:38 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/26 00:14:31 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		get_data_file(t_file **dir, char *path)
 	while (ptr)
 	{
 		ptr->path = create_path(path, ptr->name);
-		if (lstat(ptr->path, &file_stat) < 0)
+		if (lstat(ptr->path, &file_stat) < 0 && (ft_strcmp(ptr->path, "/dev/fd/3") != 0))
 			return ;
 		ptr->upd_time = file_stat.st_mtimespec;
 		ptr = ptr->next;

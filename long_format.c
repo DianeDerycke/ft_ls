@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   long_format.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 16:57:20 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/26 00:19:54 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		long_format(char *path, char *filename, t_opt *options)
 {
 	struct stat		f_stat;
 
-	if (lstat(path, &f_stat) < 0)
+	if (lstat(path, &f_stat) < 0 )
 		return (EXIT_FAILURE);
 	file_type(f_stat.st_mode);
 	permissions(f_stat.st_mode, path);
@@ -65,9 +65,9 @@ int		long_format(char *path, char *filename, t_opt *options)
 		display_link(path, filename);
 	else
 	{
-		insert_color(path);
+		// insert_color(path);
 		ft_putendl(filename);
-		ft_putstr(RESET);
+		// ft_putstr(RESET);
 	}
 	return (EXIT_SUCCESS);
 }
