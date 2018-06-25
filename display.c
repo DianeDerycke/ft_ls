@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 02:50:57 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/24 13:51:51 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 13:38:03 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void	display_content_dir(t_file *lst, t_opt *options)
@@ -23,7 +24,7 @@ void	display_content_dir(t_file *lst, t_opt *options)
 			lst = lst->next;
 		}
 	}
-	else 
+	else
 		while (lst)
 		{
 			insert_color(lst->path);
@@ -58,19 +59,19 @@ void	display_files(t_file *lst, t_file **files, t_opt *options)
 	free_lst(files);
 }
 
-void    display_link(char *path, char *filename)
+void	display_link(char *path, char *filename)
 {
-    char    tmp[1024];
-    int     buffsize;
+	char			tmp[1024];
+	int				buffsize;
 
-    if ((buffsize = readlink(path, tmp, sizeof(tmp) - 1)) != -1)
-        tmp[buffsize] = '\0';
-    ft_putstr(MAGENTA);
-    ft_putstr(filename);
-    ft_putstr(RESET);
-    ft_putstr(" -> ");
-    ft_putstr(tmp);
-    ft_putchar('\n');
+	if ((buffsize = readlink(path, tmp, sizeof(tmp) - 1)) != -1)
+		tmp[buffsize] = '\0';
+	ft_putstr(MAGENTA);
+	ft_putstr(filename);
+	ft_putstr(RESET);
+	ft_putstr(" -> ");
+	ft_putstr(tmp);
+	ft_putchar('\n');
 }
 
 void	display_total_size(int total_size)

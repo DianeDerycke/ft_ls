@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   lst_ft.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 18:29:32 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 01:52:31 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 14:08:36 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_ls.h"
 
 int			swap_content(t_file **ptr, t_file **next)
@@ -58,7 +59,7 @@ void		push_back(t_file **lst, char *str)
 	}
 }
 
-void	free_lst(t_file	**lst)
+void		free_lst(t_file **lst)
 {
 	t_file	*tmp;
 
@@ -75,7 +76,7 @@ void	free_lst(t_file	**lst)
 
 void		add_file_to_lst(char **argv, t_file **lst, t_opt *options)
 {
-	int 	i;
+	int			i;
 	t_file		*tmp;
 	t_file		*files;
 
@@ -84,7 +85,7 @@ void		add_file_to_lst(char **argv, t_file **lst, t_opt *options)
 	files = NULL;
 	while (argv[++i])
 	{
-		if ((file_exist(argv[i]) && !(is_stat_dir(argv[i]))) || 
+		if ((file_exist(argv[i]) && !(is_stat_dir(argv[i]))) ||
 			(is_lnk(argv[i]) && options->l == 1))
 			push_back(&files, argv[i]);
 		else if (!(file_exist(argv[i])))
@@ -96,7 +97,7 @@ void		add_file_to_lst(char **argv, t_file **lst, t_opt *options)
 	if (files)
 	{
 		apply_right_sort(&files, ".", options);
-		display_files(*lst, &files, options);	
+		display_files(*lst, &files, options);
 	}
 	if (*lst && (*lst)->next)
 		options->nb_file++;

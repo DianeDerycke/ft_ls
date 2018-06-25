@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   recursive.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 12:04:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 02:19:25 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 14:28:26 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_ls.h"
 
-void			recursive(t_file *subdir, char *path, t_opt *options)
+void		recursive(t_file *subdir, char *path, t_opt *options)
 {
 	char	*newpath;
 
 	newpath = NULL;
 	while (subdir)
 	{
-		if (ft_strcmp(subdir->name, ".") == 0 || 
+		if (ft_strcmp(subdir->name, ".") == 0 ||
 			ft_strcmp(subdir->name, "..") == 0)
 		{
 			subdir = subdir->next;
@@ -38,8 +39,8 @@ void			recursive(t_file *subdir, char *path, t_opt *options)
 
 int			ft_read(char *filename, char *path, t_opt *options)
 {
-	DIR 			*openf;
-	struct dirent 	*readf;
+	DIR				*openf;
+	struct dirent	*readf;
 	t_file			*lst;
 
 	lst = NULL;

@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_functions.c                                   :+:      :+:    :+:   */
+/*   sort_ft.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 01:56:49 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 14:30:32 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void		apply_right_sort(t_file **lst, char *path, t_opt *options)
@@ -24,21 +25,21 @@ void		apply_right_sort(t_file **lst, char *path, t_opt *options)
 
 void		reverse_sort(t_file **lst)
 {
-    t_file		*prev;
-    t_file		*current;
-    t_file		*next;
+	t_file		*prev;
+	t_file		*current;
+	t_file		*next;
 
-    prev = NULL;
-    current = *lst;
-    next = NULL;
-    while (current != NULL)
-    {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
-    *lst = prev;
+	prev = NULL;
+	current = *lst;
+	next = NULL;
+	while (current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	*lst = prev;
 }
 
 void		lexico_sort(t_file **lst)
@@ -75,8 +76,8 @@ void		sort_time(t_file **lst)
 				swap = swap_content(&curr, &(curr->next));
 			else if (curr->upd_time.tv_sec == curr->next->upd_time.tv_sec)
 			{
-				if (curr->upd_time.tv_nsec < curr->next->upd_time.tv_nsec || 
-					(curr->upd_time.tv_nsec == curr->next->upd_time.tv_nsec 
+				if (curr->upd_time.tv_nsec < curr->next->upd_time.tv_nsec ||
+					(curr->upd_time.tv_nsec == curr->next->upd_time.tv_nsec
 						&& ft_strcmp(curr->name, curr->next->name) > 0))
 					swap = swap_content(&curr, &(curr->next));
 			}

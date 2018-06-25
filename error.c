@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/22 02:54:23 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 13:41:41 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void	error_option(char c)
 {
-
 	ft_putstr_fd("ls: illegal option -- ", 2);
 	ft_putchar_fd(c, 2);
 	ft_putchar_fd('\n', 2);
-	ft_putstr_fd("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", 2);
+	ft_putstr_fd("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] ", 2);
+	ft_putendl_fd("[file ...]", 2);
 	exit(EXIT_FAILURE);
 }
 
@@ -27,15 +28,15 @@ void	error_no_file_or_dir(char *str)
 
 	if (errno)
 	{
-	ft_putstr_fd("ls: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putendl_fd(": No such file or directory", 2);		
+		ft_putstr_fd("ls: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putendl_fd(": No such file or directory", 2);
 	}
 }
 
 void	display_error_files(t_file **lst, t_opt *options)
 {
-	t_file	*files;
+	t_file			*files;
 
 	files = *lst;
 	if (!files)
@@ -53,20 +54,20 @@ void	display_error_files(t_file **lst, t_opt *options)
 
 int		perm_denied(char *filename)
 {
-	extern int 		errno;
+	extern int		errno;
 
 	if (errno)
 	{
 		ft_putstr_fd("\nls: ", 2);
 		ft_putstr_fd(filename, 2);
-		ft_putstr_fd(": Permissions denied", 2);		
+		ft_putstr_fd(": Permissions denied", 2);
 	}
 	return (EXIT_FAILURE);
 }
 
 void	malloc_error(void)
 {
-	extern int 		errno;
+	extern int		errno;
 
 	if (errno)
 		ft_putstr_fd(strerror(errno), 2);

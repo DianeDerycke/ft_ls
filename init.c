@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 11:21:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/23 00:40:58 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/25 14:01:32 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_ls.h"
 
-void	reset_options(t_opt *options)
+void		reset_options(t_opt *options)
 {
 	options->d_size = 0;
 	options->max_sizef = 0;
@@ -20,7 +21,7 @@ void	reset_options(t_opt *options)
 	options->len_grp = 0;
 }
 
-void	init_options(t_opt *options)
+void		init_options(t_opt *options)
 {
 	options->a = 0;
 	options->o = 0;
