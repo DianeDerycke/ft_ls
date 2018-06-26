@@ -26,8 +26,7 @@ static int		treat_arg(t_file *lst, t_opt *options)
 		{
 			if (options->nb_file)
 				display_dir_path(lst->name);
-			if (ft_read(lst->name, lst->name, options) == 1)
-				return (EXIT_FAILURE);
+			ft_read(lst->name, lst->name, options);
 			if (lst->next)
 				ft_putchar('\n');
 		}
@@ -35,6 +34,7 @@ static int		treat_arg(t_file *lst, t_opt *options)
 	}
 	lst = tmp;
 	free_lst(&tmp);
+	
 	return (EXIT_SUCCESS);
 }
 
@@ -55,7 +55,9 @@ int				main(int argc, char **argv)
 	else
 	{
 		add_file_to_lst(argv + n, &lst, &options);
-		return (treat_arg(lst, &options));
+		int a = treat_arg(lst, &options);
+		while (1) ;
+		return (a);
 	}
 	return (EXIT_SUCCESS);
 }

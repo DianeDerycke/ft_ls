@@ -20,11 +20,18 @@ void		get_data_file(t_file **dir, char *path)
 	ptr = *dir;
 	while (ptr)
 	{
+		printf("%s\n", " HERE 1");
+		getchar();
+		printf("PATH => %s\n", ptr->name);
 		ptr->path = create_path(path, ptr->name);
 		if (lstat(ptr->path, &file_stat) < 0 && (ft_strcmp(ptr->path, "/dev/fd/3") != 0))
 			return ;
+		printf("%s\n", " HERE 2");
+		getchar();
 		ptr->upd_time = file_stat.st_mtimespec;
 		ptr = ptr->next;
+		printf("%s\n", " HERE 3");
+		getchar();
 	}
 }
 
@@ -39,6 +46,7 @@ char		*create_path(char *path, char *dirname)
 		return (ft_strdup(dirname));
 	if (path[ft_strlen(path) - 1] == '/')
 		return (ft_strjoin(ft_strdup(path), dirname));
+		printf("%s\n", " SECOND CONDITION");
 	tmp = ft_strdup(path);
 	newpath = ft_strjoin(tmp, "/");
 	tmp = ft_strjoin(newpath, dirname);

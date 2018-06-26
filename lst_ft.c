@@ -72,6 +72,7 @@ void		free_lst(t_file **lst)
 		free(*lst);
 		*lst = tmp;
 	}
+	*lst = NULL;
 }
 
 void		add_file_to_lst(char **argv, t_file **lst, t_opt *options)

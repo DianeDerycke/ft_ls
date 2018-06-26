@@ -65,6 +65,8 @@ int				find_max_for_each(t_file *lst, t_opt *options)
 			find_max_len_usr(f_stat, options);
 			find_max_len_grp(f_stat, options);
 		}
+		else
+			return (EXIT_FAILURE);
 		lst = lst->next;
 	}
 	return (EXIT_SUCCESS);

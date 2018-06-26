@@ -49,7 +49,6 @@ void	display_error_files(t_file **lst, t_opt *options)
 		error_no_file_or_dir(files->name);
 		files = files->next;
 	}
-	*lst = files;
 	free_lst(lst);
 }
 
@@ -59,9 +58,9 @@ int		perm_denied(char *filename)
 
 	if (errno)
 	{
-		ft_putstr_fd("\nls: ", 2);
+		ft_putstr_fd("ls: ", 2);
 		ft_putstr_fd(filename, 2);
-		ft_putstr_fd(": Permissions denied", 2);
+		ft_putstr_fd(": Permissions denied\n", 2);
 	}
 	return (EXIT_FAILURE);
 }

@@ -25,11 +25,17 @@ static void		valid_option(char c, t_opt *options)
 	else if (c == 'r')
 		options->r = 1;
 	else if (c == 'l')
+	{
+		options->one = 0;
 		options->l = 1;
+	}
 	else if (c == 'R')
 		options->big_r = 1;
 	else if (c == '1' && (options->l == 1 || options->o || options->g))
+	{
 		options->one = 1;
+		options->l = 0;
+	}
 	else if (c == '-')
 		options->tild = 1;
 }

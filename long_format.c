@@ -65,9 +65,9 @@ int		long_format(char *path, char *filename, t_opt *options)
 		display_link(path, filename);
 	else
 	{
-		// insert_color(path);
+		insert_color(path);
 		ft_putendl(filename);
-		// ft_putstr(RESET);
+		ft_putstr(RESET);
 	}
 	return (EXIT_SUCCESS);
 }
