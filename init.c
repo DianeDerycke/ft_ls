@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 11:21:45 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 14:01:32 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/27 09:18:47 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		init_options(t_opt *options)
 	options->l = 0;
 	options->tild = 0;
 	options->big_r = 0;
+	options->big_g = 0;
 	options->one = 0;
 	options->d_size = 0;
 	options->max_lnk = 0;

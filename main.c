@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 10:09:22 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 18:11:26 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/27 09:19:25 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ static int		treat_arg(t_file *lst, t_opt *options)
 {
 	t_file		*tmp;
 
-	tmp = lst;
+	tmp = NULL;
 	if (!lst)
 		return (EXIT_FAILURE);
 	apply_right_sort(&lst, ".", options);
+	tmp = lst;
 	while (lst)
 	{
 		if (is_stat_dir(lst->name) || (is_lnk(lst->name)))
@@ -32,9 +33,7 @@ static int		treat_arg(t_file *lst, t_opt *options)
 		}
 		lst = lst->next;
 	}
-	lst = tmp;
 	free_lst(&tmp);
-	
 	return (EXIT_SUCCESS);
 }
 
@@ -55,9 +54,7 @@ int				main(int argc, char **argv)
 	else
 	{
 		add_file_to_lst(argv + n, &lst, &options);
-		int a = treat_arg(lst, &options);
-		while (1) ;
-		return (a);
+		return (treat_arg(lst, &options));
 	}
 	return (EXIT_SUCCESS);
 }

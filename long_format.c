@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/26 00:19:54 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/27 09:21:05 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ int		long_format(char *path, char *filename, t_opt *options)
 	display_info(f_stat, options);
 	display_time(f_stat);
 	if (S_ISLNK(f_stat.st_mode))
-		display_link(path, filename);
+		display_link(path, filename, options->big_g);
 	else
 	{
-		insert_color(path);
+		insert_color(path, options->big_g);
 		ft_putendl(filename);
 		ft_putstr(RESET);
 	}

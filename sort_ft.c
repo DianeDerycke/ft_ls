@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_ft.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 11:29:28 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 14:30:32 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/27 08:27:10 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void		apply_right_sort(t_file **lst, char *path, t_opt *options)
 
 void		reverse_sort(t_file **lst)
 {
-	t_file		*prev;
 	t_file		*current;
+	t_file		*prev;
 	t_file		*next;
 
-	prev = NULL;
 	current = *lst;
+	prev = NULL;
 	next = NULL;
-	while (current != NULL)
+	while (current)
 	{
 		next = current->next;
 		current->next = prev;

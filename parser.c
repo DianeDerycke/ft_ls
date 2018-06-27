@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 19:20:44 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 15:14:57 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/27 09:18:20 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static void		valid_option(char c, t_opt *options)
 static void		parsing(char *argv, t_opt *options)
 {
 	int		i;
-	char	valid_opt[10];
+	char	valid_opt[11];
 
 	i = 0;
-	ft_strcpy(valid_opt, "aogtrlR1-");
+	ft_strcpy(valid_opt, "aogGtrlR1-");
 	if (argv[i] == '-')
 		i++;
 	while (argv[i])
@@ -55,7 +55,11 @@ static void		parsing(char *argv, t_opt *options)
 			(argv[i] == '-' && ft_strlen(argv) > 2))
 			error_option(argv[i]);
 		else
+		{
+			if (argv[i] == 'G')
+				options->big_g = 1;
 			valid_option(argv[i], options);
+		}
 		i++;
 	}
 }

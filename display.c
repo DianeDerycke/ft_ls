@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 02:50:57 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/26 00:12:32 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/27 09:23:13 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	display_content_dir(t_file *lst, t_opt *options)
 	else
 		while (lst)
 		{
-			insert_color(lst->path);
+			insert_color(lst->path, options->big_g);
 			ft_putendl(lst->name);
 			lst = lst->next;
 		}
@@ -49,7 +49,7 @@ void	display_files(t_file *lst, t_file **files, t_opt *options)
 		}
 		else
 		{
-			insert_color(ptr->path);
+			insert_color(ptr->path, options->big_g);
 			ft_putendl(ptr->name);
 		}
 		ptr = ptr->next;
@@ -59,16 +59,18 @@ void	display_files(t_file *lst, t_file **files, t_opt *options)
 	free_lst(files);
 }
 
-void	display_link(char *path, char *filename)
+void	display_link(char *path, char *filename, int big_g)
 {
 	char			tmp[1024];
 	int				buffsize;
 
 	if ((buffsize = readlink(path, tmp, sizeof(tmp) - 1)) != -1)
 		tmp[buffsize] = '\0';
-	ft_putstr(MAGENTA);
+	if (big_g == 1)
+		ft_putstr(MAGENTA);
 	ft_putstr(filename);
-	ft_putstr(RESET);
+	if (big_g == 1)
+		ft_putstr(RESET);
 	ft_putstr(" -> ");
 	ft_putstr(tmp);
 	ft_putchar('\n');

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 01:07:18 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 16:53:35 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/27 09:21:34 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct			s_opt
 	int					l;
 	int					tild;
 	int					big_r;
+	int 				big_g;
 	int					one;
 	int					d_size;
 	long int			max_sizef;
@@ -78,7 +79,7 @@ void					display_dir_path(char *str);
 void					display_content_dir(t_file *lst, t_opt *options);
 void					display_files(t_file *lst, t_file **files,
 						t_opt *options);
-void					display_link(char *path, char *filename);
+void					display_link(char *path, char *filename, int big_g);
 
 void					display_total_size(int total_size);
 void					file_type(mode_t mode);
@@ -111,6 +112,6 @@ void					malloc_error(void);
 
 void					get_data_file(t_file **dir, char *path);
 char					*create_path(char *path, char *dirname);
-void					insert_color(char *path);
+void					insert_color(char *path, int big_g);
 
 #endif

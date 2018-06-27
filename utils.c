@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/26 00:14:31 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/27 09:23:27 by DERYCKE          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,11 @@ void		get_data_file(t_file **dir, char *path)
 	ptr = *dir;
 	while (ptr)
 	{
-		printf("%s\n", " HERE 1");
-		getchar();
-		printf("PATH => %s\n", ptr->name);
 		ptr->path = create_path(path, ptr->name);
 		if (lstat(ptr->path, &file_stat) < 0 && (ft_strcmp(ptr->path, "/dev/fd/3") != 0))
 			return ;
-		printf("%s\n", " HERE 2");
-		getchar();
 		ptr->upd_time = file_stat.st_mtimespec;
 		ptr = ptr->next;
-		printf("%s\n", " HERE 3");
-		getchar();
 	}
 }
 
@@ -46,18 +39,19 @@ char		*create_path(char *path, char *dirname)
 		return (ft_strdup(dirname));
 	if (path[ft_strlen(path) - 1] == '/')
 		return (ft_strjoin(ft_strdup(path), dirname));
-		printf("%s\n", " SECOND CONDITION");
 	tmp = ft_strdup(path);
 	newpath = ft_strjoin(tmp, "/");
 	tmp = ft_strjoin(newpath, dirname);
 	return (tmp);
 }
 
-void		insert_color(char *path)
+void		insert_color(char *path, int big_g)
 {
 	struct stat f_stat;
 	mode_t		mode;
 
+	if (big_g == 0)
+		return ;
 	if (lstat(path, &f_stat) != 0)
 		return ;
 	mode = f_stat.st_mode;
