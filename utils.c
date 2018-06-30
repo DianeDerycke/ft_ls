@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 19:41:33 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/27 09:23:27 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/30 12:15:58 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void		get_data_file(t_file **dir, char *path)
 	while (ptr)
 	{
 		ptr->path = create_path(path, ptr->name);
-		if (lstat(ptr->path, &file_stat) < 0 && (ft_strcmp(ptr->path, "/dev/fd/3") != 0))
+		if (lstat(ptr->path, &file_stat) < 0 &&
+				(ft_strcmp(ptr->path, "/dev/fd/3") != 0))
 			return ;
 		ptr->upd_time = file_stat.st_mtimespec;
 		ptr = ptr->next;

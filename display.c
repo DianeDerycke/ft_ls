@@ -29,6 +29,8 @@ void	display_content_dir(t_file *lst, t_opt *options)
 		{
 			insert_color(lst->path, options->big_g);
 			ft_putendl(lst->name);
+			if (options->big_g == 1)
+				ft_putstr(RESET);
 			lst = lst->next;
 		}
 	reset_options(options);

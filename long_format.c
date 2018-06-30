@@ -6,7 +6,7 @@
 /*   By: DERYCKE <DERYCKE@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 13:08:24 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/27 09:21:05 by DERYCKE          ###   ########.fr       */
+/*   Updated: 2018/06/30 12:16:16 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		long_format(char *path, char *filename, t_opt *options)
 {
 	struct stat		f_stat;
 
-	if (lstat(path, &f_stat) < 0 )
+	if (lstat(path, &f_stat) < 0)
 		return (EXIT_FAILURE);
 	file_type(f_stat.st_mode);
 	permissions(f_stat.st_mode, path);
@@ -67,7 +67,8 @@ int		long_format(char *path, char *filename, t_opt *options)
 	{
 		insert_color(path, options->big_g);
 		ft_putendl(filename);
-		ft_putstr(RESET);
+		if (options->big_g == 1)
+			ft_putstr(RESET);
 	}
 	return (EXIT_SUCCESS);
 }

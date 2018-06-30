@@ -6,7 +6,7 @@
 /*   By: dideryck <dideryck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:15:14 by DERYCKE           #+#    #+#             */
-/*   Updated: 2018/06/25 17:52:23 by dideryck         ###   ########.fr       */
+/*   Updated: 2018/06/30 12:17:40 by dideryck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ void	error_option(char c)
 	exit(EXIT_FAILURE);
 }
 
- void	error_no_file_or_dir(char *str)
- {
- 	extern int		errno;
- 
- 	if (errno)
- 	{
- 		ft_putstr_fd("ls: ", 2);
- 		ft_putstr_fd(*str ? str : "fts_open", 2);
- 		ft_putendl_fd(": No such file or directory", 2);		
- 	}
- 	if (!(*str))
- 		exit(EXIT_FAILURE);
- }
+void	error_no_file_or_dir(char *str)
+{
+	extern int		errno;
+
+	if (errno)
+	{
+		ft_putstr_fd("ls: ", 2);
+		ft_putstr_fd(*str ? str : "fts_open", 2);
+		ft_putendl_fd(": No such file or directory", 2);
+	}
+	if (!(*str))
+		exit(EXIT_FAILURE);
+}
 
 void	display_error_files(t_file **lst, t_opt *options)
 {
